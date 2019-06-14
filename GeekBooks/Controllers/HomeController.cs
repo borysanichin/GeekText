@@ -11,6 +11,7 @@ namespace GeekBooks.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            //var url = Url.Action("Buy", "Products", new { id = 17 });
             return View();
         }
 
