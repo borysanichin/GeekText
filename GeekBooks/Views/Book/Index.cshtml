@@ -3,12 +3,23 @@
 @using GeekBooks.Models;
 
 @{
-    ViewBag.Title = "Books Browser";
+    ViewBag.Title = "Book List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 <h2>Browse our books</h2>
+
+<ul>
+    @foreach(Book book in @Model)
+    {
+        <li>
+            @Html.ActionLink(book.Title, "Details", new { id = book.BookId })
+        </li>
+    }
+</ul>
+
+<!--Hard Coded Below-->
 
 <a href="~/Book/Details/1">
 <img src="~/Content/Books/sorcerersstone.jpg" alt="sorcerersstone" style="width:256px;height:256px;" />
@@ -17,12 +28,3 @@
 <a href="~/Book/Details/2">
 <img src="~/Content/Books/ChamberOfSecrets.jpg" alt="ChamberOfSecrets" style="width:256px;height:256px;" />
 </a>
-<!--<ul>
-    @*
-    @foreach (Book book in @Model)
-    {
-        @Html.ActionLink(book.Name, "Details", new { id = book.Id })
-    }
-        *@
-</ul>
--->

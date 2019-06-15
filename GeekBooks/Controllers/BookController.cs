@@ -9,11 +9,14 @@ namespace GeekBooks.Controllers
 {
     public class BookController : Controller
     {
-        List<Book> booklist = new List<Book>();
+        //List<Book> booklist = new List<Book>(); //To be removed
+
         // GET: Book
         public ActionResult Index()
         {
-            return View();
+            BookContext bookContext = new BookContext();
+            List<Book> books = bookContext.Books.ToList();
+            return View(books);
         }
 
 
@@ -25,7 +28,7 @@ namespace GeekBooks.Controllers
             return View(book);
         }
 
-        /*[HttpGet]
+        /*[HttpGet] //To be removed
         public ActionResult Details(int id)
         {
             booklist.Add(new Book() { Id = 1, Name = "Sorcerer's Stone" });
