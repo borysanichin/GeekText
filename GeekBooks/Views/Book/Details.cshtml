@@ -5,77 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    #desc {
-        width: 150px;
-        border: 1px solid #000000;
-        word-wrap: break-word;
-    }
-</style>
+@using GeekBooks.Models
 
-<h2>Book Details</h2>
-
-<table>
-
-    <tr>
-        <td>
-            <b>ISBN</b>
-        </td>
-        <td>
-            @Model.ISBN
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            <b>Title</b>
-        </td>
-        <td>
-            @Model.Title
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            <b>Publisher</b>
-        </td>
-        <td>
-            @Model.PublisherName
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            <b>Date Published</b>
-        </td>
-        <td>
-            @Model.DatePublished
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            <b>Price</b>
-        </td>
-        <td>
-            @Model.Price
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            <b>Description</b>
-        </td>
-        <td>
-            <div id="desc">
-            @Model.Description
-            </div>
-        </td>
-    </tr>
+<!--Book Details Partial View-->
+@Html.Partial("_Details")
 
 
+<!--Book Reviews Partial View-->
+@{ 
+    Html.RenderPartial("_Review");
+}
 
-</table>
 @Html.ActionLink("Back to browser", "Index")
 
 

@@ -16,5 +16,11 @@ namespace GeekBooks.Controllers
             List<Review> reviews = bookContext.Reviews.ToList();
             return View(reviews);
         }
+
+        // POST: CreateReview
+        public ActionResult CreateReview()
+        {
+            return View();
+        }
     }
 }

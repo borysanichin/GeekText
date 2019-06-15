@@ -19,6 +19,15 @@ namespace GeekBooks.Controllers
             return View(books);
         }
 
+        // POST: Book
+        [HttpPost]
+        public ActionResult Index(Review review)
+        {
+            decimal rating = review.rating;
+            string comment = review.comment;
+            return View();
+        }
+
 
         [HttpGet]
         public ActionResult Details(int id)
