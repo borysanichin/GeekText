@@ -1,0 +1,54 @@
+﻿<style>
+    .checked {
+        color: orange;
+    }
+</style>
+
+<script>
+    function postStar(rating) {
+        var rate = rating.getAttribute('data-hook');
+        alert("Rating: " + rate);
+    }
+</script>
+
+<div>
+    <form action="~/Book/Details/1">
+
+        <h2>
+            <span>Create Review</span>
+        </h2>
+        <hr />
+        <h3>
+            <span>Rating</span>
+        </h3>
+
+        <button type="button" onclick="postStar(this)" class="glyphicon glyphicon-star checked" data-hook="star"></button>
+        <button type="button" onclick="postStar(this)" class="glyphicon glyphicon-star checked" data-hook="star"></button>
+        <button type="button" onclick="postStar(this)" class="glyphicon glyphicon-star checked" data-hook="star"></button>
+        <button type="button" onclick="postStar(this)" class="glyphicon glyphicon-star checked" data-hook="star"></button>
+        <button type="button" onclick="postStar(this)" class="glyphicon glyphicon-star" data-hook="star"></button>
+
+        <hr />
+
+        <h3>
+            <span>Add a Headline</span>
+        </h3>
+
+        <input type="text" />
+
+        <h3>
+            <span>Write your review</span>
+        </h3>
+
+        <textarea placeholder="What did you like or dislike?"></textarea>
+
+        <br />
+        <br />
+
+        <input type="submit" value="submit" />
+
+    </form>
+</div>
+
+
+

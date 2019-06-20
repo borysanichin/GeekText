@@ -1,0 +1,32 @@
+﻿@model IEnumerable<GeekBooks.Models.Book>
+
+@using GeekBooks.Models;
+
+@{
+    ViewBag.Title = "Book List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Browse our books</h2>
+
+<!--To Do: Implement browsing features-->
+
+<ul>
+    @foreach(Book book in @Model)
+    {
+        <li>
+            @Html.ActionLink(book.Title, "Details", new { id = book.BookId })
+        </li>
+    }
+</ul>
+
+<!--Hard Coded Below-->
+
+<a href="~/Book/Details/1">
+<img src="~/Content/Books/sorcerersstone.jpg" alt="sorcerersstone" style="width:256px;height:256px;" />
+</a>
+<ng-view />
+<a href="~/Book/Details/2">
+<img src="~/Content/Books/ChamberOfSecrets.jpg" alt="ChamberOfSecrets" style="width:256px;height:256px;" />
+</a>
