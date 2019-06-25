@@ -12,10 +12,10 @@ namespace GeekBooks.Models
     {
         [Key]
         public string ISBN { get; set; }
-        public int BookId { get; set; }
+        //public int BookId { get; set; }
         public string Title { get; set; }
         public decimal Price { get; set; }
-        public string Description { get; set; }
+        public string BookDescription { get; set; }
         public string PublisherName { get; set; }
         public System.DateTime DatePublished { get; set; }
         public List<Review> Reviews { get; set; }

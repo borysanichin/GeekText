@@ -15,7 +15,7 @@ namespace GeekBooks.Controllers
         public ActionResult Index()
         {
             BookContext bookContext = new BookContext();
-            List<Book> books = bookContext.Books.ToList();
+            List<Book> books = bookContext.Books.ToList();  
             return View(books);
         }
 
@@ -30,10 +30,10 @@ namespace GeekBooks.Controllers
 
 
         [HttpGet]
-        public ActionResult Details(int id)
+        public ActionResult Details(string isbn)
         {
             BookContext bookContext = new BookContext();
-            Book book = bookContext.Books.Single(bk => bk.BookId == id);
+            Book book = bookContext.Books.Single(bk => bk.ISBN == isbn);
             return View(book);
         }
 

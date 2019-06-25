@@ -17,9 +17,19 @@ namespace GeekBooks.Controllers
             return View(reviews);
         }
 
-        // POST: CreateReview
+        // GET: CreateReview
+        [HttpGet]
         public ActionResult CreateReview()
         {
+            return View();
+        }
+
+        // POST: CreateReview
+        [HttpPost]
+        public ActionResult CreateReview(Models.Review reviewData)
+        {
+            if(ModelState.IsValid)
+                return RedirectToAction("Index", "Book");
             return View();
         }
     }

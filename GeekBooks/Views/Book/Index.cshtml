@@ -16,7 +16,7 @@
     @foreach(Book book in @Model)
     {
         <li>
-            @Html.ActionLink(book.Title, "Details", new { id = book.BookId })
+            @Html.ActionLink(book.Title, "Details", new { id = book.ISBN })
         </li>
     }
 </ul>
