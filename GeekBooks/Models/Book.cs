@@ -7,7 +7,7 @@ using System.Web;
 
 namespace GeekBooks.Models
 {
-    [Table("Book")]
+    [Table("GeektextDB2017.Book")]
     public class Book
     {
         [Key]

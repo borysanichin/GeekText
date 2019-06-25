@@ -15,7 +15,7 @@ namespace GeekBooks.Controllers
         public ActionResult Index()
         {
             BookContext bookContext = new BookContext();
-            List<Book> books = bookContext.Books.ToList();  
+            List<Book> books = bookContext.Books.ToList();
             return View(books);
         }
 
@@ -28,20 +28,20 @@ namespace GeekBooks.Controllers
             return View();
         }
 
-
+        // GET: Book/Details/{isbn}
         [HttpGet]
         public ActionResult Details(string isbn)
         {
             BookContext bookContext = new BookContext();
-            Book book = bookContext.Books.Single(bk => bk.ISBN == isbn);
+            Book book = bookContext.Books.Where(bk => bk.ISBN == isbn).FirstOrDefault();
             return View(book);
         }
 
         /*[HttpGet] //To be removed
         public ActionResult Details(int id)
         {
-            booklist.Add(new Book() { Id = 1, Name = "Sorcerer's Stone" });
-            booklist.Add(new Book() { Id = 2, Name = "Chamber of Secrets" });
+            booklist.Add(new Book() { ISBN = "1", Title = "Sorcerer's Stone" });
+            booklist.Add(new Book() { ISBN = "2", Title = "Chamber of Secrets" });
 
             if (id > booklist.Count)
                 return HttpNotFound();

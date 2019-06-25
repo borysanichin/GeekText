@@ -14,6 +14,13 @@ namespace GeekBooks
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Book",
+                url: "Book/Details/{isbn}",
+                defaults: new { controller = "Book", action = "Details", isbn = UrlParameter.Optional },
+                constraints: new { isbn = @"\d+" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

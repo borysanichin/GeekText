@@ -8,7 +8,7 @@ using System.Web;
 
 namespace GeekBooks.Models
 {
-    [Table("Reviews")]
+    [Table("GeektextDB2017.Reviews")]
     public class Review
     {
         [Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.Identity)]

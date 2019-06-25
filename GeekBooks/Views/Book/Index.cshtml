@@ -16,13 +16,14 @@
     @foreach(Book book in @Model)
     {
         <li>
-            @Html.ActionLink(book.Title, "Details", new { id = book.ISBN })
+            @Html.ActionLink(book.Title, "Details", new { id = Convert.ToInt32(book.ISBN) }, null)
         </li>
     }
 </ul>
 
 <!--Hard Coded Below-->
 
+<!--
 <a href="~/Book/Details/1">
 <img src="~/Content/Books/sorcerersstone.jpg" alt="sorcerersstone" style="width:256px;height:256px;" />
 </a>
@@ -30,3 +31,4 @@
 <a href="~/Book/Details/2">
 <img src="~/Content/Books/ChamberOfSecrets.jpg" alt="ChamberOfSecrets" style="width:256px;height:256px;" />
 </a>
+-->
