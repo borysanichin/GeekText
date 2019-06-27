@@ -12,14 +12,14 @@ namespace GeekBooks.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Creditcard
+    public partial class CreditCard
     {
-        public string CreditcardNumber { get; set; }
-        public string OwnerFirstName { get; set; }
-        public string OwnerLastName { get; set; }
-        public byte CCV { get; set; }
-        public Nullable<System.DateTime> ExpirationDate { get; set; }
-        public Nullable<int> FK_CCUserID { get; set; }
+        public string CCNumber { get; set; }
+        public string Username { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string CVV { get; set; }
+        public System.DateTime ExpDate { get; set; }
     
         public virtual User User { get; set; }
     }

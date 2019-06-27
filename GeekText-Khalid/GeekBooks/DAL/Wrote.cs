@@ -12,16 +12,13 @@ namespace GeekBooks.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class CustomerReview
+    public partial class Wrote
     {
-        public int ReviewID { get; set; }
-        public Nullable<int> UserID { get; set; }
-        public Nullable<int> BookID { get; set; }
-        public Nullable<int> ReviewRating { get; set; }
-        public string Comments { get; set; }
-        public Nullable<System.DateTime> DatePosted { get; set; }
+        public string ISBN { get; set; }
+        public short AuthorID { get; set; }
+        public Nullable<decimal> AuthorSequence { get; set; }
     
+        public virtual Author Author { get; set; }
         public virtual Book Book { get; set; }
-        public virtual User User { get; set; }
     }
 }

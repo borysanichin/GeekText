@@ -14,22 +14,13 @@ namespace GeekBooks.DAL
     
     public partial class HomeAddress
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HomeAddress()
-        {
-            this.Users = new HashSet<User>();
-        }
-    
-        public int AddressID { get; set; }
+        public string Username { get; set; }
         public string Street { get; set; }
-        public Nullable<int> Apt { get; set; }
+        public Nullable<decimal> Apt { get; set; }
         public string City { get; set; }
+        public string ZipCode { get; set; }
         public string Country { get; set; }
-        public string Zipcode { get; set; }
-        public Nullable<int> FK_UserID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
         public virtual User User { get; set; }
     }
 }

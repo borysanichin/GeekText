@@ -17,34 +17,32 @@ namespace GeekBooks.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book()
         {
-            this.CustomerReviews = new HashSet<CustomerReview>();
-            this.Order_Book = new HashSet<Order_Book>();
-            this.Shoppingcart_Book = new HashSet<Shoppingcart_Book>();
+            this.Reviews = new HashSet<Review>();
+            this.ShoppingCarts = new HashSet<ShoppingCart>();
             this.Wishlists = new HashSet<Wishlist>();
-            this.Authors = new HashSet<Author>();
+            this.Wrotes = new HashSet<Wrote>();
             this.Genres = new HashSet<Genre>();
+            this.Users = new HashSet<User>();
         }
     
-        public int BookID { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Publisher { get; set; }
-        public Nullable<System.DateTime> DatePublished { get; set; }
-        public string GenreName { get; set; }
         public string ISBN { get; set; }
+        public string Title { get; set; }
+        public decimal Price { get; set; }
+        public string BookDescription { get; set; }
+        public string PublisherName { get; set; }
+        public Nullable<System.DateTime> DatePublished { get; set; }
     
-        public virtual Genre Genre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerReview> CustomerReviews { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order_Book> Order_Book { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Shoppingcart_Book> Shoppingcart_Book { get; set; }
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wishlist> Wishlists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Author> Authors { get; set; }
+        public virtual ICollection<Wrote> Wrotes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Genre> Genres { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

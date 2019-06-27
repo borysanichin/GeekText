@@ -12,7 +12,7 @@ namespace GeekBooks.Controllers
 {
     public class BooksCreateController : Controller
     {
-        private Entities db = new Entities();
+        private BookContext db = new BookContext();
 
         // GET: Books
         public ActionResult Index(string movieGenre, string searchString)
@@ -38,11 +38,11 @@ namespace GeekBooks.Controllers
             {
                 books = books.Where(s => s.Title.Contains(searchString));
             }
-
+            /*
             if (!String.IsNullOrEmpty(movieGenre))
             {
                 books = books.Where(x => x.GenreName == movieGenre);
-            }
+            }*/
 
             return View(books);
         }
@@ -74,7 +74,7 @@ namespace GeekBooks.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookID,Title,Description,Publisher,DatePublished,GenreName,ISBN")] Book book)
+        public ActionResult Create([Bind(Include = "ISBN,Title,Price, BookDescription,PublisherName,DatePublished")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace GeekBooks.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GenreName = new SelectList(db.Genres, "GenreName", "GenreName", book.GenreName);
+           // ViewBag.GenreName = new SelectList(db.Genres, "GenreName", "GenreName", book.GenreName);
             return View(book);
         }
 
@@ -99,7 +99,7 @@ namespace GeekBooks.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.GenreName = new SelectList(db.Genres, "GenreName", "GenreName", book.GenreName);
+           // ViewBag.GenreName = new SelectList(db.Genres, "GenreName", "GenreName", book.GenreName);
             return View(book);
         }
 
@@ -108,7 +108,7 @@ namespace GeekBooks.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookID,Title,Description,Publisher,DatePublished,GenreName,ISBN")] Book book)
+        public ActionResult Edit([Bind(Include = "ISBN,Title,Price, BookDescription,PublisherName,DatePublished")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace GeekBooks.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GenreName = new SelectList(db.Genres, "GenreName", "GenreName", book.GenreName);
+          //  ViewBag.GenreName = new SelectList(db.Genres, "GenreName", "GenreName", book.GenreName);
             return View(book);
         }
 

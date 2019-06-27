@@ -14,12 +14,11 @@ namespace GeekBooks.DAL
     
     public partial class Wishlist
     {
-        public int WishlistNumber { get; set; }
+        public string Username { get; set; }
+        public string ISBN { get; set; }
+        public decimal Quantity { get; set; }
         public string WishlistName { get; set; }
-        public int UserId { get; set; }
-        public Nullable<int> BookId { get; set; }
-        public Nullable<System.DateTime> DateCreated { get; set; }
-        public Nullable<int> Quantity { get; set; }
+        public bool Preferred { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }

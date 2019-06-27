@@ -17,15 +17,16 @@ namespace GeekBooks.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Author()
         {
-            this.Books = new HashSet<Book>();
+            this.Wrotes = new HashSet<Wrote>();
         }
     
-        public int AuthorID { get; set; }
-        public string AuthorFirstName { get; set; }
-        public string AuthorLastName { get; set; }
-        public string Biography { get; set; }
+        public short AuthorID { get; set; }
+        public string AuthorFirst { get; set; }
+        public string AuthorMiddle { get; set; }
+        public string AuthorLast { get; set; }
+        public string Bio { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Books { get; set; }
+        public virtual ICollection<Wrote> Wrotes { get; set; }
     }
 }

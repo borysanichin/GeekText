@@ -12,20 +12,14 @@ namespace GeekBooks.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Shoppingcart
+    public partial class ShoppingCart
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Shoppingcart()
-        {
-            this.Shoppingcart_Book = new HashSet<Shoppingcart_Book>();
-        }
+        public string Username { get; set; }
+        public string ISBN { get; set; }
+        public decimal PriceEach { get; set; }
+        public decimal Quantity { get; set; }
     
-        public int cartID { get; set; }
-        public Nullable<int> userID { get; set; }
-        public Nullable<System.DateTime> DateCreated { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Shoppingcart_Book> Shoppingcart_Book { get; set; }
+        public virtual Book Book { get; set; }
         public virtual User User { get; set; }
     }
 }

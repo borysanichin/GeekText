@@ -17,37 +17,34 @@ namespace GeekBooks.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Creditcards = new HashSet<Creditcard>();
-            this.CustomerReviews = new HashSet<CustomerReview>();
-            this.HomeAddresses = new HashSet<HomeAddress>();
-            this.Orders = new HashSet<Order>();
+            this.CreditCards = new HashSet<CreditCard>();
+            this.Reviews = new HashSet<Review>();
             this.ShippingAddresses = new HashSet<ShippingAddress>();
-            this.Shoppingcarts = new HashSet<Shoppingcart>();
+            this.ShoppingCarts = new HashSet<ShoppingCart>();
             this.Wishlists = new HashSet<Wishlist>();
+            this.Books = new HashSet<Book>();
         }
     
-        public int UserID { get; set; }
-        public string UserFirstName { get; set; }
-        public string UserLastName { get; set; }
-        public string email { get; set; }
-        public System.DateTime DOB { get; set; }
+        public string Username { get; set; }
         public string UserPassword { get; set; }
-        public int BillingAddressID { get; set; }
+        public string UserFirst { get; set; }
+        public string UserMiddle { get; set; }
+        public string UserLast { get; set; }
+        public string Nickname { get; set; }
+        public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Creditcard> Creditcards { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerReview> CustomerReviews { get; set; }
+        public virtual ICollection<CreditCard> CreditCards { get; set; }
         public virtual HomeAddress HomeAddress { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HomeAddress> HomeAddresses { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShippingAddress> ShippingAddresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Shoppingcart> Shoppingcarts { get; set; }
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wishlist> Wishlists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Book> Books { get; set; }
     }
 }

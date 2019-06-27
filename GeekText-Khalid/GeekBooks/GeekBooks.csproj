@@ -204,58 +204,52 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DAL\Author.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
+      <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Book.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
+      <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Creditcard.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\CustomerReview.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\GeekTextModel.Context.cs">
+    <Compile Include="DAL\BookContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GeekTextModel.Context.tt</DependentUpon>
+      <DependentUpon>BookContext.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\GeekTextModel.cs">
+    <Compile Include="DAL\BookContext.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
+      <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\GeekTextModel.Designer.cs">
+    <Compile Include="DAL\BookContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GeekTextModel.edmx</DependentUpon>
+      <DependentUpon>BookContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\CreditCard.cs">
+      <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Genre.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
+      <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\HomeAddress.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
+      <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Order.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\Order_Book.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
+    <Compile Include="DAL\Review.cs">
+      <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\ShippingAddress.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
+      <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Shoppingcart.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\Shoppingcart_Book.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
+    <Compile Include="DAL\ShoppingCart.cs">
+      <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\User.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
+      <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Wishlist.cs">
-      <DependentUpon>GeekTextModel.tt</DependentUpon>
+      <DependentUpon>BookContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Wrote.cs">
+      <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -267,17 +261,21 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\GeektextDB2017.mdf" />
+    <Content Include="App_Data\GeektextDB2017_log.ldf">
+      <DependentUpon>GeektextDB2017.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DAL\GeekTextModel.Context.tt">
+    <Content Include="DAL\BookContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GeekTextModel.edmx</DependentUpon>
-      <LastGenOutput>GeekTextModel.Context.cs</LastGenOutput>
+      <DependentUpon>BookContext.edmx</DependentUpon>
+      <LastGenOutput>BookContext.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DAL\GeekTextModel.tt">
+    <Content Include="DAL\BookContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GeekTextModel.edmx</DependentUpon>
-      <LastGenOutput>GeekTextModel.cs</LastGenOutput>
+      <DependentUpon>BookContext.edmx</DependentUpon>
+      <LastGenOutput>BookContext.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -290,12 +288,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="DAL\GeekTextModel.edmx">
+    <EntityDeploy Include="DAL\BookContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>GeekTextModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>BookContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DAL\GeekTextModel.edmx.diagram">
-      <DependentUpon>GeekTextModel.edmx</DependentUpon>
+    <Content Include="DAL\BookContext.edmx.diagram">
+      <DependentUpon>BookContext.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -361,9 +359,7 @@
     <Content Include="Views\BooksCreate\Edit.cshtml" />
     <Content Include="Views\BooksCreate\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

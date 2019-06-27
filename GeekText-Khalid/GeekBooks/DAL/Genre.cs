@@ -18,14 +18,11 @@ namespace GeekBooks.DAL
         public Genre()
         {
             this.Books = new HashSet<Book>();
-            this.Books1 = new HashSet<Book>();
         }
     
         public string GenreName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Book> Books { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Books1 { get; set; }
     }
 }

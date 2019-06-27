@@ -18,16 +18,17 @@
 
 }
     </p>
+
     <table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.BookDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Publisher)
+                @Html.DisplayNameFor(model => model.PublisherName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DatePublished)
@@ -35,10 +36,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.ISBN)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre.GenreName)
-            </th>
-            <th></th>
+         
+          
         </tr>
 
         @foreach (var item in Model)
@@ -48,10 +47,10 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.DisplayFor(modelItem => item.BookDescription)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Publisher)
+                    @Html.DisplayFor(modelItem => item.PublisherName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DatePublished)
@@ -59,14 +58,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ISBN)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genre.GenreName)
-                </td>
+              
                 <td>
 
-                    @Html.ActionLink("Details", "Details", new { id = item.BookID }) |
-                    @Html.ActionLink("Wish List", "WishList", new { id = item.BookID }) |
-                    @Html.ActionLink("Shopping Cart", "ShoppingCart", new { id = item.BookID })
+                    @Html.ActionLink("Details", "Details", new { id = item.ISBN }) |
+                    @Html.ActionLink("Wish List", "WishList", new { id = item.ISBN }) |
+                    @Html.ActionLink("Shopping Cart", "ShoppingCart", new { id = item.ISBN })
                 </td>
             </tr>
         }

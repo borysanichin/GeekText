@@ -13,10 +13,10 @@ namespace GeekBooks.DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class BookContext : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public BookContext()
+            : base("name=BookContext")
         {
         }
     
@@ -27,16 +27,14 @@ namespace GeekBooks.DAL
     
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<Creditcard> Creditcards { get; set; }
-        public virtual DbSet<CustomerReview> CustomerReviews { get; set; }
+        public virtual DbSet<CreditCard> CreditCards { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<HomeAddress> HomeAddresses { get; set; }
-        public virtual DbSet<Order_Book> Order_Book { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<ShippingAddress> ShippingAddresses { get; set; }
-        public virtual DbSet<Shoppingcart> Shoppingcarts { get; set; }
-        public virtual DbSet<Shoppingcart_Book> Shoppingcart_Book { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
+        public virtual DbSet<Wrote> Wrotes { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace GeekBooks.Controllers
 {
     public class BooksController : Controller
     {
-        private Entities db = new Entities();
+        private BookContext db = new BookContext();
 
         // GET: Books
         public ActionResult Index(string movieGenre, string searchString)
@@ -38,17 +38,17 @@ namespace GeekBooks.Controllers
             {
                 books = books.Where(s => s.Title.Contains(searchString));
             }
-
+            /*
             if (!String.IsNullOrEmpty(movieGenre))
             {
                 books = books.Where(x => x.GenreName == movieGenre);
-            }
+            }*/
 
             return View(books);
         }
 
         // GET: Books/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {

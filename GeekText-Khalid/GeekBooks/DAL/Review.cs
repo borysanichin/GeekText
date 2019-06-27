@@ -12,15 +12,15 @@ namespace GeekBooks.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Shoppingcart_Book
+    public partial class Review
     {
-        public int ID { get; set; }
-        public Nullable<int> CartID { get; set; }
-        public Nullable<int> BookID { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public Nullable<decimal> PriceEach { get; set; }
+        public string ISBN { get; set; }
+        public string Username { get; set; }
+        public decimal Rating { get; set; }
+        public string Comment { get; set; }
+        public System.DateTime DatePosted { get; set; }
     
         public virtual Book Book { get; set; }
-        public virtual Shoppingcart Shoppingcart { get; set; }
+        public virtual User User { get; set; }
     }
 }

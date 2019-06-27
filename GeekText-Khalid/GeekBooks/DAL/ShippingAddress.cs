@@ -14,13 +14,14 @@ namespace GeekBooks.DAL
     
     public partial class ShippingAddress
     {
-        public int ShippingAddressID { get; set; }
+        public string Username { get; set; }
+        public decimal AddressNum { get; set; }
+        public bool PreferredAddress { get; set; }
         public string Street { get; set; }
-        public Nullable<int> Apt { get; set; }
+        public Nullable<decimal> Apt { get; set; }
         public string City { get; set; }
+        public string ZipCode { get; set; }
         public string Country { get; set; }
-        public string Zipcode { get; set; }
-        public Nullable<int> FK_ShippingUserID { get; set; }
     
         public virtual User User { get; set; }
     }
