@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GeektextDB2017Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="BookDescription" Type="varchar(max)" />
+          <Property Name="PublisherName" Type="varchar" MaxLength="50" />
+          <Property Name="DatePublished" Type="date" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="UserFirst" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserMiddle" Type="varchar" MaxLength="50" />
+          <Property Name="UserLast" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nickname" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="WishlistName" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="ISBN" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="WishlistName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Preferred" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Wishlist__ISBN__5CD6CB2B">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wishlist__Userna__5BE2A6F2">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GeektextDB2017ModelStoreContainer">
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="GeektextDB2017" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="GeektextDB2017" store:Type="Tables" />
+          <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="GeektextDB2017" store:Type="Tables" />
+          <AssociationSet Name="FK__Wishlist__ISBN__5CD6CB2B" Association="Self.FK__Wishlist__ISBN__5CD6CB2B">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wishlist__Userna__5BE2A6F2" Association="Self.FK__Wishlist__Userna__5BE2A6F2">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GeektextDB2017Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="BookDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PublisherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DatePublished" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Wishlists" Relationship="Self.FK__Wishlist__ISBN__5CD6CB2B" FromRole="Book" ToRole="Wishlist" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserFirst" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserMiddle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserLast" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nickname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Wishlists" Relationship="Self.FK__Wishlist__Userna__5BE2A6F2" FromRole="Users" ToRole="Wishlist" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="WishlistName" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ISBN" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="WishlistName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Preferred" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.FK__Wishlist__ISBN__5CD6CB2B" FromRole="Wishlist" ToRole="Book" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Wishlist__Userna__5BE2A6F2" FromRole="Wishlist" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__Wishlist__ISBN__5CD6CB2B">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wishlist__Userna__5BE2A6F2">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GeektextDB2017Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Wishlists" EntityType="Self.Wishlist" />
+          <AssociationSet Name="FK__Wishlist__ISBN__5CD6CB2B" Association="Self.FK__Wishlist__ISBN__5CD6CB2B">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Wishlist" EntitySet="Wishlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wishlist__Userna__5BE2A6F2" Association="Self.FK__Wishlist__Userna__5BE2A6F2">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Wishlist" EntitySet="Wishlists" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GeektextDB2017ModelStoreContainer" CdmEntityContainer="GeektextDB2017Entities">
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="BookDescription" ColumnName="BookDescription" />
+                <ScalarProperty Name="PublisherName" ColumnName="PublisherName" />
+                <ScalarProperty Name="DatePublished" ColumnName="DatePublished" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserFirst" ColumnName="UserFirst" />
+                <ScalarProperty Name="UserMiddle" ColumnName="UserMiddle" />
+                <ScalarProperty Name="UserLast" ColumnName="UserLast" />
+                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wishlists">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.Wishlist">
+              <MappingFragment StoreEntitySet="Wishlist">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="WishlistName" ColumnName="WishlistName" />
+                <ScalarProperty Name="Preferred" ColumnName="Preferred" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
