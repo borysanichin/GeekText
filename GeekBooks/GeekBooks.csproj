@@ -221,6 +221,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CreateBooks.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="CreditCard.cs">
@@ -282,6 +283,11 @@
     <Content Include="Views\Account\WishListDetail.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\CreateBooks\Create.cshtml" />
+    <Content Include="Views\CreateBooks\Delete.cshtml" />
+    <Content Include="Views\CreateBooks\Details.cshtml" />
+    <Content Include="Views\CreateBooks\Edit.cshtml" />
+    <Content Include="Views\CreateBooks\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
