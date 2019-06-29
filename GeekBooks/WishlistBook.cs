@@ -12,12 +12,15 @@ namespace GeekBooks
     using System;
     using System.Collections.Generic;
     
-    public partial class Wishlist
+    public partial class WishlistBook
     {
         public string Username { get; set; }
+        public string ISBN { get; set; }
+        public decimal Quantity { get; set; }
         public string WishlistName { get; set; }
         public bool Preferred { get; set; }
     
+        public virtual Book Book { get; set; }
         public virtual User User { get; set; }
     }
 }

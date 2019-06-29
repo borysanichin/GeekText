@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GeektextDB2017Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="GeektextDB2017Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="AuthorID" />
@@ -122,6 +122,15 @@
         <EntityType Name="Wishlist">
           <Key>
             <PropertyRef Name="Username" />
+            <PropertyRef Name="WishlistName" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="WishlistName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Preferred" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WishlistBook">
+          <Key>
+            <PropertyRef Name="Username" />
             <PropertyRef Name="ISBN" />
             <PropertyRef Name="WishlistName" />
           </Key>
@@ -140,7 +149,7 @@
           <Property Name="AuthorID" Type="smallint" Nullable="false" />
           <Property Name="AuthorSequence" Type="decimal" Precision="1" Scale="0" />
         </EntityType>
-        <Association Name="FK__BookGenre__Genre__75A278F5">
+        <Association Name="FK__BookGenre__Genre__236943A5">
           <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
           <End Role="BookGenre" Type="Self.BookGenre" Multiplicity="*" />
           <ReferentialConstraint>
@@ -152,7 +161,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BookGenre__ISBN__76969D2E">
+        <Association Name="FK__BookGenre__ISBN__22751F6C">
           <End Role="Book" Type="Self.Book" Multiplicity="1" />
           <End Role="BookGenre" Type="Self.BookGenre" Multiplicity="*" />
           <ReferentialConstraint>
@@ -260,19 +269,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Wishlist__ISBN__5CD6CB2B">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
-          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="ISBN" />
-            </Principal>
-            <Dependent Role="Wishlist">
-              <PropertyRef Name="ISBN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Wishlist__Userna__5BE2A6F2">
+        <Association Name="FK__Wishlist__Userna__0C85DE4D">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
           <ReferentialConstraint>
@@ -281,6 +278,30 @@
             </Principal>
             <Dependent Role="Wishlist">
               <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WishlistB__Usern__19DFD96B">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="WishlistBook" Type="Self.WishlistBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="WishlistBook">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WishlistBo__ISBN__1AD3FDA4">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="WishlistBook" Type="Self.WishlistBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="WishlistBook">
+              <PropertyRef Name="ISBN" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -320,7 +341,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GeektextDB2017Model1StoreContainer">
+        <EntityContainer Name="GeektextDB2017ModelStoreContainer">
           <EntitySet Name="Author" EntityType="Self.Author" Schema="GeektextDB2017" store:Type="Tables" />
           <EntitySet Name="Book" EntityType="Self.Book" Schema="GeektextDB2017" store:Type="Tables" />
           <EntitySet Name="BookGenre" EntityType="Self.BookGenre" Schema="GeektextDB2017" store:Type="Tables" />
@@ -333,12 +354,13 @@
           <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" Schema="GeektextDB2017" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="GeektextDB2017" store:Type="Tables" />
           <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="GeektextDB2017" store:Type="Tables" />
+          <EntitySet Name="WishlistBook" EntityType="Self.WishlistBook" Schema="GeektextDB2017" store:Type="Tables" />
           <EntitySet Name="Wrote" EntityType="Self.Wrote" Schema="GeektextDB2017" store:Type="Tables" />
-          <AssociationSet Name="FK__BookGenre__Genre__75A278F5" Association="Self.FK__BookGenre__Genre__75A278F5">
+          <AssociationSet Name="FK__BookGenre__Genre__236943A5" Association="Self.FK__BookGenre__Genre__236943A5">
             <End Role="Genre" EntitySet="Genre" />
             <End Role="BookGenre" EntitySet="BookGenre" />
           </AssociationSet>
-          <AssociationSet Name="FK__BookGenre__ISBN__76969D2E" Association="Self.FK__BookGenre__ISBN__76969D2E">
+          <AssociationSet Name="FK__BookGenre__ISBN__22751F6C" Association="Self.FK__BookGenre__ISBN__22751F6C">
             <End Role="Book" EntitySet="Book" />
             <End Role="BookGenre" EntitySet="BookGenre" />
           </AssociationSet>
@@ -374,13 +396,17 @@
             <End Role="Book" EntitySet="Book" />
             <End Role="ShoppingCart" EntitySet="ShoppingCart" />
           </AssociationSet>
-          <AssociationSet Name="FK__Wishlist__ISBN__5CD6CB2B" Association="Self.FK__Wishlist__ISBN__5CD6CB2B">
-            <End Role="Book" EntitySet="Book" />
-            <End Role="Wishlist" EntitySet="Wishlist" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Wishlist__Userna__5BE2A6F2" Association="Self.FK__Wishlist__Userna__5BE2A6F2">
+          <AssociationSet Name="FK__Wishlist__Userna__0C85DE4D" Association="Self.FK__Wishlist__Userna__0C85DE4D">
             <End Role="Users" EntitySet="Users" />
             <End Role="Wishlist" EntitySet="Wishlist" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WishlistB__Usern__19DFD96B" Association="Self.FK__WishlistB__Usern__19DFD96B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="WishlistBook" EntitySet="WishlistBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WishlistBo__ISBN__1AD3FDA4" Association="Self.FK__WishlistBo__ISBN__1AD3FDA4">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="WishlistBook" EntitySet="WishlistBook" />
           </AssociationSet>
           <AssociationSet Name="FK__Wrote__AuthorID__5629CD9C" Association="Self.FK__Wrote__AuthorID__5629CD9C">
             <End Role="Author" EntitySet="Author" />
@@ -399,7 +425,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="GeektextDB2017Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="GeektextDB2017Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="AuthorID" />
@@ -421,10 +447,10 @@
           <Property Name="BookDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="PublisherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DatePublished" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="BookGenres" Relationship="Self.FK__BookGenre__ISBN__76969D2E" FromRole="Book" ToRole="BookGenre" />
+          <NavigationProperty Name="BookGenres" Relationship="Self.FK__BookGenre__ISBN__22751F6C" FromRole="Book" ToRole="BookGenre" />
           <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__ISBN__6D0D32F4" FromRole="Book" ToRole="Reviews" />
           <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK__ShoppingCa__ISBN__60A75C0F" FromRole="Book" ToRole="ShoppingCart" />
-          <NavigationProperty Name="Wishlists" Relationship="Self.FK__Wishlist__ISBN__5CD6CB2B" FromRole="Book" ToRole="Wishlist" />
+          <NavigationProperty Name="WishlistBooks" Relationship="Self.FK__WishlistBo__ISBN__1AD3FDA4" FromRole="Book" ToRole="WishlistBook" />
           <NavigationProperty Name="Wrotes" Relationship="Self.FK__Wrote__ISBN__5535A963" FromRole="Book" ToRole="Wrote" />
           <NavigationProperty Name="Users" Relationship="Self.Purchased" FromRole="Book" ToRole="Users" />
         </EntityType>
@@ -436,8 +462,8 @@
           <Property Name="GenreName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ISBN" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="testField" Type="Decimal" Precision="1" Scale="0" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__BookGenre__ISBN__76969D2E" FromRole="BookGenre" ToRole="Book" />
-          <NavigationProperty Name="Genre" Relationship="Self.FK__BookGenre__Genre__75A278F5" FromRole="BookGenre" ToRole="Genre" />
+          <NavigationProperty Name="Book" Relationship="Self.FK__BookGenre__ISBN__22751F6C" FromRole="BookGenre" ToRole="Book" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK__BookGenre__Genre__236943A5" FromRole="BookGenre" ToRole="Genre" />
         </EntityType>
         <EntityType Name="CreditCard">
           <Key>
@@ -457,7 +483,7 @@
             <PropertyRef Name="GenreName" />
           </Key>
           <Property Name="GenreName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="BookGenres" Relationship="Self.FK__BookGenre__Genre__75A278F5" FromRole="Genre" ToRole="BookGenre" />
+          <NavigationProperty Name="BookGenres" Relationship="Self.FK__BookGenre__Genre__236943A5" FromRole="Genre" ToRole="BookGenre" />
         </EntityType>
         <EntityType Name="HomeAddress">
           <Key>
@@ -527,10 +553,21 @@
           <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__Usernam__6E01572D" FromRole="Users" ToRole="Reviews" />
           <NavigationProperty Name="ShippingAddresses" Relationship="Self.ShippingAddressUser_fk" FromRole="Users" ToRole="ShippingAddress" />
           <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK__ShoppingC__Usern__5FB337D6" FromRole="Users" ToRole="ShoppingCart" />
-          <NavigationProperty Name="Wishlists" Relationship="Self.FK__Wishlist__Userna__5BE2A6F2" FromRole="Users" ToRole="Wishlist" />
+          <NavigationProperty Name="Wishlists" Relationship="Self.FK__Wishlist__Userna__0C85DE4D" FromRole="Users" ToRole="Wishlist" />
+          <NavigationProperty Name="WishlistBooks" Relationship="Self.FK__WishlistB__Usern__19DFD96B" FromRole="Users" ToRole="WishlistBook" />
           <NavigationProperty Name="Books" Relationship="Self.Purchased" FromRole="Users" ToRole="Book" />
         </EntityType>
         <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="WishlistName" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WishlistName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Preferred" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Wishlist__Userna__0C85DE4D" FromRole="Wishlist" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="WishlistBook">
           <Key>
             <PropertyRef Name="Username" />
             <PropertyRef Name="ISBN" />
@@ -541,8 +578,8 @@
           <Property Name="Quantity" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
           <Property Name="WishlistName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Preferred" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__Wishlist__ISBN__5CD6CB2B" FromRole="Wishlist" ToRole="Book" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Wishlist__Userna__5BE2A6F2" FromRole="Wishlist" ToRole="Users" />
+          <NavigationProperty Name="Book" Relationship="Self.FK__WishlistBo__ISBN__1AD3FDA4" FromRole="WishlistBook" ToRole="Book" />
+          <NavigationProperty Name="User" Relationship="Self.FK__WishlistB__Usern__19DFD96B" FromRole="WishlistBook" ToRole="Users" />
         </EntityType>
         <EntityType Name="Wrote">
           <Key>
@@ -567,7 +604,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BookGenre__ISBN__76969D2E">
+        <Association Name="FK__BookGenre__ISBN__22751F6C">
           <End Role="Book" Type="Self.Book" Multiplicity="1" />
           <End Role="BookGenre" Type="Self.BookGenre" Multiplicity="*" />
           <ReferentialConstraint>
@@ -603,14 +640,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Wishlist__ISBN__5CD6CB2B">
+        <Association Name="FK__WishlistBo__ISBN__1AD3FDA4">
           <End Role="Book" Type="Self.Book" Multiplicity="1" />
-          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <End Role="WishlistBook" Type="Self.WishlistBook" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Book">
               <PropertyRef Name="ISBN" />
             </Principal>
-            <Dependent Role="Wishlist">
+            <Dependent Role="WishlistBook">
               <PropertyRef Name="ISBN" />
             </Dependent>
           </ReferentialConstraint>
@@ -627,7 +664,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BookGenre__Genre__75A278F5">
+        <Association Name="FK__BookGenre__Genre__236943A5">
           <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
           <End Role="BookGenre" Type="Self.BookGenre" Multiplicity="*" />
           <ReferentialConstraint>
@@ -699,7 +736,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Wishlist__Userna__5BE2A6F2">
+        <Association Name="FK__Wishlist__Userna__0C85DE4D">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
           <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
           <ReferentialConstraint>
@@ -707,6 +744,18 @@
               <PropertyRef Name="Username" />
             </Principal>
             <Dependent Role="Wishlist">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WishlistB__Usern__19DFD96B">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="WishlistBook" Type="Self.WishlistBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="WishlistBook">
               <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
@@ -727,12 +776,13 @@
           <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Wishlists" EntityType="Self.Wishlist" />
+          <EntitySet Name="WishlistBooks" EntityType="Self.WishlistBook" />
           <EntitySet Name="Wrotes" EntityType="Self.Wrote" />
           <AssociationSet Name="FK__Wrote__AuthorID__5629CD9C" Association="Self.FK__Wrote__AuthorID__5629CD9C">
             <End Role="Author" EntitySet="Authors" />
             <End Role="Wrote" EntitySet="Wrotes" />
           </AssociationSet>
-          <AssociationSet Name="FK__BookGenre__ISBN__76969D2E" Association="Self.FK__BookGenre__ISBN__76969D2E">
+          <AssociationSet Name="FK__BookGenre__ISBN__22751F6C" Association="Self.FK__BookGenre__ISBN__22751F6C">
             <End Role="Book" EntitySet="Books" />
             <End Role="BookGenre" EntitySet="BookGenres" />
           </AssociationSet>
@@ -744,15 +794,15 @@
             <End Role="Book" EntitySet="Books" />
             <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
           </AssociationSet>
-          <AssociationSet Name="FK__Wishlist__ISBN__5CD6CB2B" Association="Self.FK__Wishlist__ISBN__5CD6CB2B">
+          <AssociationSet Name="FK__WishlistBo__ISBN__1AD3FDA4" Association="Self.FK__WishlistBo__ISBN__1AD3FDA4">
             <End Role="Book" EntitySet="Books" />
-            <End Role="Wishlist" EntitySet="Wishlists" />
+            <End Role="WishlistBook" EntitySet="WishlistBooks" />
           </AssociationSet>
           <AssociationSet Name="FK__Wrote__ISBN__5535A963" Association="Self.FK__Wrote__ISBN__5535A963">
             <End Role="Book" EntitySet="Books" />
             <End Role="Wrote" EntitySet="Wrotes" />
           </AssociationSet>
-          <AssociationSet Name="FK__BookGenre__Genre__75A278F5" Association="Self.FK__BookGenre__Genre__75A278F5">
+          <AssociationSet Name="FK__BookGenre__Genre__236943A5" Association="Self.FK__BookGenre__Genre__236943A5">
             <End Role="Genre" EntitySet="Genres" />
             <End Role="BookGenre" EntitySet="BookGenres" />
           </AssociationSet>
@@ -776,9 +826,13 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
           </AssociationSet>
-          <AssociationSet Name="FK__Wishlist__Userna__5BE2A6F2" Association="Self.FK__Wishlist__Userna__5BE2A6F2">
+          <AssociationSet Name="FK__Wishlist__Userna__0C85DE4D" Association="Self.FK__Wishlist__Userna__0C85DE4D">
             <End Role="Users" EntitySet="Users" />
             <End Role="Wishlist" EntitySet="Wishlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WishlistB__Usern__19DFD96B" Association="Self.FK__WishlistB__Usern__19DFD96B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="WishlistBook" EntitySet="WishlistBooks" />
           </AssociationSet>
           <AssociationSet Name="Purchased" Association="Self.Purchased">
             <End Role="Book" EntitySet="Books" />
@@ -790,9 +844,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GeektextDB2017Model1StoreContainer" CdmEntityContainer="BookContext">
+        <EntityContainerMapping StorageEntityContainer="GeektextDB2017ModelStoreContainer" CdmEntityContainer="BookContext">
           <EntitySetMapping Name="Authors">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.Author">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.Author">
               <MappingFragment StoreEntitySet="Author">
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
                 <ScalarProperty Name="AuthorFirst" ColumnName="AuthorFirst" />
@@ -803,7 +857,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Books">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.Book">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.Book">
               <MappingFragment StoreEntitySet="Book">
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -815,7 +869,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BookGenres">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.BookGenre">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.BookGenre">
               <MappingFragment StoreEntitySet="BookGenre">
                 <ScalarProperty Name="GenreName" ColumnName="GenreName" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
@@ -824,7 +878,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CreditCards">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.CreditCard">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.CreditCard">
               <MappingFragment StoreEntitySet="CreditCard">
                 <ScalarProperty Name="CCNumber" ColumnName="CCNumber" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -836,14 +890,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Genres">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.Genre">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.Genre">
               <MappingFragment StoreEntitySet="Genre">
                 <ScalarProperty Name="GenreName" ColumnName="GenreName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HomeAddresses">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.HomeAddress">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.HomeAddress">
               <MappingFragment StoreEntitySet="HomeAddress">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
@@ -855,7 +909,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reviews">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.Review">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.Review">
               <MappingFragment StoreEntitySet="Reviews">
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -866,7 +920,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ShippingAddresses">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.ShippingAddress">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.ShippingAddress">
               <MappingFragment StoreEntitySet="ShippingAddress">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="AddressNum" ColumnName="AddressNum" />
@@ -880,7 +934,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ShoppingCarts">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.ShoppingCart">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.ShoppingCart">
               <MappingFragment StoreEntitySet="ShoppingCart">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
@@ -890,7 +944,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.User">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
@@ -903,8 +957,17 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Wishlists">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.Wishlist">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.Wishlist">
               <MappingFragment StoreEntitySet="Wishlist">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="WishlistName" ColumnName="WishlistName" />
+                <ScalarProperty Name="Preferred" ColumnName="Preferred" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WishlistBooks">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.WishlistBook">
+              <MappingFragment StoreEntitySet="WishlistBook">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -914,7 +977,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Wrotes">
-            <EntityTypeMapping TypeName="GeektextDB2017Model1.Wrote">
+            <EntityTypeMapping TypeName="GeektextDB2017Model.Wrote">
               <MappingFragment StoreEntitySet="Wrote">
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
@@ -922,7 +985,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Purchased" TypeName="GeektextDB2017Model1.Purchased" StoreEntitySet="Purchased">
+          <AssociationSetMapping Name="Purchased" TypeName="GeektextDB2017Model.Purchased" StoreEntitySet="Purchased">
             <EndProperty Name="Book">
               <ScalarProperty Name="ISBN" ColumnName="ISBN" />
             </EndProperty>

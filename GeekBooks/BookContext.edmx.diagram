@@ -4,33 +4,35 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1c8b51de67f940bfa141092211cc3a99" Name="Diagram1">
-        <EntityTypeShape EntityType="GeektextDB2017Model1.Author" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model1.Book" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model1.BookGenre" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model1.CreditCard" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model1.Genre" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model1.HomeAddress" Width="1.5" PointX="5.25" PointY="21.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model1.Review" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model1.ShippingAddress" Width="1.5" PointX="5.25" PointY="24.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model1.ShoppingCart" Width="1.5" PointX="8.25" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model1.User" Width="1.5" PointX="3" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model1.Wishlist" Width="1.5" PointX="8.25" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model1.Wrote" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__Wrote__AuthorID__5629CD9C" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__BookGenre__ISBN__76969D2E" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__Reviews__ISBN__6D0D32F4" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__ShoppingCa__ISBN__60A75C0F" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__Wishlist__ISBN__5CD6CB2B" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__Wrote__ISBN__5535A963" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__BookGenre__Genre__75A278F5" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__CreditCar__Usern__59063A47" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__HomeAddre__Usern__66603565" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__Reviews__Usernam__6E01572D" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.ShippingAddressUser_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__ShoppingC__Usern__5FB337D6" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.FK__Wishlist__Userna__5BE2A6F2" ManuallyRouted="false" />
-        <AssociationConnector Association="GeektextDB2017Model1.Purchased" ManuallyRouted="false" />
+      <Diagram DiagramId="9d000e1b8908452fb6694a975e6f0ee9" Name="Diagram1">
+        <EntityTypeShape EntityType="GeektextDB2017Model.Author" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.Book" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.BookGenre" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.CreditCard" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.Genre" Width="1.5" PointX="0.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.HomeAddress" Width="1.5" PointX="5.25" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.Review" Width="1.5" PointX="8.25" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.ShippingAddress" Width="1.5" PointX="5.25" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.ShoppingCart" Width="1.5" PointX="8.25" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.User" Width="1.5" PointX="3" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.Wishlist" Width="1.5" PointX="5.25" PointY="27.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.WishlistBook" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.Wrote" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__Wrote__AuthorID__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__BookGenre__ISBN__22751F6C" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__Reviews__ISBN__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__ShoppingCa__ISBN__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__WishlistBo__ISBN__1AD3FDA4" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__Wrote__ISBN__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__BookGenre__Genre__236943A5" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__CreditCar__Usern__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__HomeAddre__Usern__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__Reviews__Usernam__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.ShippingAddressUser_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__ShoppingC__Usern__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__Wishlist__Userna__0C85DE4D" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.FK__WishlistB__Usern__19DFD96B" ManuallyRouted="false" />
+        <AssociationConnector Association="GeektextDB2017Model.Purchased" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

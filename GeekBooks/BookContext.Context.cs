@@ -36,6 +36,7 @@ namespace GeekBooks
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
+        public virtual DbSet<WishlistBook> WishlistBooks { get; set; }
         public virtual DbSet<Wrote> Wrotes { get; set; }
     }
 }

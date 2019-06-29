@@ -1,4 +1,4 @@
-﻿//using GeekBooks.Models;
+﻿using GeekBooks.Models;
 using System;
 using System.Data.Entity;
 using System.Collections.Generic;
@@ -42,16 +42,17 @@ namespace GeekBooks.Controllers
             List<Wishlist> wishlists = _context.Wishlists.Where(w => w.Username == "guest").ToList();
             return View(wishlists);
         }
+
         [Route("Account/WishListDetail/{wishlistName}/{username}")]
         public ActionResult WishListDetail(string wishlistName, string username)
         {
-            List<Wishlist> books = _context.Wishlists.Include(w => w.Book).Where(w => w.WishlistName == wishlistName && w.Username == username).ToList();
+            List<WishlistBook> books = _context.WishlistBooks.Include(w => w.Book).Where(w => w.WishlistName == wishlistName && w.Username == username).ToList();
 
             if (books == null)
                 return HttpNotFound();
 
             return View(books);
-            
+
         }
     }
 }

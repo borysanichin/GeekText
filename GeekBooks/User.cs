@@ -22,6 +22,7 @@ namespace GeekBooks
             this.ShippingAddresses = new HashSet<ShippingAddress>();
             this.ShoppingCarts = new HashSet<ShoppingCart>();
             this.Wishlists = new HashSet<Wishlist>();
+            this.WishlistBooks = new HashSet<WishlistBook>();
             this.Books = new HashSet<Book>();
         }
     
@@ -44,6 +45,8 @@ namespace GeekBooks
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wishlist> Wishlists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WishlistBook> WishlistBooks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Book> Books { get; set; }
     }

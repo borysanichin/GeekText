@@ -254,6 +254,9 @@
     <Compile Include="Wishlist.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="WishlistBook.cs">
+      <DependentUpon>BookContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Wrote.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
