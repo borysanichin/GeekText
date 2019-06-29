@@ -25,24 +25,30 @@ namespace GeekBooks.Controllers
                            select d.GenreName;
 
 
-           // GenreList.AddRange(GenreQry.Distinct());
+           //GenreList.AddRange(GenreQry.Distinct());
 
             ViewBag.movieGenre = new SelectList(GenreList);
 
-            var viewBook = from m in db.Books
+            var book = from m in db.Books
                            join n in db.BookGenres on m.ISBN equals n.ISBN
                            select new BookeModel { BookModel = m, BookGenreModel = n };
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 //books = books.Where(s => s.BookModel.Title.Contains(searchString));\
-                viewBook = viewBook.Where(s => s.BookModel.Title.Contains(searchString));
+                book = book.Where(s => s.BookModel.Title.Contains(searchString));
             }
 
+            /*
+            if (!String.IsNullOrEmpty(movieGenre))
+            {
+                books = books.Where(x => x.GenreName == movieGenre);
+            }
+            */
 
-            return View(viewBook);
+            return View(book);
         }
-
+        /* //Can u please integrate this with the other index method
         // POST: Book
         [HttpPost]
         public ActionResult Index(Review review)
@@ -50,7 +56,7 @@ namespace GeekBooks.Controllers
             decimal rating = review.Rating;
             string comment = review.Comment;
             return View();
-        }
+        }*/
 
 
         [HttpGet]

@@ -9,77 +9,89 @@
 
 <h2>Browse our books</h2>
 
-<!--To Do: Implement browsing features-->
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BookModel.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookModel.Price)
+<p>
 
-        </th>
-
-        <th>
-
-            @Html.DisplayNameFor(model => model.BookGenreModel.GenreName)
-
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.BookModel.BookDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookModel.PublisherName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookModel.DatePublished)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookModel.ISBN)
-        </th>
-
-    </tr>
-    @foreach (var item in Model)
+    @using (Html.BeginForm())
     {
+    <p>
+        Genre: @Html.DropDownList("movieGenre", "All")
+        Title: @Html.TextBox("SearchString") <br />
+        <input type="submit" value="Filter" />
+    </p>
+
+}
+    </p>
+    <!--To Do: Implement browsing features-->
+    <table class="table">
         <tr>
-            <td>
-                @Html.ActionLink(item.BookModel.Title, "Details", new { id = item.BookModel.ISBN })
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookModel.Price)
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.BookModel.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookModel.Price)
 
-            <td>
-                @Html.DisplayFor(modelItem => item.BookGenreModel.GenreName)
-            </td>
+            </th>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.BookModel.BookDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookModel.PublisherName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookModel.DatePublished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookModel.ISBN)
-            </td>
+            <th>
 
-            <td>
-                @Html.ActionLink("Add to Wish List", "WishList", new { id = item.BookModel.ISBN })  |           
-                @Html.ActionLink("Add to Shopping Cart", "ShoppingCart", new { id = item.BookModel.ISBN })
-            </td>
+                @Html.DisplayNameFor(model => model.BookGenreModel.GenreName)
+
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.BookModel.BookDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookModel.PublisherName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookModel.DatePublished)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookModel.ISBN)
+            </th>
+
         </tr>
-    }
-</table>
-<!--Hard Coded Below-->
-@*
-<a href="~/Book/Details/1">
-<img src="~/Content/Books/sorcerersstone.jpg" alt="sorcerersstone" style="width:256px;height:256px;" />
-</a>
-<ng-view />
-<a href="~/Book/Details/2">
-<img src="~/Content/Books/ChamberOfSecrets.jpg" alt="ChamberOfSecrets" style="width:256px;height:256px;" />
-</a>*@
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.BookModel.Title, "Details", new { id = item.BookModel.ISBN })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookModel.Price)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookGenreModel.GenreName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookModel.BookDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookModel.PublisherName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookModel.DatePublished)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookModel.ISBN)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Add to Wish List", "WishList", new { id = item.BookModel.ISBN })  |
+                    @Html.ActionLink("Add to Shopping Cart", "ShoppingCart", new { id = item.BookModel.ISBN })
+                </td>
+            </tr>
+        }
+    </table>
+    <!--Hard Coded Below-->
+    @*
+        <a href="~/Book/Details/1">
+        <img src="~/Content/Books/sorcerersstone.jpg" alt="sorcerersstone" style="width:256px;height:256px;" />
+        </a>
+        <ng-view />
+        <a href="~/Book/Details/2">
+        <img src="~/Content/Books/ChamberOfSecrets.jpg" alt="ChamberOfSecrets" style="width:256px;height:256px;" />
+        </a>*@
