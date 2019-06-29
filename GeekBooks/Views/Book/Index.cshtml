@@ -1,6 +1,5 @@
-﻿@model IEnumerable<GeekBooks.Models.Book>
+﻿@model IEnumerable<GeekBooks.Book>
 
-@using GeekBooks.Models;
 
 @{
     ViewBag.Title = "Book List";
@@ -13,7 +12,7 @@
 <!--To Do: Implement browsing features-->
 
 <ul>
-    @foreach(Book book in @Model)
+    @foreach(Book book in Model)
     {
         <li>
             @Html.ActionLink(book.Title, "Details", new { id = book.ISBN })

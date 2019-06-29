@@ -1,4 +1,4 @@
-﻿using GeekBooks.Models;
+﻿//using GeekBooks.Models;
 using System;
 using System.Data.Entity;
 using System.Collections.Generic;
@@ -11,11 +11,11 @@ namespace GeekBooks.Controllers
 {
     public class AccountController : Controller
     {
-        private GeektextDB2017Entities _context;
+        private BookContext _context;
 
         public AccountController()
         {
-            _context = new GeektextDB2017Entities();
+            _context = new BookContext();
         }
         protected override void Dispose(bool disposing)
         {
