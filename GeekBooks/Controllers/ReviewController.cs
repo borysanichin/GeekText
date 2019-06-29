@@ -12,7 +12,7 @@ namespace GeekBooks.Controllers
         // GET: Review
         public ActionResult Index()
         {
-            BookContext bookContext = new BookContext();
+            GeektextContext bookContext = new GeektextContext();
             List<Review> reviews = bookContext.Reviews.ToList();
             return View(reviews);
         }

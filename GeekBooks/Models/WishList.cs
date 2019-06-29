@@ -15,12 +15,9 @@ namespace GeekBooks.Models
     public partial class Wishlist
     {
         public string Username { get; set; }
-        public string ISBN { get; set; }
-        public decimal Quantity { get; set; }
         public string WishlistName { get; set; }
         public bool Preferred { get; set; }
     
-        public virtual Book Book { get; set; }
         public virtual User User { get; set; }
     }
 }

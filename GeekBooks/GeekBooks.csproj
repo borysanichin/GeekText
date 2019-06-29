@@ -126,15 +126,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
-    <Content Include="Models\EntityModel.Context.tt">
+    <Content Include="Models\GeektextModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EntityModel.edmx</DependentUpon>
-      <LastGenOutput>EntityModel.Context.cs</LastGenOutput>
+      <DependentUpon>GeektextModel.edmx</DependentUpon>
+      <LastGenOutput>GeektextModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\EntityModel.tt">
+    <Content Include="Models\GeektextModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EntityModel.edmx</DependentUpon>
-      <LastGenOutput>EntityModel.cs</LastGenOutput>
+      <DependentUpon>GeektextModel.edmx</DependentUpon>
+      <LastGenOutput>GeektextModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -158,12 +158,12 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <EntityDeploy Include="Models\EntityModel.edmx">
+    <EntityDeploy Include="Models\GeektextModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EntityModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>GeektextModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\EntityModel.edmx.diagram">
-      <DependentUpon>EntityModel.edmx</DependentUpon>
+    <Content Include="Models\GeektextModel.edmx.diagram">
+      <DependentUpon>GeektextModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -198,31 +198,59 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Author.cs">
+      <DependentUpon>GeektextModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Book.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
+      <DependentUpon>GeektextModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BookContext.cs" />
-    <Compile Include="Models\EntityModel.Context.cs">
+    <Compile Include="Models\BookGenre.cs">
+      <DependentUpon>GeektextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CreditCard.cs">
+      <DependentUpon>GeektextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GeektextModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EntityModel.Context.tt</DependentUpon>
+      <DependentUpon>GeektextModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EntityModel.cs">
+    <Compile Include="Models\GeektextModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EntityModel.tt</DependentUpon>
+      <DependentUpon>GeektextModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EntityModel.Designer.cs">
+    <Compile Include="Models\GeektextModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EntityModel.edmx</DependentUpon>
+      <DependentUpon>GeektextModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Genre.cs">
+      <DependentUpon>GeektextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HomeAddress.cs">
+      <DependentUpon>GeektextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Review.cs">
+      <DependentUpon>GeektextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ShippingAddress.cs">
+      <DependentUpon>GeektextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ShoppingCart.cs">
+      <DependentUpon>GeektextModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
+      <DependentUpon>GeektextModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\WishList.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
+    <Compile Include="Models\Wishlist.cs">
+      <DependentUpon>GeektextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WishlistBook.cs">
+      <DependentUpon>GeektextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Wrote.cs">
+      <DependentUpon>GeektextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

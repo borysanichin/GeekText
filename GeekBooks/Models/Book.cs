@@ -17,7 +17,12 @@ namespace GeekBooks.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book()
         {
-            this.Wishlists = new HashSet<Wishlist>();
+            this.BookGenres = new HashSet<BookGenre>();
+            this.Reviews = new HashSet<Review>();
+            this.ShoppingCarts = new HashSet<ShoppingCart>();
+            this.WishlistBooks = new HashSet<WishlistBook>();
+            this.Wrotes = new HashSet<Wrote>();
+            this.Users = new HashSet<User>();
         }
     
         public string ISBN { get; set; }
@@ -28,6 +33,16 @@ namespace GeekBooks.Models
         public Nullable<System.DateTime> DatePublished { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wishlist> Wishlists { get; set; }
+        public virtual ICollection<BookGenre> BookGenres { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WishlistBook> WishlistBooks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wrote> Wrotes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

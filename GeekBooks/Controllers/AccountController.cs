@@ -11,11 +11,11 @@ namespace GeekBooks.Controllers
 {
     public class AccountController : Controller
     {
-        private GeektextDB2017Entities _context;
+        private GeektextContext _context;
 
         public AccountController()
         {
-            _context = new GeektextDB2017Entities();
+            _context = new GeektextContext();
         }
         protected override void Dispose(bool disposing)
         {
@@ -42,10 +42,11 @@ namespace GeekBooks.Controllers
             List<Wishlist> wishlists = _context.Wishlists.Where(w => w.Username == "guest").ToList();
             return View(wishlists);
         }
+
         [Route("Account/WishListDetail/{wishlistName}/{username}")]
         public ActionResult WishListDetail(string wishlistName, string username)
         {
-            List<Wishlist> books = _context.Wishlists.Include(w => w.Book).Where(w => w.WishlistName == wishlistName && w.Username == username).ToList();
+            List<WishlistBook> books = _context.WishlistBooks.Include(w => w.Book).Where(w => w.WishlistName == wishlistName && w.Username == username).ToList();
 
             if (books == null)
                 return HttpNotFound();

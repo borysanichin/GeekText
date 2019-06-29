@@ -13,10 +13,10 @@ namespace GeekBooks.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GeektextDB2017Entities : DbContext
+    public partial class GeektextContext : DbContext
     {
-        public GeektextDB2017Entities()
-            : base("name=GeektextDB2017Entities")
+        public GeektextContext()
+            : base("name=GeektextEntities")
         {
         }
     
@@ -25,8 +25,18 @@ namespace GeekBooks.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<BookGenre> BookGenres { get; set; }
+        public virtual DbSet<CreditCard> CreditCards { get; set; }
+        public virtual DbSet<Genre> Genres { get; set; }
+        public virtual DbSet<HomeAddress> HomeAddresses { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<ShippingAddress> ShippingAddresses { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
+        public virtual DbSet<WishlistBook> WishlistBooks { get; set; }
+        public virtual DbSet<Wrote> Wrotes { get; set; }
     }
 }
