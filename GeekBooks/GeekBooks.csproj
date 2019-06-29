@@ -235,6 +235,7 @@
     <Compile Include="HomeAddress.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ModelOfModels.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Review.cs">

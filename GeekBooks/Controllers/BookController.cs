@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GeekBooks.Models;
 //using GeekBooks.Models;
 
 namespace GeekBooks.Controllers
@@ -14,11 +15,32 @@ namespace GeekBooks.Controllers
         //List<Book> booklist = new List<Book>(); //To be removed
 
         // GET: Book
-        public ActionResult Index()
+        public ActionResult Index(string movieGenre, string searchString)
         {
-            
-            List<Book> books = db.Books.ToList();
-            return View(books);
+
+            var GenreList = new List<string>();
+
+            var GenreQry = from d in db.Genres
+                           orderby d.GenreName
+                           select d.GenreName;
+
+
+           // GenreList.AddRange(GenreQry.Distinct());
+
+            ViewBag.movieGenre = new SelectList(GenreList);
+
+            var viewBook = from m in db.Books
+                           join n in db.BookGenres on m.ISBN equals n.ISBN
+                           select new BookeModel { BookModel = m, BookGenreModel = n };
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                //books = books.Where(s => s.BookModel.Title.Contains(searchString));\
+                viewBook = viewBook.Where(s => s.BookModel.Title.Contains(searchString));
+            }
+
+
+            return View(viewBook);
         }
 
         // POST: Book
