@@ -23,7 +23,7 @@ namespace GeekBooks
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap-united.css",
+                      "~/Content/bootstrap.css",
                       "~/Content/site.css"));
         }
     }
