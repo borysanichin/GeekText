@@ -12,15 +12,18 @@
             @Html.ActionLink("GeekText", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             
         </div>
-         <div class="navbar-collapse collapse" id="navbarSupportedContent">
-             <ul class="nav navbar-nav mr-auto">
-                 <li>@Html.ActionLink("Books", "Index", "Book", new { area = "" }, new { @class = "navbar" })</li>
-                 <li>@Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "navbar" })</li>
-                 <li>@Html.ActionLink("Register", "Register", "Account", new { area = "" }, new { @class = "navbar" })</li>
-                 <li>@Html.ActionLink("Profile", "Index", "Account", new { area = "" }, new { @class = "navbar" })</li>
-                 <li>@Html.ActionLink("Shopping Cart", "ShoppingCart", "Home", new { area = "" }, new { @class = "navbar" })</li>
-                 <li>@Html.ActionLink("Wish Lists", "WishList", "Account", new { area = "" }, new { @class = "navbar" })</li>
-             </ul>
-         </div>
+        <div class="navbar-collapse collapse" id="navbarSupportedContent">
+            <ul class="nav navbar-nav mr-auto">
+                <li>@Html.ActionLink("Books", "Index", "Book", new { area = "" }, new { @class = "navbar" })</li>
+                <li>@Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "navbar" })</li>
+                <li>@Html.ActionLink("Register", "Register", "Account", new { area = "" }, new { @class = "navbar" })</li>
+                <li>@Html.ActionLink("Profile", "Index", "Account", new { area = "" }, new { @class = "navbar" })</li>
+                <li>@Html.ActionLink("Wish Lists", "WishList", "Account", new { area = "" }, new { @class = "navbar" })</li>
+            </ul>
+            <ul class="navbar-collapse collapse navbar-right">
+                @Html.Action("CartPartial", "ShoppingCart")
+            </ul>
+
+        </div>
     </div>
 </div>
