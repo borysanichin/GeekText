@@ -12,7 +12,27 @@ namespace GeekBooks.Controllers
         // GET: ShoppingCart
         public ActionResult Index()
         {
-            return View();
+            //Initialize the cart list
+            var shoppingcart = Session["ShoppingCart"] as List<ShoppingCartVM> ?? new List<ShoppingCartVM>();
+            //Check if Cart is empty
+            if (shoppingcart.Count == 0 || Session["ShoppingCart"] == null)
+            {
+                ViewBag.Message = "Your shopping cart is empty.";
+                return View();
+            }
+
+            //Calculate total and save to ViewBag
+            decimal total = 0m;
+
+            foreach (var item in shoppingcart)
+            {
+                total += item.Total;
+            }
+
+            ViewBag.GrandTotal = total;
+
+            //Return view list
+            return View(shoppingcart);
         }
         public ActionResult CartPartial()
         {
