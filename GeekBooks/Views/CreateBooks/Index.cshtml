@@ -1,58 +1,86 @@
-﻿@model IEnumerable<GeekBooks.Models.BookeModel>
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<GeekBooks.Models.BookeModel>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 
 @{
     ViewBag.Title = "Index";
 }
-<h2>Index</h2>
+
+<h2>Create Books</h2>
+
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+
+
 <table class="table">
+
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.BookModel.Title)
+            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.currentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BookModel.Price)
-
+            @Html.ActionLink("DatePublished", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.curentFilter })
         </th>
-
-        <th>
-
-            @Html.DisplayNameFor(model => model.BookGenreModel.GenreName)
-
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.BookModel.BookDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookModel.PublisherName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookModel.DatePublished)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookModel.ISBN)
-        </th>
-
+        <th></th>
     </tr>
+
+    <tr>
+        <th>
+           @* @Html.DisplayNameFor(model => model.BookModel.Title)*@
+            @Html.DisplayName("Title")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.BookModel.Price)*@
+            @Html.DisplayName("Price")
+        </th>
+        <th>
+           @*@Html.DisplayNameFor(model => model.BookGenreModel.GenreName)*@
+            @Html.DisplayName("GenreName")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.BookModel.BookDescription)*@
+            @Html.DisplayName("BookDescription")
+        </th>
+        <th>
+           @* @Html.DisplayNameFor(model => model.BookModel.PublisherName)*@
+            @Html.DisplayName("PublisherName")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.BookModel.DatePublished)*@
+            @Html.DisplayName("DatePublished")
+        </th>
+        <th>
+          @*  @Html.DisplayNameFor(model => model.BookModel.ISBN)*@
+            @Html.DisplayName("ISBN")
+        </th>
+    </tr>
+
     @foreach (var item in Model)
     {
         <tr>
             <td>
-
-                @Html.DisplayFor(model => item.BookModel.Title)
+                @Html.DisplayFor(modelItem => item.BookModel.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BookModel.Price)
             </td>
-
             <td>
                 @Html.DisplayFor(modelItem => item.BookGenreModel.GenreName)
             </td>
-
             <td>
                 @Html.DisplayFor(modelItem => item.BookModel.BookDescription)
             </td>
@@ -65,7 +93,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.BookModel.ISBN)
             </td>
-
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.BookModel.ISBN }) |
                 @Html.ActionLink("Details", "Details", new { id = item.BookModel.ISBN }) |
@@ -74,3 +101,9 @@
         </tr>
     }
 </table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

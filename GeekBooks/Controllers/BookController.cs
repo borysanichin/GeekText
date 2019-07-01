@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using GeekBooks.Models;
+using PagedList;
 //using GeekBooks.Models;
 
 namespace GeekBooks.Controllers
@@ -17,8 +18,24 @@ namespace GeekBooks.Controllers
         //List<Book> booklist = new List<Book>(); //To be removed
 
         // GET: Book
-        public ActionResult Index(string movieGenre, string searchString)
+        public ActionResult Index(string sortOrder, string movieGenre, string searchString,
+                                  string currentFilter, int? page)
         {
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             var GenreList = new List<string>();
 
@@ -46,9 +63,33 @@ namespace GeekBooks.Controllers
             {
                 book = book.Where(x => x.BookGenreModel.GenreName == movieGenre);
             }
+
             
 
-            return View(book);
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    book = book.OrderByDescending(s => s.BookModel.Title);
+                    break;
+                case "Date":
+                    book = book.OrderBy(s => s.BookModel.DatePublished);
+                    break;
+                case "date_desc":
+                    book = book.OrderByDescending(s => s.BookModel.DatePublished);
+                    break;
+                default:
+                    book = book.OrderBy(s => s.BookModel.Title);
+                    break;
+            }
+
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return View(book.ToPagedList(pageNumber, pageSize));
+
+
+           // return View(book);
         }
          //Can u please integrate this with the other index method
         // POST: Book
