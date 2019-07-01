@@ -1,0 +1,26 @@
+﻿@model IEnumerable<GeekBooks.WishlistBook>
+@{
+    ViewBag.Title = "WishListDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>@Model.WishlistName</h2>*@
+<hr />
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Book.Title</td>
+                <td>@book.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>

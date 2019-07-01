@@ -1,0 +1,76 @@
+﻿@model IEnumerable<GeekBooks.Models.BookeModel>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BookModel.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookModel.Price)
+
+        </th>
+
+        <th>
+
+            @Html.DisplayNameFor(model => model.BookGenreModel.GenreName)
+
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.BookModel.BookDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookModel.PublisherName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookModel.DatePublished)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookModel.ISBN)
+        </th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+
+                @Html.DisplayFor(model => item.BookModel.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookModel.Price)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BookGenreModel.GenreName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BookModel.BookDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookModel.PublisherName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookModel.DatePublished)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookModel.ISBN)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.BookModel.ISBN }) |
+                @Html.ActionLink("Details", "Details", new { id = item.BookModel.ISBN }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.BookModel.ISBN })
+            </td>
+        </tr>
+    }
+</table>

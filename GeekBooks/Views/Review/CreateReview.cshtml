@@ -1,19 +1,66 @@
-﻿<style>
+﻿@model GeekBooks.Review
+
+@{
+    ViewBag.Title = "Review Form";
+}
+
+
+
+<script>
+    /*function postStar(rating) {
+        var rate = rating.getAttribute('data-hook');
+        alert("Rating: " + rate);
+    }*/
+    $(document).ready(function () {
+        $("button").click(function () {
+            $("p:first").addClass("checked");
+        });
+    });
+</script>
+
+<style>
     .checked {
         color: orange;
     }
 </style>
 
-<script>
-    function postStar(rating) {
-        var rate = rating.getAttribute('data-hook');
-        alert("Rating: " + rate);
-    }
-</script>
+<!--<p>This is a test paragraph.</p>
+<button>add a class name to first p element</button>-->
 
+<h2>Create a Review</h2>
+@using (Html.BeginForm("CreateReview", "Review", FormMethod.Post))
+
+{
+    <h3>ISBN</h3>
+    @Html.TextBoxFor(m => m.ISBN)
+    <br />
+    <hr />
+    <h3>Username</h3>
+    @Html.TextBoxFor(m => m.Username)
+    <br />
+    <hr />
+    <h3>Rating</h3>
+    @Html.TextBoxFor(m => m.Rating)
+    <br />
+    <hr />
+    <h3>Comment</h3>
+    @Html.TextBoxFor(m => m.Comment)
+    <br />
+    <hr />
+    <h3>DatePosted</h3>
+    @Html.TextBoxFor(m => m.DatePosted)
+
+    <br />
+    <br />
+
+    <input type="submit" value="Submit" />
+}
+
+
+<!--onclick="postStar(this)"-->
+<!--
 <div>
     <form action="~/Book/Details/1">
-
         <h2>
             <span>Create Review</span>
         </h2>
@@ -21,34 +68,24 @@
         <h3>
             <span>Rating</span>
         </h3>
-
-        <button type="button" onclick="postStar(this)" class="glyphicon glyphicon-star checked" data-hook="star"></button>
-        <button type="button" onclick="postStar(this)" class="glyphicon glyphicon-star checked" data-hook="star"></button>
-        <button type="button" onclick="postStar(this)" class="glyphicon glyphicon-star checked" data-hook="star"></button>
-        <button type="button" onclick="postStar(this)" class="glyphicon glyphicon-star checked" data-hook="star"></button>
-        <button type="button" onclick="postStar(this)" class="glyphicon glyphicon-star" data-hook="star"></button>
-
-        <hr />
-
-        <h3>
-            <span>Add a Headline</span>
-        </h3>
-
-        <input type="text" />
-
-        <h3>
-            <span>Write your review</span>
-        </h3>
-
-        <textarea placeholder="What did you like or dislike?"></textarea>
-
-        <br />
-        <br />
-
-        <input type="submit" value="submit" />
-
+        <p>This is a test paragraph.</p>
+<button type="button" class="glyphicon glyphicon-star" data-hook="star"></button>
+<button type="button" class="glyphicon glyphicon-star" data-hook="star"></button>
+<button type="button" class="glyphicon glyphicon-star" data-hook="star"></button>
+<button type="button" class="glyphicon glyphicon-star" data-hook="star"></button>
+<button type="button" class="glyphicon glyphicon-star" data-hook="star"></button>
+<hr />
+<h3>
+    <span>Add a Headline</span>
+</h3>
+<input type="text" />
+<h3>
+    <span>Write your review</span>
+</h3>
+<textarea placeholder="What did you like or dislike?"></textarea>
+<br />
+<br />
+<input type="submit" value="submit" />
     </form>
 </div>
-
-
-
+-->

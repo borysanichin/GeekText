@@ -1,0 +1,58 @@
+﻿@model GeekBooks.Book
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PublisherName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PublisherName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePublished)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePublished)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ISBN }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

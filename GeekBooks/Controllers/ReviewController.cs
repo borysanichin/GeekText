@@ -10,16 +10,38 @@ namespace GeekBooks.Controllers
     public class ReviewController : Controller
     {
         // GET: Review
-        public ActionResult Index()
+        BookContext db = new BookContext();
+        public ActionResult Index(Review review)
         {
-            BookContext bookContext = new BookContext();
-            List<Review> reviews = bookContext.Reviews.ToList();
+
+            List<Review> reviews = db.Reviews.ToList();
+            decimal rating = review.Rating;
+            string comment = review.Comment;
+          
             return View(reviews);
         }
 
-        // POST: CreateReview
+        // GET: CreateReview
+        [HttpGet]
         public ActionResult CreateReview()
         {
+            return View();
+        }
+
+        // POST: CreateReview
+        [HttpPost]
+        public ActionResult CreateReview(Review reviewData)
+        {
+
+            var review = reviewData;
+
+            if (ModelState.IsValid) { 
+
+                 db.Reviews.Add(reviewData);
+                 db.SaveChanges();
+
+                 return RedirectToAction("Index");
+             }
             return View();
         }
     }

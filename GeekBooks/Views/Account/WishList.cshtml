@@ -1,8 +1,30 @@
-﻿
+﻿@model IEnumerable<GeekBooks.Wishlist>
 @{
     ViewBag.Title = "WishList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<hr />
+@if (!Model.Any())
+{
+    <p>This account does not have any wish lists</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Wish Lists</th>
+            </tr>
+        </thead>
+        <tbody>
+            @*@{ IEnumerable<string> wishlistNames = Model.Distinct(); }*@
 
-<h2>WishList</h2>
-
+            @foreach (var wishlist in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(wishlist.WishlistName, "WishListDetail", "Account", new { wishlistName = wishlist.WishlistName, username = wishlist.Username }, null)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

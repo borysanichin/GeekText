@@ -1,25 +1,22 @@
-﻿@using GeekBooks.Models;
+﻿@model IEnumerable<GeekBooks.Review>
 
-
-@model IEnumerable<Review>
 
 @{
     ViewBag.Title = "Reviews List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <h2>Reviews</h2>
-
 @{
-    foreach (Review review in @Model)
+    foreach (var item in Model)
     {
-<table>
-    <tr>
-        <td>@review.rating</td>
-        <td>@review.comment</td>
-    </tr>
-</table>
+        <table>
+            <tr>
+                <td>@item.Username</td>
+                <td>@item.ISBN</td>
+                <td>@item.Rating</td>
+                <td>@item.Comment</td>
+            </tr>
+        </table>
     }
 }
-
