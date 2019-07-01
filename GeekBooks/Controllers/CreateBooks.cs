@@ -27,7 +27,7 @@ namespace GeekBooks.Controllers
                            orderby d.GenreName
                            select d.GenreName;
 
-            // GenreList.AddRange(GenreQry.Distinct());
+            GenreList.AddRange(GenreQry.Distinct());
 
             ViewBag.movieGenre = new SelectList(GenreList);
 
@@ -46,7 +46,7 @@ namespace GeekBooks.Controllers
             /*
             if (!String.IsNullOrEmpty(movieGenre))
             {
-                books = books.Where(x => x.GenreName == movieGenre);
+                viewBook = viewBook.Where(x => x.BookGenreModel.GenreName == movieGenre);
             }*/
 
             return View(viewBook);
@@ -103,18 +103,20 @@ namespace GeekBooks.Controllers
                            select new BookeModel { BookModel = m, BookGenreModel = n };
 
 
-            // ViewBag.GenreName = new SelectList(db.Genres, "GenreName", "GenreName", book.GenreName);
+            ViewBag.GenreName = new SelectList(db.Genres, "GenreName", "GenreName", db.Genres);
             return View(viewBook);
         }
 
         // GET: Books/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Book book = db.Books.Find(id);
+            var genre = from n in db.Genres
+                        select n;
             if (book == null)
             {
                 return HttpNotFound();
@@ -122,7 +124,7 @@ namespace GeekBooks.Controllers
             var viewBook = from m in db.Books
                            join n in db.BookGenres on m.ISBN equals n.ISBN
                            select new BookeModel { BookModel = m, BookGenreModel = n };
-            // ViewBag.GenreName = new SelectList(db.Genres, "GenreName", "GenreName", book.GenreName);
+           // ViewBag.GenreName = new SelectList(db.Genres, "GenreName", "GenreName", genre);
             return View(viewBook);
         }
 

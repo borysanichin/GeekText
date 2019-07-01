@@ -22,6 +22,8 @@ namespace GeekBooks.Models
     {
         public Book BookModel { get; set; }
         public BookGenre BookGenreModel { get; set; }
+        public Review ReviewModel { get; set; }
+        public Genre GenreModel { get; set; }
 
 
     }

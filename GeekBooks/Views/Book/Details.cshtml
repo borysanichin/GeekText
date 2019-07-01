@@ -1,22 +1,64 @@
-﻿@model GeekBooks.Models.Book
+﻿@model GeekBooks.Models.BookeModel
 
 @{
-    ViewBag.Title = "Book Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Details";
 }
 
-@using GeekBooks.Models
+<h2>Details</h2>
 
-<!--Book Details Partial View-->
-@Html.Partial("_Details")
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BookModel.Title)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.BookModel.Title)
+        </dd>
 
-<!--Book Reviews Partial View-->
-@{ 
-    Html.RenderPartial("_Review");
-}
+        <dt>
+            @Html.DisplayNameFor(model => model.BookModel.Price)
+        </dt>
 
-@Html.ActionLink("Back to browser", "Index")
+        <dd>
+            @Html.DisplayFor(model => model.BookModel.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BookGenreModel.GenreName)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.BookGenreModel.GenreName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BookModel.BookDescription)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.BookModel.BookDescription)
+        </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.BookModel.PublisherName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookModel.PublisherName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookModel.DatePublished)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookModel.DatePublished)
+        </dd>
+
+    </dl>
+</div>
+<p>
+
+ @Html.ActionLink("Back to List", "Index")
+</p>
