@@ -12,15 +12,17 @@ namespace GeekBooks.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Review
+    public partial class Genre
     {
-        public string ISBN { get; set; }
-        public string Username { get; set; }
-        public decimal Rating { get; set; }
-        public string Comment { get; set; }
-        public System.DateTime DatePosted { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Genre()
+        {
+            this.BookGenres = new HashSet<BookGenre>();
+        }
     
-        public virtual Book Book { get; set; }
-        public virtual User User { get; set; }
+        public string GenreName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookGenre> BookGenres { get; set; }
     }
 }

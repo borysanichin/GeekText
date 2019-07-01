@@ -7,20 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GeekBooks.Models
+namespace GeekBooks
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Review
+    public partial class ItemList
     {
-        public string ISBN { get; set; }
-        public string Username { get; set; }
-        public decimal Rating { get; set; }
-        public string Comment { get; set; }
-        public System.DateTime DatePosted { get; set; }
-    
-        public virtual Book Book { get; set; }
-        public virtual User User { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Category { get; set; }
+        public Nullable<decimal> Price { get; set; }
     }
 }

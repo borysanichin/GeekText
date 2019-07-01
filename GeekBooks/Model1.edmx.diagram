@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d4909f5879134938aac9960a9a0a0faa" Name="Diagram1">
+        <EntityTypeShape EntityType="BookStoreModel.Author" Width="1.5" PointX="3.75" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Book" Width="1.5" PointX="3.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.BookInCart" Width="1.5" PointX="5.25" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.CreditCard" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Genre" Width="1.5" PointX="6" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.HomeAddress" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.ItemList" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Order" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Review" Width="1.5" PointX="6" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.ShippingAddress" Width="1.5" PointX="3" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.ShoppingCart" Width="1.5" PointX="3" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.User" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Wishlist" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Wrote" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="BookStoreModel.FK__Wrote__AuthorID__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__BookInCart__ISBN__0E391C95" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__Genre__ISBN__0F2D40CE" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__Orders__ISBN__0A688BB1" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__Reviews__ISBN__0B5CAFEA" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__Wishlist__ISBN__0C50D423" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__Wrote__ISBN__0D44F85C" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__BookInCar__CartI__65370702" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__CreditCar__Usern__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.HomeAddressUser_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__Orders__Username__32AB8735" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__Reviews__Usernam__367C1819" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.ShippingAddressUser_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__ShoppingC__UserI__625A9A57" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK__Wishlist__Userna__41EDCAC5" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

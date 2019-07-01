@@ -12,13 +12,13 @@ namespace GeekBooks.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Review
+    public partial class Wishlist
     {
-        public string ISBN { get; set; }
         public string Username { get; set; }
-        public decimal Rating { get; set; }
-        public string Comment { get; set; }
-        public System.DateTime DatePosted { get; set; }
+        public string ISBN { get; set; }
+        public decimal Quantity { get; set; }
+        public string WishlistName { get; set; }
+        public bool Preferred { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }

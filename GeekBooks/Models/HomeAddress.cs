@@ -12,15 +12,15 @@ namespace GeekBooks.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Review
+    public partial class HomeAddress
     {
-        public string ISBN { get; set; }
         public string Username { get; set; }
-        public decimal Rating { get; set; }
-        public string Comment { get; set; }
-        public System.DateTime DatePosted { get; set; }
+        public string Street { get; set; }
+        public Nullable<decimal> Apt { get; set; }
+        public string City { get; set; }
+        public string ZipCode { get; set; }
+        public string Country { get; set; }
     
-        public virtual Book Book { get; set; }
         public virtual User User { get; set; }
     }
 }

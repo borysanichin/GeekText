@@ -7,18 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GeekBooks.Models
+namespace GeekBooks
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Review
+    public partial class Order
     {
+        public string OrderNumber { get; set; }
+        public System.DateTime OrderDate { get; set; }
         public string ISBN { get; set; }
         public string Username { get; set; }
-        public decimal Rating { get; set; }
-        public string Comment { get; set; }
-        public System.DateTime DatePosted { get; set; }
+        public decimal Price { get; set; }
+        public decimal Quantity { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }

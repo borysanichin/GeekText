@@ -12,15 +12,15 @@ namespace GeekBooks.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Review
+    public partial class CreditCard
     {
-        public string ISBN { get; set; }
+        public string CCNumber { get; set; }
         public string Username { get; set; }
-        public decimal Rating { get; set; }
-        public string Comment { get; set; }
-        public System.DateTime DatePosted { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string CVV { get; set; }
+        public System.DateTime ExpDate { get; set; }
     
-        public virtual Book Book { get; set; }
         public virtual User User { get; set; }
     }
 }

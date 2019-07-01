@@ -21,12 +21,12 @@ namespace GeekBooks.Controllers
 
         // POST: Book
         [HttpPost]
-        public ActionResult Index(Review review)
+        /*public ActionResult Index(Review review)
         {
             decimal rating = review.rating;
             string comment = review.comment;
             return View();
-        }
+        }*/
 
         // GET: Book/Details/{isbn}
         [HttpGet]
