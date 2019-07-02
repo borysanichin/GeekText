@@ -60,5 +60,23 @@ namespace GeekBooks.Controllers
             return View(wwbook);
 
         }
+        public ActionResult AddWishlist(string id)
+        {
+            //var user = _context.Users.SingleOrDefault(w => w.Username == id);
+
+            /*var viewModel = new UserWishlist
+            {
+                User = user,
+                Wishlists = _context.Wishlists.ToList()
+        };  */
+            return View();
+        }
+        public ActionResult SaveWishlist(Wishlist wishlist)
+        {
+            _context.Wishlists.Add(wishlist);
+            _context.SaveChanges();
+
+            return RedirectToAction("Wishlist", "Account");
+        }
     }
 }
