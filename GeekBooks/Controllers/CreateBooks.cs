@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GeekBooks.Models;
-using PagedList;
 
 namespace GeekBooks.Controllers
 {
@@ -16,24 +15,8 @@ namespace GeekBooks.Controllers
         private BookContext db = new BookContext();
 
         // GET: Books
-        public ActionResult Index(string sortOrder, string movieGenre, string searchString,
-                                  string currentFilter, int? page)
+        public ActionResult Index(string movieGenre, string searchString)
         {
-
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
 
             var GenreList = new List<string>();
 
@@ -51,14 +34,14 @@ namespace GeekBooks.Controllers
             /* var books = from m in db.Books
                          select new BookeModel { BookModel = m };*/
 
-            var book = from m in db.Books
+            var viewBook = from m in db.Books
                            join n in db.BookGenres on m.ISBN equals n.ISBN
                            select new BookeModel { BookModel = m, BookGenreModel = n };
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 //books = books.Where(s => s.BookModel.Title.Contains(searchString));\
-                book = book.Where(s => s.BookModel.Title.Contains(searchString));
+                viewBook = viewBook.Where(s => s.BookModel.Title.Contains(searchString));
             }
             /*
             if (!String.IsNullOrEmpty(movieGenre))
@@ -66,32 +49,7 @@ namespace GeekBooks.Controllers
                 viewBook = viewBook.Where(x => x.BookGenreModel.GenreName == movieGenre);
             }*/
 
-           
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    book = book.OrderByDescending(s => s.BookModel.Title);
-                    break;
-                case "Date":
-                    book = book.OrderBy(s => s.BookModel.DatePublished);
-                    break;
-                case "date_desc":
-                    book = book.OrderByDescending(s => s.BookModel.DatePublished);
-                    break;
-                default:
-                    book = book.OrderBy(s => s.BookModel.Title);
-                    break;
-            }
-
-
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-
-            return View(book.ToPagedList(pageNumber, pageSize));
-
-
-            //return View(book);
+            return View(viewBook);
         }
 
         // GET: Books/Details/5
