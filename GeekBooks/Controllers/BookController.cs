@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using GeekBooks.Models;
+using PagedList;
 //using GeekBooks.Models;
 
 namespace GeekBooks.Controllers
@@ -17,58 +18,44 @@ namespace GeekBooks.Controllers
         //List<Book> booklist = new List<Book>(); //To be removed
 
         // GET: Book
-        public ActionResult Index(string movieGenre, string searchString,
-                                  string sortOrder)
+        public ActionResult Index(string sortOrder, string movieGenre, string searchString,
+                                  string currentFilter, int? page)
         {
 
-            var GenreList = new List<string>();
-
-            var GenreQry = from d in db.Genres
-                           orderby d.GenreName
-                           select d.GenreName;
-
-
-           GenreList.AddRange(GenreQry.Distinct());
-
-            ViewBag.movieGenre = new SelectList(GenreList);
-
-            var book = from m in db.Books
-                           join n in db.BookGenres on m.ISBN equals n.ISBN
-                           select new BookeModel { BookModel = m, BookGenreModel = n };
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                //books = books.Where(s => s.BookModel.Title.Contains(searchString));\
-                book = book.Where(s => s.BookModel.Title.Contains(searchString));
-            }
-
-            
-            if (!String.IsNullOrEmpty(movieGenre))
-            {
-                book = book.Where(x => x.BookGenreModel.GenreName == movieGenre);
-            }
-
+            Search sh = new Search();
+            Sort st = new Sort();
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
-            switch (sortOrder)
+            if (searchString != null)
             {
-                case "name_desc":
-                    book = book.OrderByDescending(s => s.BookModel.Title);
-                    break;
-                case "Date":
-                    book = book.OrderBy(s => s.BookModel.DatePublished);
-                    break;
-                case "date_desc":
-                    book = book.OrderByDescending(s => s.BookModel.DatePublished);
-                    break;
-                default:
-                    book = book.OrderBy(s => s.BookModel.Title);
-                    break;
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
             }
 
+            ViewBag.CurrentFilter = searchString;
 
-            return View(book);
+            var GenreList = sh.genreList(db);
+            ViewBag.movieGenre = new SelectList(GenreList);
+
+          
+
+            var book = sh.search(db, searchString, movieGenre);
+            book = st.sort(book, sortOrder);
+
+
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return View(book.ToPagedList(pageNumber, pageSize));
+
+
+           // return View(book);
         }
          //Can u please integrate this with the other index method
         // POST: Book

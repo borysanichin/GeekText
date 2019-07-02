@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using PagedList;
 
 namespace GeekBooks.Models
 {
@@ -24,7 +25,7 @@ namespace GeekBooks.Models
         public BookGenre BookGenreModel { get; set; }
         public Review ReviewModel { get; set; }
         public Genre GenreModel { get; set; }
-
+        public IPagedList PageListModel { get; set; }
 
     }
 }
