@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
+using GeekBooks.ViewModels;
 
 namespace GeekBooks.Controllers
 {
@@ -46,12 +47,17 @@ namespace GeekBooks.Controllers
         [Route("Account/WishListDetail/{wishlistName}/{username}")]
         public ActionResult WishListDetail(string wishlistName, string username)
         {
-            List<WishlistBook> books = _context.WishlistBooks.Include(w => w.Book).Where(w => w.WishlistName == wishlistName && w.Username == username).ToList();
-
-            if (books == null)
+          //List<WishlistBook> books = _context.WishlistBooks.Include(w => w.Book).Where(w => w.WishlistName == wishlistName && w.Username == username).ToList();
+            var wwbook = new WishlistWishlistBook
+            {
+                wishlistName = wishlistName,
+                wishlistBooks = _context.WishlistBooks.Include(w => w.Book).Where(w => w.WishlistName == wishlistName && w.Username == username).ToList()
+            };
+            
+            if (wwbook == null)
                 return HttpNotFound();
 
-            return View(books);
+            return View(wwbook);
 
         }
     }
