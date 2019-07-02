@@ -1,10 +1,10 @@
-﻿@model IEnumerable<GeekBooks.WishlistBook>
+﻿@model GeekBooks.ViewModels.WishlistWishlistBook
 @{
     ViewBag.Title = "WishListDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<h2>@Model.WishlistName</h2>*@
+<h2>@Model.wishlistName</h2>
 <hr />
 <table class="table table-bordered table-hover">
     <thead>
@@ -15,7 +15,7 @@
     </thead>
     <tbody>
 
-        @foreach (var book in Model)
+        @foreach (var book in Model.wishlistBooks)
         {
             <tr>
                 <td>@book.Book.Title</td>
