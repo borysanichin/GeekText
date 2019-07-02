@@ -17,14 +17,30 @@ else
             </tr>
         </thead>
         <tbody>
-            @*@{ IEnumerable<string> wishlistNames = Model.Distinct(); }*@
 
-            @foreach (var wishlist in Model)
-            {
-                <tr>
-                    <td>@Html.ActionLink(wishlist.WishlistName, "WishListDetail", "Account", new { wishlistName = wishlist.WishlistName, username = wishlist.Username }, null)</td>
-                </tr>
+
+            @{ var count = 0;
+
+                foreach (var wishlist in Model)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(wishlist.WishlistName, "WishListDetail", "Account", new { wishlistName = wishlist.WishlistName, username = wishlist.Username }, null)</td>
+                    </tr>
+                    count++;
+                }
             }
+
         </tbody>
     </table>
+    if (count < 4)
+    {
+        <button type="submit" class="btn btn-secondary">@Html.ActionLink("Add New Wishlist", "AddWishlist", "Account", new { id = "guest" }, null)</button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-secondar disabled">Add New Wishlist</button>
+        <hr />
+        <p>Limit of three wishlists has been reached.</p>
+    }
 }
+
