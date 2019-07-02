@@ -291,6 +291,7 @@
     <Content Include="Views\CreateBooks\Details.cshtml" />
     <Content Include="Views\CreateBooks\Edit.cshtml" />
     <Content Include="Views\CreateBooks\Index.cshtml" />
+    <Content Include="Views\Account\AddWishlist.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
