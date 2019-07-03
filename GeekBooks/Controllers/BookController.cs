@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using GeekBooks.Models;
+using PagedList;
 //using GeekBooks.Models;
 
 namespace GeekBooks.Controllers
@@ -17,51 +18,60 @@ namespace GeekBooks.Controllers
         //List<Book> booklist = new List<Book>(); //To be removed
 
         // GET: Book
-        public ActionResult Index(string movieGenre, string searchString)
+        public ActionResult Index(string sortOrder, string movieGenre, string searchString,
+                                  string currentFilter, int? page)
         {
+            Search sh = new Search();
+            Sort st = new Sort();
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
+            ViewBag.AuthorSortParm = sortOrder == "Author" ? "author_desc" : "Author";
+            // ViewBag.AuthorSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
-            var GenreList = new List<string>();
 
-            var GenreQry = from d in db.Genres
-                           orderby d.GenreName
-                           select d.GenreName;
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
+            ViewBag.CurrentFilter = searchString;
 
-           GenreList.AddRange(GenreQry.Distinct());
-
+            var GenreList = sh.genreList(db);
             ViewBag.movieGenre = new SelectList(GenreList);
 
-            var book = from m in db.Books
-                           join n in db.BookGenres on m.ISBN equals n.ISBN
-                           select new BookeModel { BookModel = m, BookGenreModel = n };
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                //books = books.Where(s => s.BookModel.Title.Contains(searchString));\
-                book = book.Where(s => s.BookModel.Title.Contains(searchString));
-            }
 
-            
-            if (!String.IsNullOrEmpty(movieGenre))
-            {
-                book = book.Where(x => x.BookGenreModel.GenreName == movieGenre);
-            }
-            
+            var book = sh.search(db, searchString, movieGenre);
+            book = st.sort(book, sortOrder);
 
-            return View(book);
+
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            return View(book.ToPagedList(pageNumber, pageSize));
+
+
+            // return View(book);
         }
-         //Can u please integrate this with the other index method
+        //Can u please integrate this with the other index method
         // POST: Book
-       /* [HttpPost]
-        public ActionResult Index(Review review)
-        {
-            decimal rating = review.Rating;
-            string comment = review.Comment;
-            return View();
-        }*/
+        /* [HttpPost]
+         public ActionResult Index(Review review)
+         {
+             decimal rating = review.Rating;
+             string comment = review.Comment;
+             return View();
+         }*/
 
 
-        
+
         public ActionResult Details(string id, BookeModel bookM)
         {
             
