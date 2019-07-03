@@ -221,6 +221,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CreateBooks.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="User.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Cart\CartVM.cs" />
     <Compile Include="ViewModels\WIshlistWishlistBook.cs" />
     <Compile Include="Wishlist.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
@@ -292,6 +294,8 @@
     <Content Include="Views\CreateBooks\Edit.cshtml" />
     <Content Include="Views\CreateBooks\Index.cshtml" />
     <Content Include="Views\Account\AddWishlist.cshtml" />
+    <Content Include="Views\Cart\CartPartial.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

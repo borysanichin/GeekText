@@ -18,9 +18,15 @@
                 <li>@Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "navbar" })</li>
                 <li>@Html.ActionLink("Register", "Register", "Account", new { area = "" }, new { @class = "navbar" })</li>
                 <li>@Html.ActionLink("Profile", "Index", "Account", new { area = "" }, new { @class = "navbar" })</li>
-                <li>@Html.ActionLink("Shopping Cart", "ShoppingCart", "Home", new { area = "" }, new { @class = "navbar" })</li>
+
                 <li>@Html.ActionLink("Wish Lists", "WishList", "Account", new { area = "" }, new { @class = "navbar" })</li>
             </ul>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-collapse collapse navbar-right">
+                    @Html.Action("CartPartial", "Cart")
+                </ul>     
+            </div>
+            
         </div>
     </div>
 </div>
