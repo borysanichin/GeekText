@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Khalid\Downloads\GeekTextWebApp-Test_Branch (3)\GeekTextWebApp-Test_Branch\GeekBooks\BookContext.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\Downloads\GeekTextWebApp-Test_Branch July 2 2221\GeekTextWebApp-Test_Branch\GeekBooks\BookContext.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

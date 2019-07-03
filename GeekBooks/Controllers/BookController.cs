@@ -21,12 +21,15 @@ namespace GeekBooks.Controllers
         public ActionResult Index(string sortOrder, string movieGenre, string searchString,
                                   string currentFilter, int? page)
         {
-
             Search sh = new Search();
             Sort st = new Sort();
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
+            ViewBag.AuthorSortParm = sortOrder == "Author" ? "author_desc" : "Author";
+            // ViewBag.AuthorSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
 
             if (searchString != null)
             {
@@ -42,33 +45,33 @@ namespace GeekBooks.Controllers
             var GenreList = sh.genreList(db);
             ViewBag.movieGenre = new SelectList(GenreList);
 
-          
+
 
             var book = sh.search(db, searchString, movieGenre);
             book = st.sort(book, sortOrder);
 
 
 
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
 
             return View(book.ToPagedList(pageNumber, pageSize));
 
 
-           // return View(book);
+            // return View(book);
         }
-         //Can u please integrate this with the other index method
+        //Can u please integrate this with the other index method
         // POST: Book
-       /* [HttpPost]
-        public ActionResult Index(Review review)
-        {
-            decimal rating = review.Rating;
-            string comment = review.Comment;
-            return View();
-        }*/
+        /* [HttpPost]
+         public ActionResult Index(Review review)
+         {
+             decimal rating = review.Rating;
+             string comment = review.Comment;
+             return View();
+         }*/
 
 
-        
+
         public ActionResult Details(string id, BookeModel bookM)
         {
             

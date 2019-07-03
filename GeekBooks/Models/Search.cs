@@ -15,9 +15,53 @@ namespace GeekBooks.Models
 
         public IQueryable<BookeModel> search(BookContext db, string searchString, string movieGenre)
         {
+
+
+            var Review = from m in db.Books
+                         join r in db.Reviews on m.ISBN equals r.ISBN
+                         select new
+                         {
+                             ISBN = m.ISBN,
+                             Rating = r.Rating
+                         };
+
+            var aReview = Review.GroupBy(g => g.ISBN, r => r.Rating).Select(g => new
+            {
+                ISBN = g.Key,
+                Rating = g.Average()
+            });
+
+
+            /*
+                        aReview = (
+                            (from r in aReview
+                                   select r)
+                                   .Union(from b in Review
+                                    select b)).Distinct()
+                                    ;
+                                    */
+
+
+
+
             var book = from m in db.Books
                        join n in db.BookGenres on m.ISBN equals n.ISBN
-                       select new BookeModel { BookModel = m, BookGenreModel = n };
+                       join b in db.Wrotes on m.ISBN equals b.ISBN
+                       join c in db.Authors on b.AuthorID equals c.AuthorID
+                       //  join r in db.Reviews on m.ISBN equals r.ISBN
+                       // join p in aReview on m.ISBN equals p.ISBN
+                       select new BookeModel
+                       {
+                           BookModel = m,
+                           BookGenreModel = n,
+                           WroteModel = b,
+                           AuthorModel = c /*ReviewModel = r,*/
+                                           /* reviews = p.Rating */
+                       };
+
+
+
+
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -44,6 +88,6 @@ namespace GeekBooks.Models
             return GenreList;
         }
 
-       
+
     }
 }
