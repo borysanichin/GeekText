@@ -1,22 +1,19 @@
-﻿@model IEnumerable<GeekBooks.Models.BookeModel>
-
-
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<GeekBooks.Models.BookeModel>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Book List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 <h2>Browse our books</h2>
-
 <p>
-
     @using (Html.BeginForm())
     {
     <p>
         Genre: @Html.DropDownList("movieGenre", "All")
-        Title: @Html.TextBox("SearchString") <br />
-        <input type="submit" value="Filter" />
+        Title: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
     </p>
 
 }
@@ -25,60 +22,84 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BookModel.Title)
+                @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.currentFilter })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookModel.Price)
 
-            </th>
-
-            <th>
-
-                @Html.DisplayNameFor(model => model.BookGenreModel.GenreName)
-
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.BookModel.BookDescription)
+                @Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSortParm, currentFilter = ViewBag.curentFilter })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookModel.PublisherName)
+                @Html.DisplayName("Genre")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookModel.DatePublished)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookModel.ISBN)
+                @Html.ActionLink("Author", "Index", new { sortOrder = ViewBag.AuthorSortParm, currentFilter = ViewBag.curentFilter })
             </th>
 
+            @*<th>
+                    @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.curentFilter })
+
+                </th>*@
+            <th>
+                @Html.DisplayName("Rating")
+            </th>
+            <th>
+                @Html.DisplayName("ISBN")
+            </th>
+            <th>
+                @Html.ActionLink("DatePublished", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.curentFilter })
+
+            </th>
+            <th></th>
         </tr>
+        @*
+            <tr>
+                <th>
+                    @Html.DisplayName("Title")
+                </th>
+                <th>
+                    @Html.DisplayName("Price")
+                </th>
+                <th>
+                    @Html.DisplayName("Genre")
+                </th>
+                <th>
+                    @Html.DisplayName("Author")
+                </th>
+                <th>
+                    @Html.DisplayName("Rating")
+                </th>
+                <th>
+                    @Html.DisplayName("ISBN")
+                </th>
+            </tr>
+        *@
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.ActionLink(item.BookModel.Title, "Details", new { id = item.BookModel.ISBN })
+                    @Html.DisplayFor(modelItem => item.BookModel.Title)
                 </td>
                 <td>
+                    $
                     @Html.DisplayFor(modelItem => item.BookModel.Price)
                 </td>
-
                 <td>
                     @Html.DisplayFor(modelItem => item.BookGenreModel.GenreName)
                 </td>
-
                 <td>
-                    @Html.DisplayFor(modelItem => item.BookModel.BookDescription)
+                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorFirst)
+                    &nbsp
+                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorLast)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BookModel.PublisherName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookModel.DatePublished)
+                    @Html.DisplayFor(modelItem => item.ReviewModel.Rating)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BookModel.ISBN)
                 </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookModel.DatePublished)
+                </td>
                 <td>
                     @Html.ActionLink("Add to Wish List", "WishList", new { id = item.BookModel.ISBN })  |
                     @Html.ActionLink("Add to Shopping Cart", "ShoppingCart", new { id = item.BookModel.ISBN })
@@ -86,6 +107,11 @@
             </tr>
         }
     </table>
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
     <!--Hard Coded Below-->
     @*
         <a href="~/Book/Details/1">

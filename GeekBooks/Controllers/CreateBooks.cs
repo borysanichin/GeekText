@@ -83,13 +83,15 @@ namespace GeekBooks.Controllers
         {
             var book = bookM.BookModel;
             var bookGenre = bookM.BookGenreModel;
-
+            var wrote = bookM.WroteModel;
+           
 
             if (ModelState.IsValid)
             {
 
                 db.Books.Add(book);
                 bookGenre.ISBN = book.ISBN;
+                wrote.ISBN = book.ISBN;
                 db.BookGenres.Add(bookGenre);
                 db.SaveChanges();
 
