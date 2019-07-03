@@ -1,10 +1,7 @@
 ﻿@model GeekBooks.Review
-
 @{
     ViewBag.Title = "Review Form";
 }
-
-
 
 <script>
     /*function postStar(rating) {
@@ -17,45 +14,50 @@
         });
     });
 </script>
-
 <style>
+
     .checked {
         color: orange;
     }
 </style>
-
 <!--<p>This is a test paragraph.</p>
 <button>add a class name to first p element</button>-->
-
 <h2>Create a Review</h2>
 @using (Html.BeginForm("CreateReview", "Review", FormMethod.Post))
 
 {
-    <h3>ISBN</h3>
-    @Html.TextBoxFor(m => m.ISBN)
-    <br />
-    <hr />
-    <h3>Username</h3>
-    @Html.TextBoxFor(m => m.Username)
-    <br />
-    <hr />
-    <h3>Rating</h3>
-    @Html.TextBoxFor(m => m.Rating)
-    <br />
-    <hr />
-    <h3>Comment</h3>
-    @Html.TextBoxFor(m => m.Comment)
-    <br />
-    <hr />
-    <h3>DatePosted</h3>
-    @Html.TextBoxFor(m => m.DatePosted)
+    
+        <h3>ISBN</h3>
+        @Html.TextBoxFor(m => m.ISBN)
+        <br />
+        <hr />
+        <h3>Username</h3>
+        @Html.TextBoxFor(m => m.Username)
+        <br />
+        <hr />
+        <h3>Rating</h3>
+        @Html.TextBoxFor(m => m.Rating)
+        <br />
+        <hr />
+        <h3>Comment</h3>
+        @Html.TextBoxFor(m => m.Comment)
+        <br />
+        <hr />
+        <h3>DatePosted</h3>
+        @Html.TextBoxFor(m => m.DatePosted)
 
-    <br />
-    <br />
+        <br />
+        <br />
 
-    <input type="submit" value="Submit" />
+        <input type="submit" value="Submit" />
+    
+
+
+
+
+
+
 }
-
 
 <!--onclick="postStar(this)"-->
 <!--

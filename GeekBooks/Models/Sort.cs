@@ -30,10 +30,10 @@ namespace GeekBooks.Models
                     book = book.OrderByDescending(s => s.BookModel.Price);
                     break;
                 case "Author":
-                    book = book.OrderBy(s => s.BookModel.PublisherName);
+                    book = book.OrderBy(s => s.AuthorModel.AuthorFirst);
                     break;
                 case "author_desc":
-                    book = book.OrderByDescending(s => s.BookModel.PublisherName);
+                    book = book.OrderByDescending(s => s.AuthorModel.AuthorFirst);
                     break;
                 case "Rating":
                     book = book.OrderBy(s => s.reviews);
