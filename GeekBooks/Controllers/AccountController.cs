@@ -60,7 +60,8 @@ namespace GeekBooks.Controllers
             return View(wwbook);
 
         }
-        public ActionResult AddWishlist(string id)
+        [Route("Account/AddWishlist/{Username}")]
+        public ActionResult AddWishlist(string Username)
         {
             //var user = _context.Users.SingleOrDefault(w => w.Username == id);
 

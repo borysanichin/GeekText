@@ -8,10 +8,6 @@
 @using (Html.BeginForm("SaveWishlist", "Account"))
 {
     <div class="form-group">
-        @Html.LabelFor(w => w.Username)
-        @Html.TextBoxFor(w => w.Username, new { @class = "form-control" })
-    </div>
-    <div class="form-group">
         @Html.LabelFor(w => w.WishlistName)
         @Html.TextBoxFor(w => w.WishlistName, new { @class = "form-control" })
     </div>
@@ -20,6 +16,6 @@
             @Html.CheckBoxFor(w => w.Preferred) Make this the preferred wishlist
         </label>
     </div>
-    //@Html.HiddenFor(w => "guest")
+    @Html.HiddenFor(w => w.Username)
     <button type="submit" class="btn btn-primary">Save</button>
 }
