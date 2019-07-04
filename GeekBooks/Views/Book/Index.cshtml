@@ -77,7 +77,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BookModel.Title)
+                    @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN }, null)
                 </td>
                 <td>
                     $
