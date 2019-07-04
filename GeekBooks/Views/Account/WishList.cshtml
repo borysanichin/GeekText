@@ -14,6 +14,7 @@ else
         <thead>
             <tr>
                 <th>Wish Lists</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,9 @@ else
                 {
                     <tr>
                         <td>@Html.ActionLink(wishlist.WishlistName, "WishListDetail", "Account", new { wishlistName = wishlist.WishlistName, username = wishlist.Username }, null)</td>
+                        <td>@Html.ActionLink("delete", "DeleteWishlist", "Account", new { WishlistName = wishlist.WishlistName, Username = wishlist.Username }, null) 
+                            @Html.ActionLink("|", null) 
+                            @Html.ActionLink("rename", "RenameWishlist", "Account", new { wishlist }, null)</td>
                     </tr>
                     count++;
                 }
@@ -34,7 +38,7 @@ else
     </table>
     if (count < 3)
     {
-        <button type="submit" class="btn btn-secondary">@Html.ActionLink("Add New Wishlist", "AddWishlist", "Account", new { id = "guest" }, null)</button>
+        @Html.ActionLink("Add New Wishlist", "AddWishlist", "Account", new { id = Model.FirstOrDefault().Username }, new { @class = "btn btn-primary btn-small" })
     }
     else
     {
