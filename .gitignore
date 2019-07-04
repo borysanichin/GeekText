@@ -262,5 +262,5 @@ __pycache__/
 
 # GeektextDB2017
 
-./GeektextDB2017/GeektextDB2017.mdf
-./GeektextDB2017/GeektextDB2017_log.ldf
+#./GeektextDB2017/GeektextDB2017.mdf
+#./GeektextDB2017/GeektextDB2017_log.ldf
