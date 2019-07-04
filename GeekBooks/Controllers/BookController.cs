@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using GeekBooks.Models;
 using PagedList;
+using GeekBooks.ViewModels;
 //using GeekBooks.Models;
 
 namespace GeekBooks.Controllers
@@ -71,7 +72,6 @@ namespace GeekBooks.Controllers
          }*/
 
 
-
         public ActionResult Details(string id, BookeModel bookM)
         {
             
@@ -99,6 +99,23 @@ namespace GeekBooks.Controllers
                 return HttpNotFound();
             }
             return View(bookM);
+        }
+
+        /*I am still working on this Book Details View to 
+          include add book to wishlist functionality. I am 
+          using BookDetailsViewModel(also not finished)
+          in ViewModels folder to pass all the data to the
+          view (Borys).*/
+        [Route("Book/BookDetails/{isbn}")]
+        public ActionResult BookDetails(string isbn)
+        {
+            var viewModel = new BookDetailsViewModel
+            {
+                Book = db.Books.Find(isbn),
+                BookGenre = db.BookGenres.Where(b => b.ISBN == isbn).FirstOrDefault(),
+                Wishlists = db.Wishlists.Where(b => b.Username == "guest").ToList()
+            };
+            return View(viewModel);
         }
 
         public ActionResult WishList()

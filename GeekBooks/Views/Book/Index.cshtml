@@ -76,8 +76,9 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookModel.Title)
+                <td>@*I made this a link to the Book Details Page,
+                    so I can implemet add book to wishlist functionality(Borys)*@
+                    @Html.ActionLink(item.BookModel.Title, "BookDetails", "Book", new { isbn = item.BookModel.ISBN}, null)
                 </td>
                 <td>
                     $

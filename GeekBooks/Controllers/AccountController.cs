@@ -120,5 +120,18 @@ namespace GeekBooks.Controllers
 
             return RedirectToAction("Wishlist", "Account");
         }
+
+        public ActionResult AddBookToWishlist(WishlistBook id)
+        {
+            WishlistBook wbook = _context.WishlistBooks.Find(id.Username, id.ISBN, id.WishlistName);
+
+            if (wbook == null)
+            {
+                _context.WishlistBooks.Add(id);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("WishListDetail", "Account", new { id.WishlistName, id.Username });
+        }
     }
 }
