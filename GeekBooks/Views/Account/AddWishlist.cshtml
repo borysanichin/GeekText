@@ -17,5 +17,5 @@
         </label>
     </div>
     @Html.HiddenFor(w => w.Username)
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">Save</button> @Html.ActionLink("Cancel", "Wishlist", "Account", null, new { @class = "btn btn-primary btn-small" })
 }

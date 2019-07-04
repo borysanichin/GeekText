@@ -292,6 +292,7 @@
     <Content Include="Views\CreateBooks\Edit.cshtml" />
     <Content Include="Views\CreateBooks\Index.cshtml" />
     <Content Include="Views\Account\AddWishlist.cshtml" />
+    <Content Include="Views\Account\RenameWishlist.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
