@@ -19,6 +19,26 @@
     .checked {
         color: orange;
     }
+
+    .rating {
+        color: orange;
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    }
+
+    .rating > span{
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+    }
+
+    .rating > span:hover:before,
+    .rating > span:hover ~ span:before {
+        content: "\2605";
+        position: absolute;
+    }
+
+
 </style>
 <!--<p>This is a test paragraph.</p>
 <button>add a class name to first p element</button>-->
@@ -26,31 +46,40 @@
 @using (Html.BeginForm("CreateReview", "Review", FormMethod.Post))
 
 {
-    
-        <h3>ISBN</h3>
-        @Html.TextBoxFor(m => m.ISBN)
-        <br />
-        <hr />
-        <h3>Username</h3>
-        @Html.TextBoxFor(m => m.Username)
-        <br />
-        <hr />
-        <h3>Rating</h3>
-        @Html.TextBoxFor(m => m.Rating)
-        <br />
-        <hr />
-        <h3>Comment</h3>
-        @Html.TextBoxFor(m => m.Comment)
-        <br />
-        <hr />
-        <h3>DatePosted</h3>
-        @Html.TextBoxFor(m => m.DatePosted)
+    <h3>ISBN</h3>
+    @Html.TextBoxFor(m => m.ISBN)
+    <br />
+    <hr />
+    <h3>Username</h3>
+    @Html.TextBoxFor(m => m.Username)
+    <br />
+    <hr />
+    <h3>Rating</h3>
+    <!--To Do: Change rating textbox to star-icons-->
+    <div class="rating">
 
-        <br />
-        <br />
+        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
+        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
+        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
+        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
+        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
 
-        <input type="submit" value="Submit" />
-    
+    </div>
+    @Html.TextBoxFor(m => m.Rating)
+    <br />
+    <hr />
+    <h3>Comment</h3>
+    @Html.TextBoxFor(m => m.Comment)
+    <br />
+    <hr />
+    <h3>DatePosted</h3>
+    @Html.TextBoxFor(m => m.DatePosted)
+
+    <br />
+    <br />
+
+    <input type="submit" value="Submit" />
+
 
 
 
