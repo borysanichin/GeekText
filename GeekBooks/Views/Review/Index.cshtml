@@ -6,17 +6,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .reviews{
+        background-color:whitesmoke;
+        padding: 10px;
+    }
+
+    .reviews > b{
+        color:purple;
+    }
+</style>
+
 <h2>Reviews</h2>
 @{
-    foreach (var item in Model)
+    foreach(var item in Model)
     {
-        <table>
-            <tr>
-                <td>@item.Username</td>
-                <td>@item.ISBN</td>
-                <td>@item.Rating</td>
-                <td>@item.Comment</td>
-            </tr>
-        </table>
+    <div class="reviews">
+        <b>ISBN:</b> @item.ISBN      <br />
+        <b>User:</b> @item.Username <br />
+        <b>Rating:</b> @item.Rating        <br />
+        <b>Posted:</b> @item.DatePosted       <br />
+        <b>Comment:</b> @item.Comment       <br />
+    </div>
     }
 }
