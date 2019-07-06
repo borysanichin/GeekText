@@ -44,7 +44,7 @@ namespace GeekBooks.Controllers
             ViewBag.UserName = fc["UserName"];
             ViewBag.Rating = fc["Rating"];
             ViewBag.Comment = fc["Comment"];
-            ViewBag.DatePosted = fc["DatePosted"];
+            ViewBag.DatePosted = fc["DatePosted"];  //Derived attribute
 
             /*var review = reviewData;
 
@@ -57,6 +57,8 @@ namespace GeekBooks.Controllers
              }
              */
             //return View("Index");
+
+            //TODO: return Book/Details/{isbn}
             return View("CreateReview");
         }
     }
