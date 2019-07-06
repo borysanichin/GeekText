@@ -1,10 +1,7 @@
 ﻿@model GeekBooks.Review
-
 @{
     ViewBag.Title = "Review Form";
 }
-
-
 
 <script>
     /*function postStar(rating) {
@@ -17,16 +14,34 @@
         });
     });
 </script>
-
 <style>
+
     .checked {
         color: orange;
     }
-</style>
 
+    .rating {
+        color: orange;
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    }
+
+    .rating > span{
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+    }
+
+    .rating > span:hover:before,
+    .rating > span:hover ~ span:before {
+        content: "\2605";
+        position: absolute;
+    }
+
+
+</style>
 <!--<p>This is a test paragraph.</p>
 <button>add a class name to first p element</button>-->
-
 <h2>Create a Review</h2>
 @using (Html.BeginForm("CreateReview", "Review", FormMethod.Post))
 
@@ -40,6 +55,16 @@
     <br />
     <hr />
     <h3>Rating</h3>
+    <!--To Do: Change rating textbox to star-icons-->
+    <div class="rating">
+
+        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
+        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
+        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
+        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
+        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
+
+    </div>
     @Html.TextBoxFor(m => m.Rating)
     <br />
     <hr />
@@ -54,8 +79,14 @@
     <br />
 
     <input type="submit" value="Submit" />
-}
 
+
+
+
+
+
+
+}
 
 <!--onclick="postStar(this)"-->
 <!--

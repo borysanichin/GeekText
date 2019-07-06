@@ -1,0 +1,31 @@
+﻿@model GeekBooks.ViewModels.BookDetailsViewModel
+@{
+    ViewBag.Title = "Book Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Book Details</h2>
+
+<hr />
+<ul>
+    <li>ISBN: @Model.Book.ISBN</li>
+    <li>Title: @Model.Book.Title</li>
+    <li>Price: @Model.Book.Price</li>
+    <li>Publisher Name: @Model.Book.PublisherName</li>
+    <li>Date Published: @Model.Book.DatePublished</li>
+    <li>Description: @Model.Book.BookDescription</li>
+    <li>Genre: @Model.BookGenre.GenreName</li>
+</ul>
+@using (Html.BeginForm("BookDetails", "Book", new { isbn = Model.Book.ISBN }))
+{
+    <div class="form-group">
+        @Html.LabelFor(b => b.WishlistBook.WishlistName)
+        @Html.DropDownListFor(b => b.WishlistBook.WishlistName, new SelectList(Model.Wishlists, "WishlistName", "WishlistName"), "Select Wishlist", new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(b => b.WishlistBook.ISBN, new { Value = Model.Book.ISBN })
+    @Html.HiddenFor(b => b.WishlistBook.Quantity, new { Value = 1 })
+    @Html.HiddenFor(b => b.WishlistBook.Username, new { Value = "guest" })
+    @Html.HiddenFor(b => b.WishlistBook.Preferred, new { Value = false })
+
+    <button type="submit" class="btn btn-primary">Add Book To Wishlist</button>
+}
