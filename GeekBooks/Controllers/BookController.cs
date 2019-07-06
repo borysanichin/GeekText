@@ -71,24 +71,24 @@ namespace GeekBooks.Controllers
              return View();
          }*/
 
-
-        public ActionResult Details(string id, BookeModel bookM)
+        [Route("Book/BookDetails/{isbn}")]
+        public ActionResult Details(string isbn)
         {
             
-            if (id == null)
+            if (isbn == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
 
-            //BookeModel booke = new BookeModel();
-            bookM.BookModel = db.Books.Find(id);
+            BookDetailsViewModel book = new BookDetailsViewModel();
+            book.Book = db.Books.Find(isbn);
             //bookM.BookGenreModel = db.BookGenres.Find();
-            bookM.BookGenreModel = db.BookGenres.SingleOrDefault(m => m.ISBN == id);
+            book.BookGenre = db.BookGenres.SingleOrDefault(m => m.ISBN == isbn);
 
             var viewBook = from m in db.Books
                            join n in db.BookGenres on m.ISBN equals n.ISBN
-                           where m.ISBN == id
+                           where m.ISBN == isbn
                            select new BookeModel { BookModel = m, BookGenreModel = n };
 
            // var test = viewBook.Find(id);
@@ -98,7 +98,7 @@ namespace GeekBooks.Controllers
             {
                 return HttpNotFound();
             }
-            return View(bookM);
+            return View(book);
         }
 
         /*I am still working on this Book Details View to 
@@ -106,7 +106,7 @@ namespace GeekBooks.Controllers
           using BookDetailsViewModel(also not finished)
           in ViewModels folder to pass all the data to the
           view (Borys).*/
-        [Route("Book/BookDetails/{isbn}")]
+        /*[Route("Book/BookDetails/{isbn}")]
         public ActionResult BookDetails(string isbn)
         {
             var viewModel = new BookDetailsViewModel
@@ -116,7 +116,7 @@ namespace GeekBooks.Controllers
                 Wishlists = db.Wishlists.Where(b => b.Username == "guest").ToList()
             };
             return View(viewModel);
-        }
+        }*/
 
         public ActionResult WishList()
         {

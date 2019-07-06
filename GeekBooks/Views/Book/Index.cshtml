@@ -78,7 +78,7 @@
             <tr>
                 <td>@*I made this a link to the Book Details Page,
                     so I can implemet add book to wishlist functionality(Borys)*@
-                    @Html.ActionLink(item.BookModel.Title, "BookDetails", "Book", new { isbn = item.BookModel.ISBN}, null)
+                    @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { isbn = item.BookModel.ISBN, bookM = item }, null)
                 </td>
                 <td>
                     $

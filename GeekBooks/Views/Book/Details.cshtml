@@ -1,59 +1,58 @@
-﻿@model GeekBooks.Models.BookeModel
+﻿@model GeekBooks.ViewModels.BookDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h3>Book Details</h3>
 
 <div>
-    <h4>Book</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.BookModel.Title)
+            @Html.DisplayNameFor(model => model.Book.Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BookModel.Title)
+            @Html.DisplayFor(model => model.Book.Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BookModel.Price)
+            @Html.DisplayNameFor(model => model.Book.Price)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BookModel.Price)
+            @Html.DisplayFor(model => model.Book.Price)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.BookGenreModel.GenreName)
+            @Html.DisplayNameFor(model => model.BookGenre.GenreName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BookGenreModel.GenreName)
+            @Html.DisplayFor(model => model.BookGenre.GenreName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.BookModel.BookDescription)
+            @Html.DisplayNameFor(model => model.Book.BookDescription)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BookModel.BookDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookModel.PublisherName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookModel.PublisherName)
+            @Html.DisplayFor(model => model.Book.BookDescription)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BookModel.DatePublished)
+            @Html.DisplayNameFor(model => model.Book.PublisherName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BookModel.DatePublished)
+            @Html.DisplayFor(model => model.Book.PublisherName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Book.DatePublished)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Book.DatePublished)
         </dd>
 
     </dl>
