@@ -21,12 +21,12 @@
 @{
     foreach(var item in Model)
     {
-    <div class="reviews">
-        <b>ISBN:</b> @item.ISBN      <br />
-        <b>User:</b> @item.Username <br />
-        <b>Rating:</b> @item.Rating        <br />
-        <b>Posted:</b> @item.DatePosted       <br />
-        <b>Comment:</b> @item.Comment       <br />
-    </div>
+<div class="reviews">
+    <b>ISBN:</b> @Html.DisplayFor(modelItem => item.ISBN)      <br />
+    <b>User:</b> @Html.DisplayFor(modelItem => item.Username) <br />
+    <b>Rating:</b> @Html.DisplayFor(modelItem => item.Rating)        <br />
+    <b>Posted:</b> @Html.DisplayFor(modelItem => item.DatePosted)       <br />
+    <b>Comment:</b> @Html.DisplayFor(modelItem => item.Comment)       <br />
+</div>
     }
 }
