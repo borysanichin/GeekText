@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using GeekBooks.Models;
 using PagedList;
+using Brick.PagedList;
 
 namespace GeekBooks.Models
 {
