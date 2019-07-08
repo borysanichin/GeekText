@@ -26,19 +26,17 @@
         direction: rtl;
     }
 
-    .rating > span{
-        display: inline-block;
-        position: relative;
-        width: 1.1em;
-    }
+        .rating > span {
+            display: inline-block;
+            position: relative;
+            width: 1.1em;
+        }
 
-    .rating > span:hover:before,
-    .rating > span:hover ~ span:before {
-        content: "\2605";
-        position: absolute;
-    }
-
-
+            .rating > span:hover:before,
+            .rating > span:hover ~ span:before {
+                content: "\2605";
+                position: absolute;
+            }
 </style>
 <!--<p>This is a test paragraph.</p>
 <button>add a class name to first p element</button>-->
@@ -47,13 +45,13 @@
 
 {
     <h3>ISBN</h3>
-    @Html.TextBox("ISBN")
-    //@Html.TextBoxFor(m => m.ISBN)
+    //@Html.TextBox("ISBN")
+    @Html.TextBoxFor(m => m.ISBN)
     <br />
     <hr />
     <h3>Username</h3>
-    @Html.TextBox("Username")
-    //@Html.TextBoxFor(m => m.Username)
+    //@Html.TextBox("Username")
+    @Html.TextBoxFor(m => m.Username)
     <br />
     <hr />
     <h3>Rating</h3>
@@ -67,21 +65,27 @@
         <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
 
     </div>
-    @Html.TextBox("Rating")
-    //@Html.TextBoxFor(m => m.Rating)
+    //@Html.TextBox("Rating")
+    @Html.TextBoxFor(m => m.Rating)
+    @Html.ValidationMessageFor(m => m.Rating)
     <br />
     <hr />
     <h3>Comment</h3>
-    @Html.TextBox("Comment")
-    //@Html.TextBoxFor(m => m.Comment)
+    //@Html.TextBox("Comment")
+    @Html.TextBoxFor(m => m.Comment)
+    @Html.ValidationMessageFor(m => m.Comment)
     <br />
     <hr />
     <h3>DatePosted</h3>
-    @Html.TextBox("DatePosted")
-    //@Html.TextBoxFor(m => m.DatePosted)
+    //@Html.TextBox("DatePosted")
+    @Html.TextBoxFor(m => m.DatePosted)
 
     <br />
+    <hr />
+    <h4>Post anonymously?</h4>
+    @Html.CheckBoxFor(m => m.Anonymous)
     <br />
+    <hr />
 
     <input type="submit" value="Submit" />
 
@@ -94,6 +98,7 @@
     Rating: @ViewBag.Rating <br />
     Comment: @ViewBag.Comment <br />
     DatePosted: @ViewBag.DatePosted <br />
+    Anonymous?: @ViewBag.Anonymous <br />
 </h4>
 
 <!--onclick="postStar(this)"-->

@@ -23,10 +23,11 @@
     {
 <div class="reviews">
     <b>ISBN:</b> @Html.DisplayFor(modelItem => item.ISBN)      <br />
-    <b>User:</b> @Html.DisplayFor(modelItem => item.Username) <br />
+    <b>User:</b> @if (item.Anonymous == true) { <b style="color:black">True</b> } else { <b style="color:black">False</b> } <br />
     <b>Rating:</b> @Html.DisplayFor(modelItem => item.Rating)        <br />
     <b>Posted:</b> @Html.DisplayFor(modelItem => item.DatePosted)       <br />
     <b>Comment:</b> @Html.DisplayFor(modelItem => item.Comment)       <br />
+    <b>Anonymous check: </b> @Html.DisplayFor(modelItem => item.Anonymous) <br />
 </div>
     }
 }

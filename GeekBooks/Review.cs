@@ -17,10 +17,13 @@ namespace GeekBooks
     {
         public string ISBN { get; set; }
         public string Username { get; set; }
+        [Range(1, 5, ErrorMessage ="Rating must be from 1-5")]
         public decimal Rating { get; set; }
+        [StringLength(250)]
         public string Comment { get; set; }
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime DatePosted { get; set; }
+        public bool Anonymous { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }
