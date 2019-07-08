@@ -23,7 +23,8 @@ namespace GeekBooks
         public string Comment { get; set; }
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime DatePosted { get; set; }
-        public bool Anonymous { get; set; }
+        public bool BoolValue { get { return Anonymous == 1; } set { Anonymous = value ? 1 : 0; } }
+        public int Anonymous { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }

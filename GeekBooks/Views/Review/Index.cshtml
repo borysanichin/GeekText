@@ -7,27 +7,35 @@
 }
 
 <style>
-    .reviews{
-        background-color:whitesmoke;
+    .reviews {
+        background-color: whitesmoke;
         padding: 10px;
     }
 
-    .reviews > b{
-        color:purple;
-    }
+        .reviews > b {
+            color: purple;
+        }
 </style>
 
 <h2>Reviews</h2>
+
 @{
     foreach(var item in Model)
     {
 <div class="reviews">
     <b>ISBN:</b> @Html.DisplayFor(modelItem => item.ISBN)      <br />
-    <b>User:</b> @if (item.Anonymous == true) { <b style="color:black">True</b> } else { <b style="color:black">False</b> } <br />
+    <b>User:</b> @if (item.BoolValue == true) { <b style="color:black">True</b> } else { @Html.DisplayFor(modelItem => item.Username) } <br />
     <b>Rating:</b> @Html.DisplayFor(modelItem => item.Rating)        <br />
     <b>Posted:</b> @Html.DisplayFor(modelItem => item.DatePosted)       <br />
-    <b>Comment:</b> @Html.DisplayFor(modelItem => item.Comment)       <br />
-    <b>Anonymous check: </b> @Html.DisplayFor(modelItem => item.Anonymous) <br />
+    <b>Comment:</b> @Html.DisplayFor(modelItem => item.Comment)   <br />
+    <b>Anonymous check: </b> @item.Anonymous | @item.BoolValue | @ViewBag.Test | @ViewBag.UserName | @ViewBag.BoolValue <br />
 </div>
     }
+
+    /*foreach (var i in Model)
+    {
+        <div>
+            <b>T/F</b> @Html.DisplayFor(m => i.ReviewModel.Anonymous) <br />
+        </div>
+    }*/
 }

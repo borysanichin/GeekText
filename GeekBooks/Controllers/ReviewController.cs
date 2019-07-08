@@ -13,13 +13,17 @@ namespace GeekBooks.Controllers
         BookContext db = new BookContext();
         public ActionResult Index(Review review)
         {
-            if (review.Anonymous)
+            ViewBag.UserName = "No data";
+            if (review.BoolValue)
                 ViewBag.UserName = "Anonymous user";
             else
                 ViewBag.UserName = review.Username;
+            ViewBag.BoolValue = review.BoolValue;
+            ViewBag.Test = "Testing";
+            ViewBag.Test = "Testing123";
             List<Review> reviews = db.Reviews.ToList();              
-            decimal rating = review.Rating;
-            string comment = review.Comment;
+            //decimal rating = review.Rating;
+            //string comment = review.Comment;
           
             return View(reviews);
         }
@@ -44,18 +48,19 @@ namespace GeekBooks.Controllers
             if (ModelState.IsValid)
             {
                 ViewBag.ISBN = reviewData.ISBN;
-                if (reviewData.Anonymous)
+                if (reviewData.BoolValue)
                     ViewBag.UserName = "Anonymous user";
                 else
                     ViewBag.Username = reviewData.Username;
                 ViewBag.Rating = reviewData.Rating;
                 ViewBag.Comment = reviewData.Comment;
                 ViewBag.DatePosted = reviewData.DatePosted;
+                ViewBag.BoolValue = reviewData.BoolValue;
                 ViewBag.Anonymous = reviewData.Anonymous;
-                db.Reviews.Add(reviewData);
+                /*db.Reviews.Add(reviewData);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-                //return View();
+                return RedirectToAction("Index");*/
+                return View();
             }
             else
             {

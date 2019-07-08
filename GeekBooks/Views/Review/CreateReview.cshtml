@@ -44,14 +44,13 @@
 @using (Html.BeginForm("CreateReview", "Review", FormMethod.Post))
 
 {
+    <div class="form-group">
     <h3>ISBN</h3>
-    //@Html.TextBox("ISBN")
-    @Html.TextBoxFor(m => m.ISBN)
+    @Html.TextBoxFor(m => m.ISBN, new { @class = "form-control" })
     <br />
     <hr />
     <h3>Username</h3>
-    //@Html.TextBox("Username")
-    @Html.TextBoxFor(m => m.Username)
+    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
     <br />
     <hr />
     <h3>Rating</h3>
@@ -65,29 +64,27 @@
         <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
 
     </div>
-    //@Html.TextBox("Rating")
-    @Html.TextBoxFor(m => m.Rating)
+    @Html.TextBoxFor(m => m.Rating, new { @class = "form-control" })
     @Html.ValidationMessageFor(m => m.Rating)
     <br />
     <hr />
-    <h3>Comment</h3>
-    //@Html.TextBox("Comment")
-    @Html.TextBoxFor(m => m.Comment)
+    <h3>Write your review</h3>
+    @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", placeholder= "What did you like or dislike?", cols = "20", rows = "5" })
     @Html.ValidationMessageFor(m => m.Comment)
     <br />
     <hr />
     <h3>DatePosted</h3>
-    //@Html.TextBox("DatePosted")
-    @Html.TextBoxFor(m => m.DatePosted)
+    @Html.TextBoxFor(m => m.DatePosted, new { @class = "form-control" })
 
     <br />
     <hr />
     <h4>Post anonymously?</h4>
-    @Html.CheckBoxFor(m => m.Anonymous)
+    @Html.CheckBoxFor(m => m.BoolValue, new { @class = "form-check"})
     <br />
     <hr />
+    </div>
 
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" class="btn btn-primary" />
 
 }
 
@@ -98,7 +95,7 @@
     Rating: @ViewBag.Rating <br />
     Comment: @ViewBag.Comment <br />
     DatePosted: @ViewBag.DatePosted <br />
-    Anonymous?: @ViewBag.Anonymous <br />
+    Anonymous?: @ViewBag.BoolValue | @ViewBag.Anonymous <br />
 </h4>
 
 <!--onclick="postStar(this)"-->
