@@ -17,7 +17,7 @@ namespace GeekBooks
         public string Username { get; set; }
         public string ISBN { get; set; }
         public decimal PriceEach { get; set; }
-        public decimal Quantity { get; set; }
+        public short Quantity { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }

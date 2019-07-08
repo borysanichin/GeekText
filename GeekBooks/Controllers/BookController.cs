@@ -28,7 +28,7 @@ namespace GeekBooks.Controllers
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
             ViewBag.AuthorSortParm = sortOrder == "Author" ? "author_desc" : "Author";
-            // ViewBag.AuthorSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
+            ViewBag.RatingSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
 
@@ -81,20 +81,20 @@ namespace GeekBooks.Controllers
             }
 
 
-            //BookeModel booke = new BookeModel();
+            
             bookM.BookModel = db.Books.Find(id);
-            //bookM.BookGenreModel = db.BookGenres.Find();
+           
             bookM.BookGenreModel = db.BookGenres.SingleOrDefault(m => m.ISBN == id);
 
-            var viewBook = from m in db.Books
+           /* var viewBook = from m in db.Books
                            join n in db.BookGenres on m.ISBN equals n.ISBN
                            where m.ISBN == id
-                           select new BookeModel { BookModel = m, BookGenreModel = n };
+                           select new BookeModel { BookModel = m, BookGenreModel = n };*/
 
            // var test = viewBook.Find(id);
 
 
-            if (viewBook == null)
+            if (bookM == null)
             {
                 return HttpNotFound();
             }

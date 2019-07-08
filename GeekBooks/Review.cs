@@ -11,15 +11,13 @@ namespace GeekBooks
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Review
     {
         public string ISBN { get; set; }
         public string Username { get; set; }
         public decimal Rating { get; set; }
         public string Comment { get; set; }
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime DatePosted { get; set; }
     
         public virtual Book Book { get; set; }
