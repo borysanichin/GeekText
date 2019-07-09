@@ -17,7 +17,6 @@
     </p>
 
 }
-    </p>
     <!--To Do: Implement browsing features-->
     <table class="table">
         <tr>
@@ -61,7 +60,7 @@
             </td>
 
             <td>
-                @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN }, null)
+                @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = "guest" }, null)
             </td>
             <td>
                 $@Html.DisplayFor(modelItem => item.BookModel.Price)

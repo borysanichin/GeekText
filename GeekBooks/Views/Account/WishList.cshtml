@@ -3,9 +3,9 @@
     ViewBag.Title = "WishList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<hr />
 @if (!Model.Any())
 {
+    <hr/>
     <p>This account does not have any wish lists</p>
 }
 else
@@ -26,9 +26,11 @@ else
                 {
                     <tr>
                         <td>@Html.ActionLink(wishlist.WishlistName, "WishListDetail", "Account", new { wishlistName = wishlist.WishlistName, username = wishlist.Username }, null)</td>
-                        <td>@Html.ActionLink("delete", "DeleteWishlist", "Account", new { WishlistName = wishlist.WishlistName, Username = wishlist.Username }, null) 
-                            @Html.ActionLink("|", null) 
-                            @Html.ActionLink("rename", "RenameWishlist", "Account", new { wishlist }, null)</td>
+                        <td>
+                            @Html.ActionLink("delete", "DeleteWishlist", "Account", new { WishlistName = wishlist.WishlistName, Username = wishlist.Username }, null)
+                            @Html.ActionLink("|", null)
+                            @Html.ActionLink("rename", "RenameWishlist", "Account", new { wishlist }, null)
+                        </td>
                     </tr>
                     count++;
                 }

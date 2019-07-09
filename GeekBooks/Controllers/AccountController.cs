@@ -121,17 +121,18 @@ namespace GeekBooks.Controllers
             return RedirectToAction("Wishlist", "Account");
         }
 
-        public ActionResult AddBookToWishlist(WishlistBook id)
+        //[Route("Account/AddBookToWishlist/{wishlistBook}")]
+        public ActionResult AddBookToWishlist(WishlistBook wishlistBook)
         {
-            WishlistBook wbook = _context.WishlistBooks.Find(id.Username, id.ISBN, id.WishlistName);
+            WishlistBook wbook = _context.WishlistBooks.Find(wishlistBook.Username, wishlistBook.ISBN, wishlistBook.WishlistName);
 
             if (wbook == null)
             {
-                _context.WishlistBooks.Add(id);
+                _context.WishlistBooks.Add(wishlistBook);
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("WishListDetail", "Account", new { id.WishlistName, id.Username });
+            return RedirectToAction("WishListDetail", "Account", new { wishlistBook.WishlistName, wishlistBook.Username });
         }
     }
 }
