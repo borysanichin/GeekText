@@ -11,14 +11,19 @@ namespace GeekBooks
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Review
     {
         public string ISBN { get; set; }
         public string Username { get; set; }
+        [Range(1, 5, ErrorMessage ="Rating must be from 1-5")]
         public decimal Rating { get; set; }
+        [StringLength(250)]
         public string Comment { get; set; }
         public System.DateTime DatePosted { get; set; }
+        public bool BoolValue { get { return Anonymous == 1; } set { Anonymous = value ? 1 : 0; } }
+        public int Anonymous { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }
