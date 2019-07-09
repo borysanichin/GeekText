@@ -33,18 +33,12 @@ namespace GeekBooks.Controllers
         public ActionResult CreateReview(string id = "1")
         {
             var review = new Review();
-            var book = db.Books.SingleOrDefault(b => b.ISBN == id);
-            if(book == null)
-            {
-                return HttpNotFound();
-            }
-            string querystring = id;
             review.DatePosted = System.DateTime.Now; 
             review.Username = "guest";
             var isbn = from b in db.Books
                        join r in db.Reviews
                        on b.ISBN equals r.ISBN
-                       where b.ISBN == querystring
+                       where b.ISBN == id
                        select new {
                            _ISBN = b.ISBN
                        };
@@ -52,12 +46,12 @@ namespace GeekBooks.Controllers
             {
                 review.ISBN = i._ISBN;
             }
-            if(review.ISBN != querystring)
+            if(review.ISBN != id)
             {
                 return HttpNotFound();
             }
             ViewBag.ISBN = review.ISBN;
-            ModelState.Clear();
+            //ModelState.Clear();
             return View(review);
         }
 
