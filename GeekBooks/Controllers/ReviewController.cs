@@ -30,9 +30,35 @@ namespace GeekBooks.Controllers
 
         // GET: CreateReview
         [HttpGet]
-        public ActionResult CreateReview()
+        public ActionResult CreateReview(string id = "1")
         {
-            return View();
+            var review = new Review();
+            var book = db.Books.SingleOrDefault(b => b.ISBN == id);
+            if(book == null)
+            {
+                return HttpNotFound();
+            }
+            string querystring = id;
+            review.DatePosted = System.DateTime.Now; 
+            review.Username = "guest";
+            var isbn = from b in db.Books
+                       join r in db.Reviews
+                       on b.ISBN equals r.ISBN
+                       where b.ISBN == querystring
+                       select new {
+                           _ISBN = b.ISBN
+                       };
+            foreach(var i in isbn)
+            {
+                review.ISBN = i._ISBN;
+            }
+            if(review.ISBN != querystring)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ISBN = review.ISBN;
+            ModelState.Clear();
+            return View(review);
         }
 
         // POST: CreateReview
@@ -60,6 +86,7 @@ namespace GeekBooks.Controllers
                 /*db.Reviews.Add(reviewData);
                 db.SaveChanges();
                 return RedirectToAction("Index");*/
+                ModelState.Clear();
                 return View();
             }
             else

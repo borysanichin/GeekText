@@ -23,7 +23,7 @@
     foreach(var item in Model)
     {
 <div class="reviews">
-    <b>ISBN:</b> @Html.DisplayFor(modelItem => item.ISBN)      <br />
+    <b>ISBN:</b> @Html.DisplayFor(modelItem => item.ISBN)    <br />
     <b>User:</b> @if (item.BoolValue == true) { <b style="color:black">True</b> } else { @Html.DisplayFor(modelItem => item.Username) } <br />
     <b>Rating:</b> @Html.DisplayFor(modelItem => item.Rating)        <br />
     <b>Posted:</b> @Html.DisplayFor(modelItem => item.DatePosted)       <br />
