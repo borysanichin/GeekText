@@ -91,8 +91,7 @@ namespace GeekBooks.Controllers
                            where m.ISBN == id
                            select new BookeModel { BookModel = m, BookGenreModel = n };*/
 
-           // var test = viewBook.Find(id);
-
+            // var test = viewBook.Find(id);
 
             if (bookM == null)
             {
