@@ -107,7 +107,7 @@ namespace GeekBooks.Controllers
           using BookDetailsViewModel(also not finished)
           in ViewModels folder to pass all the data to the
           view (Borys).*/
-        /*[Route("Book/BookDetails/{isbn}")]
+        /*[Route("Book/BookDetails/{isbn}")]*/
         public ActionResult BookDetails(string isbn)
         {
             var viewModel = new BookDetailsViewModel
@@ -117,7 +117,7 @@ namespace GeekBooks.Controllers
                 Wishlists = db.Wishlists.Where(b => b.Username == "guest").ToList()
             };
             return View(viewModel);
-        }*/
+        }
 
         public ActionResult WishList()
         {
