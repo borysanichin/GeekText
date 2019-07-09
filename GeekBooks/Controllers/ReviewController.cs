@@ -45,6 +45,7 @@ namespace GeekBooks.Controllers
             foreach(var i in isbn)
             {
                 review.ISBN = i._ISBN;
+                id = i._ISBN;
             }
             if(review.ISBN != id)
             {
@@ -81,6 +82,7 @@ namespace GeekBooks.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");*/
                 ModelState.Clear();
+                return RedirectToRoute("BookRoute", new { id = reviewData.ISBN });
                 return View();
             }
             else
