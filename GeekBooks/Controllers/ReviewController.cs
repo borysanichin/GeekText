@@ -33,9 +33,11 @@ namespace GeekBooks.Controllers
         public ActionResult CreateReview(string id = "1")
         {
             var review = new Review();
+            var book = new Book();
             review.DatePosted = System.DateTime.Now; 
             review.Username = "guest";
-            var isbn = from b in db.Books
+            review.ISBN = id;
+            /*var isbn = from b in db.Books
                        join r in db.Reviews
                        on b.ISBN equals r.ISBN
                        where b.ISBN == id
@@ -47,10 +49,16 @@ namespace GeekBooks.Controllers
                 review.ISBN = i._ISBN;
                 id = i._ISBN;
             }
-            if(review.ISBN != id)
+            if(book.ISBN != id)
             {
                 return HttpNotFound();
             }
+
+            if (id.Equals(book.ISBN))
+            {
+                review.ISBN = book.ISBN;
+
+            }*/
             ViewBag.ISBN = review.ISBN;
             //ModelState.Clear();
             return View(review);
@@ -80,9 +88,9 @@ namespace GeekBooks.Controllers
                 ViewBag.Anonymous = reviewData.Anonymous;
                 /*db.Reviews.Add(reviewData);
                 db.SaveChanges();
-                return RedirectToAction("Index");*/
+                */
                 ModelState.Clear();
-                return RedirectToRoute("BookRoute", new { id = reviewData.ISBN });
+                //return RedirectToRoute("BookRoute", new { id = reviewData.ISBN });
                 return View();
             }
             else

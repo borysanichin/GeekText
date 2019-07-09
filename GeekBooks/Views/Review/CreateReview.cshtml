@@ -46,11 +46,13 @@
 {
     <div class="form-group">
     <h3>ISBN</h3>
-    @Html.TextBoxFor(m => m.ISBN, new { @class = "form-control" })
+    @Html.HiddenFor(m => m.ISBN)
+    @*@Html.TextBoxFor(m => m.ISBN, new { @class = "form-control" })*@
     <br />
     <hr />
     <h3>Username</h3>
-    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+    @Html.HiddenFor(m => m.Username) 
+    @*@Html.TextBoxFor(m => m.Username, new { @class = "form-control" })*@
     <br />
     <hr />
     <h3>Rating</h3>
@@ -74,7 +76,8 @@
     <br />
     <hr />
     <h3>DatePosted</h3>
-    @Html.TextBoxFor(m => m.DatePosted, new { @class = "form-control" })
+    @Html.HiddenFor(m => m.DatePosted)
+    @*@Html.TextBoxFor(m => m.DatePosted, new { @class = "form-control" })*@
 
     <br />
     <hr />
