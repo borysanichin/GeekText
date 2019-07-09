@@ -30,10 +30,23 @@ namespace GeekBooks.Controllers
 
         // POST: CreateReview
         [HttpPost]
-        public ActionResult CreateReview(Review reviewData)
+        //public ActionResult CreateReview(Review reviewData)
+        public ActionResult CreateReview(FormCollection fc)
         {
 
-            var review = reviewData;
+            /*ViewBag.ISBN = reviewData.ISBN;
+            ViewBag.Username = reviewData.Username;
+            ViewBag.Rating = reviewData.Rating;
+            ViewBag.Comment = reviewData.Comment;
+            ViewBag.DatePosted = reviewData.DatePosted;*/
+
+            ViewBag.ISBN = fc["ISBN"];
+            ViewBag.UserName = fc["UserName"];
+            ViewBag.Rating = fc["Rating"];
+            ViewBag.Comment = fc["Comment"];
+            ViewBag.DatePosted = fc["DatePosted"];  //Derived attribute
+
+            /*var review = reviewData;
 
             if (ModelState.IsValid) { 
 
@@ -42,7 +55,11 @@ namespace GeekBooks.Controllers
 
                  return RedirectToAction("Index");
              }
-            return View();
+             */
+            //return View("Index");
+
+            //TODO: return Book/Details/{isbn}
+            return View("CreateReview");
         }
     }
 }

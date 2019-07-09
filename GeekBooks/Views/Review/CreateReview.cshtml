@@ -47,11 +47,13 @@
 
 {
     <h3>ISBN</h3>
-    @Html.TextBoxFor(m => m.ISBN)
+    @Html.TextBox("ISBN")
+    //@Html.TextBoxFor(m => m.ISBN)
     <br />
     <hr />
     <h3>Username</h3>
-    @Html.TextBoxFor(m => m.Username)
+    @Html.TextBox("Username")
+    //@Html.TextBoxFor(m => m.Username)
     <br />
     <hr />
     <h3>Rating</h3>
@@ -65,28 +67,34 @@
         <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
 
     </div>
-    @Html.TextBoxFor(m => m.Rating)
+    @Html.TextBox("Rating")
+    //@Html.TextBoxFor(m => m.Rating)
     <br />
     <hr />
     <h3>Comment</h3>
-    @Html.TextBoxFor(m => m.Comment)
+    @Html.TextBox("Comment")
+    //@Html.TextBoxFor(m => m.Comment)
     <br />
     <hr />
     <h3>DatePosted</h3>
-    @Html.TextBoxFor(m => m.DatePosted)
+    @Html.TextBox("DatePosted")
+    //@Html.TextBoxFor(m => m.DatePosted)
 
     <br />
     <br />
 
     <input type="submit" value="Submit" />
 
-
-
-
-
-
-
 }
+
+<hr />
+<h4 style="color:purple">
+    ISBN: @ViewBag.ISBN <br />
+    Username: @ViewBag.Username <br />
+    Rating: @ViewBag.Rating <br />
+    Comment: @ViewBag.Comment <br />
+    DatePosted: @ViewBag.DatePosted <br />
+</h4>
 
 <!--onclick="postStar(this)"-->
 <!--
