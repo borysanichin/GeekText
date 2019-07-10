@@ -47,11 +47,14 @@ namespace GeekBooks.Controllers
         [Route("Account/WishListDetail/{wishlistName}/{username}")]
         public ActionResult WishListDetail(string wishlistName, string username)
         {
+            IEnumerable<Wishlist> wlists = _context.Wishlists.Where(w => w.Username == username).ToList();
+            
             var wwbook = new WishlistWishlistBook
             {
                 wishlistName = wishlistName,
-                wishlistBooks = _context.WishlistBooks.Include(w => w.Book).Where(w => w.WishlistName == wishlistName && w.Username == username).ToList()
-            };
+                wishlistBooks = _context.WishlistBooks.Include(w => w.Book).Where(w => w.WishlistName == wishlistName && w.Username == username).ToList(),
+                Wishlists = wlists.Where(w => w.WishlistName != wishlistName).ToList()
+        };
             
             if (wwbook == null)
                 return HttpNotFound();
@@ -146,6 +149,20 @@ namespace GeekBooks.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("WishlistDetail", "Account", new { wishlistname, username});
+        }
+        //[Route("Account/MoveWishlistBook/{wishlistname}/{wishlistbook}")]
+        public ActionResult MoveWishlistBook(string wishlistname, WishlistBook wishlistbook)
+        {
+            if (_context.WishlistBooks.Find(wishlistbook.Username, wishlistbook.ISBN, wishlistbook.WishlistName) == null)
+            {
+                var wishlistOldBook = _context.WishlistBooks.Find(wishlistbook.Username, wishlistbook.ISBN, wishlistname);
+
+                _context.WishlistBooks.Remove(wishlistOldBook);
+                _context.WishlistBooks.Add(wishlistbook);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("WishlistDetail", "Account", new { wishlistname, wishlistbook.Username });
         }
     }
 }
