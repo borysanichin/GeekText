@@ -3,7 +3,6 @@
     ViewBag.Title = "WishListDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<hr />
 <h2>@Model.wishlistName</h2>
 <hr />
 <table class="table table-bordered table-hover">
@@ -11,6 +10,7 @@
         <tr>
             <th>Title</th>
             <th>Quantity</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +20,7 @@
             <tr>
                 <td>@book.Book.Title</td>
                 <td>@book.Quantity</td>
+                <td>@Html.ActionLink("delete", "DeleteWishlistBook", "Account", new { username = book.Username, isbn = book.ISBN, wishlistname = book.WishlistName }, null)</td>
             </tr>
         }
     </tbody>

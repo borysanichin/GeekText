@@ -134,5 +134,18 @@ namespace GeekBooks.Controllers
 
             return RedirectToAction("WishListDetail", "Account", new { wishlistBook.WishlistName, wishlistBook.Username });
         }
+        [Route("Account/DeleteWishlistBook/{username}/{isbn}/{wishlistname}")]
+        public ActionResult DeleteWishlistBook(string username, string isbn, string wishlistname)
+        {
+            var wbook = _context.WishlistBooks.Find(username, isbn, wishlistname);
+
+            if (wbook == null)
+                return HttpNotFound();
+
+            _context.WishlistBooks.Remove(wbook);
+            _context.SaveChanges();
+
+            return RedirectToAction("WishlistDetail", "Account", new { wishlistname, username});
+        }
     }
 }
