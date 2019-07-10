@@ -10,6 +10,7 @@
         <tr>
             <th>Title</th>
             <th>Quantity</th>
+            <th>Price</th>
             <th></th>
             <th></th>
         </tr>
@@ -21,6 +22,7 @@
             <tr>
                 <td>@Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)</td>
                 <td>@book.Quantity @Html.ActionLink("update", "UpdateWishlistQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN, Wishlistname = book.WishlistName }, null)</td>
+                <td>$@(book.Quantity * book.Book.Price)</td>
                 <td>
                     @Html.ActionLink("delete", "DeleteWishlistBook", "Account", new { username = book.Username, isbn = book.ISBN, wishlistname = book.WishlistName }, null)
                     @Html.ActionLink("|", null)
