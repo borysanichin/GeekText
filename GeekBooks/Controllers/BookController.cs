@@ -71,33 +71,45 @@ namespace GeekBooks.Controllers
              return View();
          }*/
 
-
-        public ActionResult Details(string id, BookeModel bookM)
+        [Route("Book/Details/{id}/{username}")]
+        public ActionResult Details(string id, string username)
         {
             
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var bmodel = new BookeModel
+            {
+                WroteModel = db.Wrotes.SingleOrDefault(w => w.ISBN == id)
+            };
 
+            var bookmodel = new BookeModel
+            {
+                BookModel = db.Books.Find(id),
+                BookGenreModel = db.BookGenres.SingleOrDefault(m => m.ISBN == id),
+                AuthorModel = db.Authors.SingleOrDefault(b => b.AuthorID == bmodel.WroteModel.AuthorID),
+                Wishlists = db.Wishlists.Where(b => b.Username == username).ToList(),
+                username = username
+            };
 
-            
-            bookM.BookModel = db.Books.Find(id);
-           
-            bookM.BookGenreModel = db.BookGenres.SingleOrDefault(m => m.ISBN == id);
+            //bookM.BookModel = db.Books.Find(id);
 
-           /* var viewBook = from m in db.Books
-                           join n in db.BookGenres on m.ISBN equals n.ISBN
-                           where m.ISBN == id
-                           select new BookeModel { BookModel = m, BookGenreModel = n };*/
+            //bookM.BookGenreModel = db.BookGenres.SingleOrDefault(m => m.ISBN == id);
+
+            /* var viewBook = from m in db.Books
+                            join n in db.BookGenres on m.ISBN equals n.ISBN
+                            where m.ISBN == id
+                            select new BookeModel { BookModel = m, BookGenreModel = n };*/
 
             // var test = viewBook.Find(id);
 
-            if (bookM == null)
+            /*if (bookM == null)
             {
                 return HttpNotFound();
             }
-            return View(bookM);
+            return View(bookM);*/
+            return View(bookmodel);
         }
 
         /*I am still working on this Book Details View to 

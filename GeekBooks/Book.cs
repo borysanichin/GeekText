@@ -29,9 +29,12 @@ namespace GeekBooks
         public string ISBN { get; set; }
         public string Title { get; set; }
         public decimal Price { get; set; }
+        [Display(Name = "Book Description")]
         public string BookDescription { get; set; }
+        [Display(Name = "Publisher Name")]
         public string PublisherName { get; set; }
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Date Published")]
         public Nullable<System.DateTime> DatePublished { get; set; }
         public string BookCover { get; set; }
     

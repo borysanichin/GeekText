@@ -315,6 +315,8 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Account\AddBookToWishlist.cshtml" />
     <Content Include="Views\Account\RenameWishlist.cshtml" />
+    <Content Include="Views\Book\BookDetails.cshtml" />
+    <Content Include="Views\Account\UpdateWishlistQuantity.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

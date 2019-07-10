@@ -11,9 +11,11 @@ namespace GeekBooks
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class BookGenre
     {
+        [Display(Name = "Genre")]
         public string GenreName { get; set; }
         public string ISBN { get; set; }
         public Nullable<decimal> testField { get; set; }
