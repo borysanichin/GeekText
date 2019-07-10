@@ -27,7 +27,9 @@ namespace GeekBooks.Models
         public Wrote WroteModel { get; set; }
         public Author AuthorModel { get; set; }
         public decimal reviews { get; set; }
-
-
+        public string username { get; set; }
+        public IEnumerable<Wishlist> Wishlists { get; set; }
+        public WishlistBook WishlistBook { get; set; }
+        public ShoppingCart ShoppingCart { get; set; }
     }
 }

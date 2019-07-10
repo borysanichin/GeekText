@@ -11,14 +11,16 @@ namespace GeekBooks
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class WishlistBook
     {
         public string Username { get; set; }
         public string ISBN { get; set; }
-        public decimal Quantity { get; set; }
+        public short Quantity { get; set; }
+
+        [Display(Name = "Wishlist Name")]
         public string WishlistName { get; set; }
-        public bool Preferred { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }

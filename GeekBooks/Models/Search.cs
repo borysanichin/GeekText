@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using GeekBooks.Models;
 using PagedList;
-using Brick.PagedList;
 
 namespace GeekBooks.Models
 {
@@ -56,9 +55,14 @@ namespace GeekBooks.Models
                            BookModel = m,
                            BookGenreModel = n,
                            WroteModel = b,
-                           AuthorModel = c /*ReviewModel = r,*/
-                                           /* reviews = p.Rating */
+                           AuthorModel = c,
+                           // ReviewModel = aReview.FirstOrDefault(n => n.ISBN == m.ISBN),
+                           reviews = db.Reviews.Where(b => b.ISBN == m.ISBN).Select(a => a.Rating).DefaultIfEmpty(0).Average()
+                           /*ReviewModel = r,*/
+                           /* reviews = p.Rating */
+
                        };
+
 
 
 

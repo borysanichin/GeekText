@@ -14,11 +14,12 @@ namespace GeekBooks.Models
 
             switch (sortOrder)
             {
-                case "name_desc":
+                case "title_desc":
                     book = book.OrderByDescending(s => s.BookModel.Title);
                     break;
                 case "Date":
-                    book = book.OrderBy(s => s.BookModel.DatePublished);
+                    // book = book.OrderBy(s => s.BookModel.DatePublished);
+                    book = book.OrderBy(s => s.BookModel.DatePublished == null).ThenBy(a => a.BookModel.DatePublished);
                     break;
                 case "date_desc":
                     book = book.OrderByDescending(s => s.BookModel.DatePublished);
@@ -36,7 +37,7 @@ namespace GeekBooks.Models
                     book = book.OrderByDescending(s => s.AuthorModel.AuthorFirst);
                     break;
                 case "Rating":
-                    book = book.OrderBy(s => s.reviews);
+                    book = book.OrderBy(s => s.reviews == 0).ThenBy(a => a.reviews);
                     break;
                 case "rating_desc":
                     book = book.OrderByDescending(s => s.reviews);

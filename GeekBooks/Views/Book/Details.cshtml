@@ -1,4 +1,4 @@
-﻿@model GeekBooks.ViewModels.BookDetailsViewModel
+﻿@model GeekBooks.Models.BookeModel
 
 @{
     ViewBag.Title = "Details";
@@ -6,58 +6,99 @@
 
 <h3>Book Details</h3>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Book.Title)
-        </dt>
+<hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.Book.Title)
-        </dd>
+<div class="row">
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.BookModel.Title)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Book.Price)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BookModel.Title)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Book.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BookGenre.GenreName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BookModel.Price)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BookGenre.GenreName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Book.BookDescription)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BookModel.Price)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BookGenreModel.GenreName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Book.BookDescription)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BookGenreModel.GenreName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BookModel.BookDescription)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Book.PublisherName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BookModel.BookDescription)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Book.PublisherName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BookModel.PublisherName)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Book.DatePublished)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BookModel.PublisherName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Book.DatePublished)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BookModel.DatePublished)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.BookModel.DatePublished)
+            </dd>
+            <dt>
+                @Html.DisplayName("Author Name")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AuthorModel.AuthorFirst) @Html.DisplayFor(model => model.AuthorModel.AuthorLast)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AuthorModel.Bio)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AuthorModel.Bio)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-md-6">
+        @using (Html.BeginForm("Details", "Book"))
+        {
+
+            <button type="submit" class="btn btn-primary w-50">Add To Cart</button>
+        }
+        <p></p>
+        <p>
+            @Html.ActionLink("Create a Review", "CreateReview", "Review", new { Model.BookModel.ISBN }, new { @class = "btn btn-primary w-50" }) <br /> <br />
+        </p>
+        @using (Html.BeginForm("AddBookToWishlist", "Account"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(b => b.WishlistBook.WishlistName)
+                @Html.DropDownListFor(b => b.WishlistBook.WishlistName, new SelectList(Model.Wishlists, "WishlistName", "WishlistName"), "Select Wishlist", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(b => b.WishlistBook.Quantity)
+                @Html.TextBoxFor(b => b.WishlistBook.Quantity, new { @class = "form-control" })
+            </div>
+            @Html.HiddenFor(b => b.WishlistBook.ISBN, new { Value = Model.BookModel.ISBN })
+            @Html.HiddenFor(b => b.WishlistBook.Username, new { Value = Model.username })
+
+            <button type="submit" class="btn btn-primary w-50">Add To Wishlist</button>
+        }
+        <p></p>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 </div>
-<p>
- @Html.ActionLink("Create a Review", "CreateReview", "Review", null, new { @class="btn btn-primary"}) <br /> <br />
- @Html.ActionLink("Back to List", "Index")
-</p>

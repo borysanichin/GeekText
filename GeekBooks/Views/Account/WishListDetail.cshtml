@@ -3,7 +3,6 @@
     ViewBag.Title = "WishListDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>@Model.wishlistName</h2>
 <hr />
 <table class="table table-bordered table-hover">
@@ -11,6 +10,9 @@
         <tr>
             <th>Title</th>
             <th>Quantity</th>
+            <th>Price</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -18,8 +20,28 @@
         @foreach (var book in Model.wishlistBooks)
         {
             <tr>
-                <td>@book.Book.Title</td>
-                <td>@book.Quantity</td>
+                <td>@Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)</td>
+                <td>@book.Quantity @Html.ActionLink("update", "UpdateWishlistQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN, Wishlistname = book.WishlistName }, null)</td>
+                <td>$@(book.Quantity * book.Book.Price)</td>
+                <td>
+                    @Html.ActionLink("delete", "DeleteWishlistBook", "Account", new { username = book.Username, isbn = book.ISBN, wishlistname = book.WishlistName }, null)
+                    @Html.ActionLink("|", null)
+                    @Html.ActionLink("move to cart", "MoveWishlistBookToCart", "Account")
+                </td>
+                <td>
+                    @using (Html.BeginForm("MoveWishlistBook", "Account", new { wishlistname = book.WishlistName, wishlistbook = Model.WishlistBook }))
+                    {
+                        <button type="submit" class="btn btn-primary w-100">Move To</button>
+                        <p></p>
+                        <div class="form-group">
+                            @Html.LabelFor(b => b.WishlistBook.WishlistName)
+                            @Html.DropDownListFor(b => b.WishlistBook.WishlistName, new SelectList(Model.Wishlists, "WishlistName", "WishlistName"), "Select Wishlist", new { @class = "form-control" })
+                        </div>
+                        @Html.HiddenFor(b => b.WishlistBook.Username, new { Value = book.Username })
+                        @Html.HiddenFor(b => b.WishlistBook.Quantity, new { Value = book.Quantity })
+                        @Html.HiddenFor(b => b.WishlistBook.ISBN, new { Value = book.ISBN })
+                    }
+                </td>
             </tr>
         }
     </tbody>

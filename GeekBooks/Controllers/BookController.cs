@@ -8,7 +8,6 @@ using System.Web.Routing;
 using GeekBooks.Models;
 using PagedList;
 using GeekBooks.ViewModels;
-
 //using GeekBooks.Models;
 
 namespace GeekBooks.Controllers
@@ -29,7 +28,7 @@ namespace GeekBooks.Controllers
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
             ViewBag.AuthorSortParm = sortOrder == "Author" ? "author_desc" : "Author";
-            // ViewBag.AuthorSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
+            ViewBag.RatingSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
 
@@ -72,34 +71,45 @@ namespace GeekBooks.Controllers
              return View();
          }*/
 
-        [Route("Book/BookDetails/{isbn}")]
-        public ActionResult Details(string isbn)
+        [Route("Book/Details/{id}/{username}")]
+        public ActionResult Details(string id, string username)
         {
             
-            if (isbn == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var bmodel = new BookeModel
+            {
+                WroteModel = db.Wrotes.SingleOrDefault(w => w.ISBN == id)
+            };
 
+            var bookmodel = new BookeModel
+            {
+                BookModel = db.Books.Find(id),
+                BookGenreModel = db.BookGenres.SingleOrDefault(m => m.ISBN == id),
+                AuthorModel = db.Authors.SingleOrDefault(b => b.AuthorID == bmodel.WroteModel.AuthorID),
+                Wishlists = db.Wishlists.Where(b => b.Username == username).ToList(),
+                username = username
+            };
 
-            BookDetailsViewModel book = new BookDetailsViewModel();
-            book.Book = db.Books.Find(isbn);
-            //bookM.BookGenreModel = db.BookGenres.Find();
-            book.BookGenre = db.BookGenres.SingleOrDefault(m => m.ISBN == isbn);
+            //bookM.BookModel = db.Books.Find(id);
 
-            var viewBook = from m in db.Books
-                           join n in db.BookGenres on m.ISBN equals n.ISBN
-                           where m.ISBN == isbn
-                           select new BookeModel { BookModel = m, BookGenreModel = n };
+            //bookM.BookGenreModel = db.BookGenres.SingleOrDefault(m => m.ISBN == id);
 
-           // var test = viewBook.Find(id);
+            /* var viewBook = from m in db.Books
+                            join n in db.BookGenres on m.ISBN equals n.ISBN
+                            where m.ISBN == id
+                            select new BookeModel { BookModel = m, BookGenreModel = n };*/
 
+            // var test = viewBook.Find(id);
 
-            if (viewBook == null)
+            /*if (bookM == null)
             {
                 return HttpNotFound();
             }
-            return View(book);
+            return View(bookM);*/
+            return View(bookmodel);
         }
 
         /*I am still working on this Book Details View to 
@@ -107,7 +117,7 @@ namespace GeekBooks.Controllers
           using BookDetailsViewModel(also not finished)
           in ViewModels folder to pass all the data to the
           view (Borys).*/
-        /*[Route("Book/BookDetails/{isbn}")]*/
+        [Route("Book/BookDetails/{isbn}")]
         public ActionResult BookDetails(string isbn)
         {
             var viewModel = new BookDetailsViewModel
