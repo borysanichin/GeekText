@@ -164,5 +164,23 @@ namespace GeekBooks.Controllers
 
             return RedirectToAction("WishlistDetail", "Account", new { wishlistname, wishlistbook.Username });
         }
+
+        [Route("Account/UpdateWishlistQuantity/{Username}/{Isbn}/{Wishlistname}")]
+        public ActionResult UpdateWishlistQuantity(string Username, string Isbn, string Wishlistname)
+        {
+            WishlistBook wbook = _context.WishlistBooks.Find(Username, Isbn, Wishlistname);
+
+            return View(wbook);
+        }
+        public ActionResult SaveWishlistQuantity(WishlistBook id)
+        {
+            var wishlistOldBook = _context.WishlistBooks.Find(id.Username, id.ISBN, id.WishlistName);
+
+            _context.WishlistBooks.Remove(wishlistOldBook);
+            _context.WishlistBooks.Add(id);
+            _context.SaveChanges();
+
+            return RedirectToAction("WishlistDetail", "Account", new { id.WishlistName, id.Username });
+        }
     }
 }

@@ -19,8 +19,8 @@
         @foreach (var book in Model.wishlistBooks)
         {
             <tr>
-                <td>@book.Book.Title</td>
-                <td>@book.Quantity</td>
+                <td>@Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)</td>
+                <td>@book.Quantity @Html.ActionLink("update", "UpdateWishlistQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN, Wishlistname = book.WishlistName }, null)</td>
                 <td>
                     @Html.ActionLink("delete", "DeleteWishlistBook", "Account", new { username = book.Username, isbn = book.ISBN, wishlistname = book.WishlistName }, null)
                     @Html.ActionLink("|", null)
