@@ -24,14 +24,31 @@ else
 
                 foreach (var wishlist in Model)
                 {
-                    <tr>
-                        <td>@Html.ActionLink(wishlist.WishlistName, "WishListDetail", "Account", new { wishlistName = wishlist.WishlistName, username = wishlist.Username }, null)</td>
+                        <tr>
+                            @{
+                                if (wishlist.Preferred)
+                                { 
+                                    <td>@Html.ActionLink(wishlist.WishlistName, "WishListDetail", "Account", new { wishlistName = wishlist.WishlistName, username = wishlist.Username }, null) (Primary)</td>
+                                }
+
+                                else
+                                { 
+                                    <td>@Html.ActionLink(wishlist.WishlistName, "WishListDetail", "Account", new { wishlistName = wishlist.WishlistName, username = wishlist.Username }, null)</td>
+                                }
+                            }
                         <td>
                             @Html.ActionLink("delete", "DeleteWishlist", "Account", new { WishlistName = wishlist.WishlistName, Username = wishlist.Username }, null)
-                            @Html.ActionLink("|", null)
-                            @Html.ActionLink("rename", "RenameWishlist", "Account", new { wishlist }, null)
-                        </td>
-                    </tr>
+                            @*@Html.ActionLink("|", null)
+                            @Html.ActionLink("rename", "RenameWishlist", "Account", new {WishlistName = wishlist.WishlistName, Username = wishlist.Username }, null)*@
+                            @{
+                                if (!wishlist.Preferred)
+                                {
+                                    @Html.ActionLink("|", null)
+                                    @Html.ActionLink("make it primary", "MakePrimary", "Account", new { WishlistName = wishlist.WishlistName, Username = wishlist.Username }, null)
+                                }
+                             }
+                                </td>
+                        </tr>
                     count++;
                 }
             }

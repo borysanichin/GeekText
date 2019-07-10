@@ -67,12 +67,19 @@ namespace GeekBooks.Controllers
         {
             return View();
         }
-
-        public ActionResult RenameWishlist(Wishlist id)
+        /*[Route("Account/RenameWishlist/{WishlistName}/{Username}")]
+        public ActionResult RenameWishlist(string WishlistName, string Username)
         {
+            Wishlist wl = _context.Wishlists.Find(Username, WishlistName);
+            var viewModel = new RenameWishlist
+            {
+                oldName = WishlistName,
+                Username = Username,
+                Wishlist = wl
+            };
 
-            return View(id);
-        }
+            return View(viewModel);
+        }*/
 
         public ActionResult SaveWishlist(Wishlist id)
         {
@@ -87,20 +94,33 @@ namespace GeekBooks.Controllers
             return RedirectToAction("Wishlist", "Account");
         }
 
-        [Route("Account/SaveRenameWishList/{oldName}/{wishlist}")]
-        public ActionResult SaveRenameWishlist(string oldName, Wishlist wishlist)
+        //[Route("Account/SaveRenameWishlist/{oldName}/{wishlist}")]
+        /*public ActionResult SaveRenameWishlist(string oldName, Wishlist wishlist)
         {
-            Wishlist newWishlist = _context.Wishlists.Find(wishlist.Username, wishlist.WishlistName);
+            //if (wishlist.Username == null)
+                return Content(wishlist.WishlistName);
 
-            if (newWishlist == null)
+            Wishlist nw = _context.Wishlists.Find(newWishlist.Username, newWishlist.WishlistName);
+
+            if (nw == null)
             {
-                var wishlistInDB = _context.Wishlists.Find(wishlist.Username, oldName);
-                wishlistInDB.WishlistName = wishlist.WishlistName;
+                _context.Wishlists.Add(newWishlist);
+                _context.SaveChanges();
+
+                foreach (var wb in _context.WishlistBooks.Where(w => w.Username == newWishlist.Username))
+                {
+                    if (wb.WishlistName == oldName)
+                    {
+                        wb.WishlistName = newWishlist.WishlistName;
+                    }
+                }
+                var wishlistInDB = _context.Wishlists.Find(newWishlist.Username, oldName);
+                _context.Wishlists.Remove(wishlistInDB);
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Wishlist", "Account");
-        }
+            //return RedirectToAction("Wishlist", "Account");
+        }*/
 
         [Route("Account/DeleteWishList/{WishlistName}/{Username}")]
         public ActionResult DeleteWishlist(string WishlistName, string Username)
@@ -181,6 +201,25 @@ namespace GeekBooks.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("WishlistDetail", "Account", new { id.WishlistName, id.Username });
+        }
+        [Route("Account/MakePrimary/{WishlistName}/{Username}")]
+        public ActionResult MakePrimary(string WishlistName, string Username)
+        {
+            var wishlistInDb = _context.Wishlists.Find(Username, WishlistName);
+
+            if (wishlistInDb == null)
+                return HttpNotFound();
+
+            foreach (var wlist in _context.Wishlists.Where(w => w.Username == Username))
+            {
+                if (wlist.Preferred)
+                    wlist.Preferred = false;
+            }
+
+            wishlistInDb.Preferred = true;
+            _context.SaveChanges();
+
+            return RedirectToAction("Wishlist", "Account");
         }
     }
 }

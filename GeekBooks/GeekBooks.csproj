@@ -269,6 +269,7 @@
     </Compile>
     <Compile Include="ViewModels\BookDetailsViewModel.cs" />
     <Compile Include="ViewModels\Cart\CartVM.cs" />
+    <Compile Include="ViewModels\RenameWishlist.cs" />
     <Compile Include="ViewModels\WIshlistWishlistBook.cs" />
     <Compile Include="Wishlist.cs">
       <DependentUpon>BookContext.tt</DependentUpon>

@@ -11,5 +11,6 @@ namespace GeekBooks.ViewModels
         public IEnumerable<WishlistBook> wishlistBooks { get; set; }
         public IEnumerable<Wishlist> Wishlists { get; set; }
         public WishlistBook WishlistBook { get; set; }
+        public decimal totalPrice { get; set; }
     }
 }
