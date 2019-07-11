@@ -13,60 +13,16 @@ namespace GeekBooks.Models
     public class Search
     {
 
-        public IQueryable<BookeModel> search(BookContext db, string searchString, string movieGenre)
+        public IQueryable<BookeModel> search(BookContext db, string searchString, string movieGenre, int? authorID, IQueryable<BookeModel> book)
         {
 
 
-            var Review = from m in db.Books
-                         join r in db.Reviews on m.ISBN equals r.ISBN
-                         select new
-                         {
-                             ISBN = m.ISBN,
-                             Rating = r.Rating
-                         };
-
-            var aReview = Review.GroupBy(g => g.ISBN, r => r.Rating).Select(g => new
-            {
-                ISBN = g.Key,
-                Rating = g.Average()
-            });
 
 
-            /*
-                        aReview = (
-                            (from r in aReview
-                                   select r)
-                                   .Union(from b in Review
-                                    select b)).Distinct()
-                                    ;
-                                    */
+            // BookM.BookGenreModel = db.BookGenres.FirstOrDefault(a => a.ISBN == BookM.BookModel.ISBN);
 
 
-
-
-            var book = from m in db.Books
-                       join n in db.BookGenres on m.ISBN equals n.ISBN
-                       join b in db.Wrotes on m.ISBN equals b.ISBN
-                       join c in db.Authors on b.AuthorID equals c.AuthorID
-                       //  join r in db.Reviews on m.ISBN equals r.ISBN
-                       // join p in aReview on m.ISBN equals p.ISBN
-                       select new BookeModel
-                       {
-                           BookModel = m,
-                           BookGenreModel = n,
-                           WroteModel = b,
-                           AuthorModel = c,
-                           // ReviewModel = aReview.FirstOrDefault(n => n.ISBN == m.ISBN),
-                           reviews = db.Reviews.Where(b => b.ISBN == m.ISBN).Select(a => a.Rating).DefaultIfEmpty(0).Average()
-                           /*ReviewModel = r,*/
-                           /* reviews = p.Rating */
-
-                       };
-
-
-
-
-
+          
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -79,6 +35,8 @@ namespace GeekBooks.Models
                 book = book.Where(x => x.BookGenreModel.GenreName == movieGenre);
             }
             return book;
+
+
         }
         public List<string> genreList(BookContext db)
         {
