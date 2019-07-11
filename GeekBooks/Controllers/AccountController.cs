@@ -44,23 +44,9 @@ namespace GeekBooks.Controllers
             return View(wishlists);
         }
 
-        [Route("Account/WishListDetail/{wishlistName}/{username}")]
-        public ActionResult WishListDetail(string wishlistName, string username)
-        {
-            IEnumerable<Wishlist> wlists = _context.Wishlists.Where(w => w.Username == username).ToList();
-            
-            var wwbook = new WishlistWishlistBook
-            {
-                wishlistName = wishlistName,
-                wishlistBooks = _context.WishlistBooks.Include(w => w.Book).Where(w => w.WishlistName == wishlistName && w.Username == username).ToList(),
-                Wishlists = wlists.Where(w => w.WishlistName != wishlistName).ToList()
-        };
-            
-            if (wwbook == null)
-                return HttpNotFound();
+   
 
-            return View(wwbook);
-        }
+
 
         [Route("Account/AddWishlist/{Username}")]
         public ActionResult AddWishlist(string Username)
@@ -137,6 +123,58 @@ namespace GeekBooks.Controllers
 
             return RedirectToAction("WishListDetail", "Account", new { wishlistBook.WishlistName, wishlistBook.Username });
         }
+
+        [Route("Account/WishListDetail/{wishlistName}/{username}")]
+        public ActionResult WishListDetail(string wishlistName, string username)
+        {
+            IEnumerable<Wishlist> wlists = _context.Wishlists.Where(w => w.Username == username).ToList();
+
+            var wwbook = new WishlistWishlistBook
+            {
+                wishlistName = wishlistName,
+                wishlistBooks = _context.WishlistBooks.Include(w => w.Book).Where(w => w.WishlistName == wishlistName && w.Username == username).ToList(),
+                Wishlists = wlists.Where(w => w.WishlistName != wishlistName).ToList()
+            };
+
+            if (wwbook == null)
+                return HttpNotFound();
+
+            return View(wwbook);
+        }
+
+
+        public ActionResult AddBookToShoppingCart(ShoppingCart shoppingCart)
+        {
+
+
+            ShoppingCart sCart = _context.ShoppingCarts.Find(shoppingCart.Username, shoppingCart.ISBN);
+
+          
+            
+            if (sCart == null)
+            {
+                 
+                _context.ShoppingCarts.Add(shoppingCart);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("ShoppingCartDetail", "Account", new { shoppingCart.Username });
+        }
+
+        [Route("Account/ShoppingCartDetail/{username}")]
+        public ActionResult ShoppingCartDetail(string username)
+        {
+            IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username).ToList();
+ 
+            if (sCart == null)
+                return HttpNotFound();
+
+            return View(sCart);
+        }
+
+
+
+
         [Route("Account/DeleteWishlistBook/{username}/{isbn}/{wishlistname}")]
         public ActionResult DeleteWishlistBook(string username, string isbn, string wishlistname)
         {
@@ -149,6 +187,20 @@ namespace GeekBooks.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("WishlistDetail", "Account", new { wishlistname, username});
+        }
+
+        [Route("Account/DeleteWishlistBook/{username}/{isbn}")]
+        public ActionResult DeleteShoppingCartBook(string username, string isbn)
+        {
+            var sCart = _context.ShoppingCarts.Find(username, isbn);
+
+            if (sCart == null)
+                return HttpNotFound();
+
+            _context.ShoppingCarts.Remove(sCart);
+            _context.SaveChanges();
+
+            return RedirectToAction("ShoppingCartDetail", "Account", new {username });
         }
         //[Route("Account/MoveWishlistBook/{wishlistname}/{wishlistbook}")]
         public ActionResult MoveWishlistBook(string wishlistname, WishlistBook wishlistbook)
@@ -172,6 +224,14 @@ namespace GeekBooks.Controllers
 
             return View(wbook);
         }
+
+        [Route("Account/UpdateShoppingCartQuantity/{Username}/{Isbn}")]
+        public ActionResult UpdateShoppingCartQuantity(string Username, string Isbn)
+        {
+            ShoppingCart sCart = _context.ShoppingCarts.Find(Username, Isbn);
+
+            return View(sCart);
+        }
         public ActionResult SaveWishlistQuantity(WishlistBook id)
         {
             var wishlistOldBook = _context.WishlistBooks.Find(id.Username, id.ISBN, id.WishlistName);
@@ -182,16 +242,16 @@ namespace GeekBooks.Controllers
 
             return RedirectToAction("WishlistDetail", "Account", new { id.WishlistName, id.Username });
         }
-        //Shopping Cart
 
-        [Route("Account/ShoppingCart/{username}")]
-        public ActionResult ShoppingCart()
+        public ActionResult SaveShoppingCartQuantity(ShoppingCart id)
         {
-            IEnumerable<ShoppingCart> shoppingCarts = _context.ShoppingCarts.Include(s => s.Book).Where(s => s.Username == "guest").ToList();
+            var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
 
-            return View(shoppingCarts);
-        } 
+            _context.ShoppingCarts.Remove(oldShoppingCart);
+            _context.ShoppingCarts.Add(id);
+            _context.SaveChanges();
 
-
+            return RedirectToAction("ShoppingCartDetail", "Account", new { id.Username });
+        }
     }
 }
