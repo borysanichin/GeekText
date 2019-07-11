@@ -182,5 +182,16 @@ namespace GeekBooks.Controllers
 
             return RedirectToAction("WishlistDetail", "Account", new { id.WishlistName, id.Username });
         }
+        //Shopping Cart
+
+        [Route("Account/ShoppingCart/{username}")]
+        public ActionResult ShoppingCart()
+        {
+            IEnumerable<ShoppingCart> shoppingCarts = _context.ShoppingCarts.Include(s => s.Book).Where(s => s.Username == "guest").ToList();
+
+            return View(shoppingCarts);
+        } 
+
+
     }
 }

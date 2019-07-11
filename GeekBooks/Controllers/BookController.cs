@@ -155,7 +155,7 @@ namespace GeekBooks.Controllers
         
         public ActionResult ShoppingCart()
         {
-            return RedirectToAction("ShoppingCart", "Home");
+            return RedirectToAction("ShoppingCart", "Account");
             return View();
         }
 
