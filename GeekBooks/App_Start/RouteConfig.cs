@@ -27,8 +27,8 @@ namespace GeekBooks
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
             //shoppingcart route for controller
-            routes.MapRoute(
-               "ShoppingCart", "Cart/{action}/{id}", new { controller = "Cart", action = "Index", id = UrlParameter.Optional }, new[] { "GeekBooks.Controllers" });
+          //  routes.MapRoute(
+          //     "ShoppingCart", "Cart/{action}/{id}", new { controller = "Cart", action = "Index", id = UrlParameter.Optional }, new[] { "GeekBooks.Controllers" });
         }
     }
 }
