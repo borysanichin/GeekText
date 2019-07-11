@@ -19,9 +19,6 @@ namespace GeekBooks.Controllers
             return View();
         }
 
-        public ActionResult ShoppingCart()
-        {
-            return View();
-        }
+       
     }
 }

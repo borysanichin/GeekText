@@ -11,7 +11,7 @@ namespace GeekBooks
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Review
     {
         public string ISBN { get; set; }
@@ -19,11 +19,10 @@ namespace GeekBooks
         public decimal Rating { get; set; }
         public string Comment { get; set; }
         public System.DateTime DatePosted { get; set; }
-
+           
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }
-        public int Anonymous { get; set; }
-        public bool BoolValue { get { return Anonymous == 1; } set { Anonymous = value ? 1 : 0; } }
+        public bool BoolValue { get { return Anonymous == 1; } set { Anonymous = value ? 1 : 0; } }        public int Anonymous { get; set; }
 
     }
 }
