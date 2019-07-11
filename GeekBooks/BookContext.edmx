@@ -764,7 +764,7 @@
           <End Role="Book" Type="Self.Book" Multiplicity="*" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="BookContext" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authors" EntityType="Self.Author" />
           <EntitySet Name="Books" EntityType="Self.Book" />
           <EntitySet Name="BookGenres" EntityType="Self.BookGenre" />
@@ -844,7 +844,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BookContextModelStoreContainer" CdmEntityContainer="BookContext">
+        <EntityContainerMapping StorageEntityContainer="BookContextModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Authors">
             <EntityTypeMapping TypeName="BookContextModel.Author">
               <MappingFragment StoreEntitySet="Author">
