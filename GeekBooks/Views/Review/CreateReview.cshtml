@@ -3,7 +3,7 @@
     ViewBag.Title = "Review Form";
 }
 
-<script>
+<script type="text/javascript">
     /*function postStar(rating) {
         var rate = rating.getAttribute('data-hook');
         alert("Rating: " + rate);
@@ -13,6 +13,57 @@
             $("p:first").addClass("checked");
         });
     });
+
+    /*$(document).ready(function () {
+        $("#s1").click(function () {
+            $("#s1").css("color", "orange");
+        })
+    });*/
+
+    /*var queries = {};
+    $.each(window.location.search.substr(1).split('&'), function (c, q) {
+        var i = q.split('=');
+        queries[i[0].toString()] = i[1].toString();
+    });*/
+
+    $(document).ready(function () {
+        $('#s1').click(function () {
+            $('.fa-star').css("color", "black");
+            $('#s1').css("color", "orange");
+            $('#rate').text('1/5');
+            $('#rateBox').val(1); 
+        });
+        $('#s2').click(function () {
+            $('.fa-star').css("color", "black");
+            $('#s1, #s2').css("color", "orange");
+            $('#rate').text('2/5');
+            $('#rateBox').val(2);
+        });
+        $('#s3').click(function () {
+            $('.fa-star').css("color", "black");
+            $('#s1, #s2, #s3').css("color", "orange");
+            $('#rate').text('3/5');
+            $('#rateBox').val(3);
+        });
+        $('#s4').click(function () {
+            $('.fa-star').css("color", "black");
+            $('#s1, #s2, #s3, #s4').css("color", "orange");
+            $('#rate').text('4/5');
+            $('#rateBox').val(4);
+        });
+        $('#s5').click(function () {
+            $('.fa-star').css("color", "black");
+            $('#s1, #s2, #s3, #s4, #s5').css("color", "orange");
+            $('#rate').text('5/5');
+            $('#rateBox').val(5);
+        });
+
+        //$('#isbn').val(queries["ISBN"]);
+        //$('#user').val(queries["user"]);
+    });
+
+    console.log(queries);
+
 </script>
 <style>
 
@@ -20,51 +71,69 @@
         color: orange;
     }
 
-    .rating {
-        color: orange;
+    /*.rating {
+        color: black;
         unicode-bidi: bidi-override;
         direction: rtl;
     }
 
-        .rating > span {
+        .rating > i {
             display: inline-block;
             position: relative;
             width: 1.1em;
         }
 
-            .rating > span:hover:before,
-            .rating > span:hover ~ span:before {
+            .rating > i:hover:before,
+            .rating > i:hover ~ i:before {
                 content: "\2605";
+                color: orange;
                 position: absolute;
-            }
+            }*/
+
+        .rating > i:hover:before {
+            color: rgb(209, 136, 0);
+        }
+
+    .fa-star{
+        font-size: 50px;
+    }
 </style>
-<!--<p>This is a test paragraph.</p>
-<button>add a class name to first p element</button>-->
+
 <h2>Create a Review</h2>
 @using (Html.BeginForm("CreateReview", "Review", FormMethod.Post))
 
 {
     <div class="form-group">
     <h3>ISBN</h3>
-    @Html.TextBoxFor(m => m.ISBN, new { @class = "form-control" })
+    @*@Html.HiddenFor(m => m.ISBN, new { id = "isbn"})*@
+    @Html.TextBoxFor(m => m.ISBN, new { @class = "form-control", id = "isbn"})
     <br />
     <hr />
     <h3>Username</h3>
-    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+    @*Html.HiddenFor(m => m.Username)*@
+    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", id = "user" })
     <br />
     <hr />
     <h3>Rating</h3>
     <!--To Do: Change rating textbox to star-icons-->
     <div class="rating">
 
-        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
-        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
-        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
-        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
-        <span class="glyphicon glyphicon-star" data-hook="star">☆</span>
+        <!--<span class="glyphicon glyphicon-star" data-hook="star" id="s1">☆</span>
+    <span class="glyphicon glyphicon-star" data-hook="star" id="s2">☆</span>
+    <span class="glyphicon glyphicon-star" data-hook="star" id="s3">☆</span>
+    <span class="glyphicon glyphicon-star" data-hook="star" id="s4">☆</span>
+    <span class="glyphicon glyphicon-star" data-hook="star" id="s5">☆</span>-->
+
+        <i class="fa fa-star" aria-hidden="true" id="s1"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s2"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s3"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s4"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s5"></i>
+
+        <b id="rate">0/5</b>
 
     </div>
-    @Html.TextBoxFor(m => m.Rating, new { @class = "form-control" })
+    @Html.TextBoxFor(m => m.Rating, new { @class = "form-control", id = "rateBox" })
     @Html.ValidationMessageFor(m => m.Rating)
     <br />
     <hr />
@@ -74,7 +143,8 @@
     <br />
     <hr />
     <h3>DatePosted</h3>
-    @Html.TextBoxFor(m => m.DatePosted, new { @class = "form-control" })
+    @Html.HiddenFor(m => m.DatePosted)
+    @*@Html.TextBoxFor(m => m.DatePosted, new { @class = "form-control" })*@
 
     <br />
     <hr />
