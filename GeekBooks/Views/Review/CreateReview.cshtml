@@ -20,12 +20,18 @@
         })
     });*/
 
+    /*var queries = {};
+    $.each(window.location.search.substr(1).split('&'), function (c, q) {
+        var i = q.split('=');
+        queries[i[0].toString()] = i[1].toString();
+    });*/
+
     $(document).ready(function () {
         $('#s1').click(function () {
             $('.fa-star').css("color", "black");
             $('#s1').css("color", "orange");
             $('#rate').text('1/5');
-            $('#rateBox').val(1);
+            $('#rateBox').val(1); 
         });
         $('#s2').click(function () {
             $('.fa-star').css("color", "black");
@@ -51,7 +57,12 @@
             $('#rate').text('5/5');
             $('#rateBox').val(5);
         });
+
+        //$('#isbn').val(queries["ISBN"]);
+        //$('#user').val(queries["user"]);
     });
+
+    console.log(queries);
 
 </script>
 <style>
@@ -94,13 +105,13 @@
 {
     <div class="form-group">
     <h3>ISBN</h3>
-    @Html.HiddenFor(m => m.ISBN)
-    @*@Html.TextBoxFor(m => m.ISBN, new { @class = "form-control" })*@
+    @*@Html.HiddenFor(m => m.ISBN, new { id = "isbn"})*@
+    @Html.TextBoxFor(m => m.ISBN, new { @class = "form-control", id = "isbn"})
     <br />
     <hr />
     <h3>Username</h3>
-    @Html.HiddenFor(m => m.Username) 
-    @*@Html.TextBoxFor(m => m.Username, new { @class = "form-control" })*@
+    @*Html.HiddenFor(m => m.Username)*@
+    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", id = "user" })
     <br />
     <hr />
     <h3>Rating</h3>
