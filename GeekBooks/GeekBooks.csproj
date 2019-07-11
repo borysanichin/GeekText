@@ -251,6 +251,7 @@
     <Compile Include="HomeAddress.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IQueryableBookeModel.cs" />
     <Compile Include="Models\ModelOfModels.cs" />
     <Compile Include="Models\Search.cs" />
     <Compile Include="Models\Sort.cs" />

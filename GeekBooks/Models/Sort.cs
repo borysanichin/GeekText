@@ -9,8 +9,13 @@ namespace GeekBooks.Models
     {
 
 
-        public IQueryable<BookeModel> sort(IQueryable<BookeModel> book, string sortOrder)
+        public IQueryable<BookeModel> sort(IQueryable<BookeModel> book, string sortOrder, int? authorID)
         {
+
+            if (authorID != null)
+            {
+                book = book.Where(a => a.AuthorModel.AuthorID == authorID);
+            }
 
             switch (sortOrder)
             {
