@@ -766,7 +766,7 @@
           <End Role="Book" Type="Self.Book" Multiplicity="*" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BookContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authors" EntityType="Self.Author" />
           <EntitySet Name="Books" EntityType="Self.Book" />
           <EntitySet Name="BookGenres" EntityType="Self.BookGenre" />
@@ -846,9 +846,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-
         <EntityContainerMapping StorageEntityContainer="GeektextDB2017ModelStoreContainer" CdmEntityContainer="BookContext">
-
           <EntitySetMapping Name="Authors">
             <EntityTypeMapping TypeName="GeektextDB2017Model.Author">
               <MappingFragment StoreEntitySet="Author">

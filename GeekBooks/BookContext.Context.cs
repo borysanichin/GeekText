@@ -16,7 +16,7 @@ namespace GeekBooks
     public partial class BookContext : DbContext
     {
         public BookContext()
-            : base("name=Entities")
+            : base("name=BookContext")
         {
         }
     
