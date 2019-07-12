@@ -270,6 +270,7 @@
     </Compile>
     <Compile Include="ViewModels\BookDetailsViewModel.cs" />
     <Compile Include="ViewModels\Cart\CartVM.cs" />
+    <Compile Include="ViewModels\ShoppingCartView.cs" />
     <Compile Include="ViewModels\WIshlistWishlistBook.cs" />
     <Compile Include="Wishlist.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
@@ -318,6 +319,9 @@
     <Content Include="Views\Account\RenameWishlist.cshtml" />
     <Content Include="Views\Book\BookDetails.cshtml" />
     <Content Include="Views\Account\UpdateWishlistQuantity.cshtml" />
+    <Content Include="Views\Account\UpdateShoppingCartQuantity.cshtml" />
+    <Content Include="Views\Account\ShoppingCartDetail.cshtml" />
+    <Content Include="Views\Account\ShoppingCart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

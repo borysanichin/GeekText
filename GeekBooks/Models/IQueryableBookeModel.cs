@@ -22,7 +22,7 @@ namespace GeekBooks.Models
                        BookGenreModel = b,
                        WroteModel = c,
                        AuthorModel = d,
-                       reviews = db.Reviews.Where(b => b.ISBN == a.ISBN).Select(a => a.Rating).DefaultIfEmpty(0).Average()
+                       //reviews = db.Reviews.Where(b => b.ISBN == a.ISBN).Select(a => a.Rating).DefaultIfEmpty(0).Average()
 
                    };
 

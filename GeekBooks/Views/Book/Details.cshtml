@@ -46,15 +46,31 @@
 
 
     <div class="col-sm-4">
-        @using (Html.BeginForm("Details", "Book"))
+        @using (Html.BeginForm("AddBookToShoppingCart", "Account"))
         {
 
+
+
+            @Html.HiddenFor(b => b.ShoppingCart.ISBN, new { Value = Model.BookModel.ISBN })
+            @Html.HiddenFor(b => b.ShoppingCart.Username, new { Value = Model.username })
+            @Html.HiddenFor(b => b.ShoppingCart.Quantity, new { Value = 1 })
+            @Html.HiddenFor(b => b.ShoppingCart.PriceEach, new { Value = Model.BookModel.Price })
+
             <button type="submit" class="btn btn-primary w-50">Add To Cart</button>
+
+
         }
         <p></p>
+
+
+
+
         <p>
             @Html.ActionLink("Create a Review", "CreateReview", "Review", new { id = Model.BookModel.ISBN }, new { @class = "btn btn-primary w-50" }) <br /> <br />
         </p>
+
+
+
         @using (Html.BeginForm("AddBookToWishlist", "Account"))
         {
             <div class="form-group">
