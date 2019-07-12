@@ -8,10 +8,13 @@ using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using GeekBooks.ViewModels;
 
+
 namespace GeekBooks.Controllers
 {
     public class AccountController : Controller
     {
+        BookContext objBookContext = new BookContext();
+
         private BookContext _context;
 
         public AccountController()
@@ -30,12 +33,74 @@ namespace GeekBooks.Controllers
 
         public ActionResult Login()
         {
+            LoginModel objLoginModel = new LoginModel();
+            return View(objLoginModel);
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginModel objLoginModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (objBookContext.Users.Where(m => m.Email == objLoginModel.Email && m.UserPassword == objLoginModel.UserPassword).FirstOrDefault() == null)
+                {
+                    ModelState.AddModelError("Error", "The password you entered is incorrect. Please try again.");
+                    return View();
+                }
+                else
+                {
+                    Session["Email"] = objLoginModel.Email;
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return View();
+           
+        }
+        public ActionResult Register()
+        {
+            Usermodel objUserModel = new Usermodel();
+            return View(objUserModel);
+        }
+
+        [HttpPost]
+        public ActionResult Register(Usermodel objUserModel)
+        {
+            if (ModelState.IsValid)
+            {
+
+                if (!objBookContext.Users.Any(m => m.Email == objUserModel.Email || m.Username == objUserModel.Username))
+                {
+                    //object created from DBModel/Model1.tt/User
+                    User objUser = new User();
+
+
+                    objUser.Username = objUserModel.Username;
+                    objUser.UserFirst = objUserModel.UserFirst;
+                    objUser.UserMiddle = objUserModel.UserMiddle;
+                    objUser.UserLast = objUserModel.UserLast;
+                    objUser.Email = objUserModel.Email;
+                    objUser.UserPassword = objUserModel.UserPassword;
+
+
+                    objBookContext.Users.Add(objUser);
+                    objBookContext.SaveChanges();
+                    objUserModel.Success = "User is succesfully Added";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "Account already exists.");
+                    return View();
+                }
+            }
             return View();
         }
 
-        public ActionResult Register()
+        public ActionResult Logout()
         {
-            return View();
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult WishList()
