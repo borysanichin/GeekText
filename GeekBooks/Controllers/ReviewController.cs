@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GeekBooks.Models;
@@ -13,6 +14,7 @@ namespace GeekBooks.Controllers
         BookContext db = new BookContext();
         public ActionResult Index(Review review)
         {
+            //Session["Username"] = "guest2";
             ViewBag.UserName = "No data";
             if (review.BoolValue)
                 ViewBag.UserName = "Anonymous user";
@@ -20,7 +22,6 @@ namespace GeekBooks.Controllers
                 ViewBag.UserName = review.Username;
             ViewBag.BoolValue = review.BoolValue;
             ViewBag.Test = "Testing";
-            ViewBag.Test = "Testing123";
             List<Review> reviews = db.Reviews.ToList();              
             //decimal rating = review.Rating;
             //string comment = review.Comment;
@@ -32,10 +33,24 @@ namespace GeekBooks.Controllers
         [HttpGet]
         public ActionResult CreateReview(string id = "1")
         {
+            //To Do: Check if user is logged in
+            /*if(Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }*/
+
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             var review = new Review();
-            review.DatePosted = System.DateTime.Now; 
-            review.Username = "guest";
-            var isbn = from b in db.Books
+            var book = new BookeModel();
+            review.DatePosted = System.DateTime.Now;
+            review.Username = "guest"; //(string)Session["Username"];
+            var isbn = db.Books.Where(i => i.ISBN == id).Select(i => i.ISBN).Single();
+            review.ISBN = isbn;
+            /*var isbn = from b in db.Books
                        join r in db.Reviews
                        on b.ISBN equals r.ISBN
                        where b.ISBN == id
@@ -45,11 +60,18 @@ namespace GeekBooks.Controllers
             foreach(var i in isbn)
             {
                 review.ISBN = i._ISBN;
+                id = i._ISBN;
             }
-            if(review.ISBN != id)
+            if(book.ISBN != id)
             {
                 return HttpNotFound();
             }
+
+            if (id.Equals(book.ISBN))
+            {
+                review.ISBN = book.ISBN;
+
+            }*/
             ViewBag.ISBN = review.ISBN;
             //ModelState.Clear();
             return View(review);
@@ -77,10 +99,13 @@ namespace GeekBooks.Controllers
                 ViewBag.DatePosted = reviewData.DatePosted;
                 ViewBag.BoolValue = reviewData.BoolValue;
                 ViewBag.Anonymous = reviewData.Anonymous;
-                /*db.Reviews.Add(reviewData);
+                //To Do: Check if user has purchased the book
+                db.Reviews.Add(reviewData);
                 db.SaveChanges();
-                return RedirectToAction("Index");*/
+                
                 ModelState.Clear();
+                return RedirectToAction("Index");
+                return RedirectToRoute("BookRoute", new { id = reviewData.ISBN });
                 return View();
             }
             else

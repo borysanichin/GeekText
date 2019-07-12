@@ -12,7 +12,7 @@
     {
     <p>
         Genre: @Html.DropDownList("movieGenre", "All")
-        Title: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Title: @Html.TextBox("SearchString")
         <input type="submit" value="Search" />
     </p>
 
@@ -21,79 +21,119 @@
     <table class="table">
         <tr>
             <th>
+            </th>
+            <th>
+                @Html.ActionLink("Title", "Index", new
+           {
+               sortOrder = ViewBag.TitleSortParm,
+               currentFilter = ViewBag.curentFilter,
+               authorID = ViewBag.AuthorID,
+               searchString = ViewBag.CurrentFilter,
+               movieGenre = ViewBag.GenreFilter
 
+
+           })
             </th>
             <th>
-                @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.currentFilter })
-            </th>
-            <th>
-                @Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSortParm, currentFilter = ViewBag.curentFilter })
+                @Html.ActionLink("Price", "Index", new
+           {
+               sortOrder = ViewBag.PriceSortParm,
+               currentFilter = ViewBag.curentFilter,
+               authorID = ViewBag.AuthorID,
+               searchString = ViewBag.CurrentFilter,
+               movieGenre = ViewBag.GenreFilter
+
+
+           })
             </th>
             <th>
                 @Html.DisplayName("Genre")
             </th>
             <th>
-                @Html.ActionLink("Author", "Index", new { sortOrder = ViewBag.AuthorSortParm, currentFilter = ViewBag.curentFilter })
+                @Html.ActionLink("Author", "Index", new
+           {
+               sortOrder = ViewBag.AuthorSortParm,
+               currentFilter = ViewBag.curentFilter,
+               authorID = ViewBag.AuthorID,
+               searchString = ViewBag.CurrentFilter,
+               movieGenre = ViewBag.GenreFilter
+
+
+           })
             </th>
             <th>
-                @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.curentFilter })
+                @Html.ActionLink("Rating", "Index", new
+           {
+               sortOrder = ViewBag.RatingSortParm,
+               currentFilter = ViewBag.curentFilter,
+               authorID = ViewBag.AuthorID,
+               searchString = ViewBag.CurrentFilter,
+               movieGenre = ViewBag.GenreFilter
 
-            </th>        
+
+           })
+            </th>
             <th>
                 @Html.DisplayName("ISBN")
             </th>
             <th>
-                @Html.ActionLink("DatePublished", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.curentFilter })
+                @Html.ActionLink("DatePublished", "Index", new
+           {
+               sortOrder = ViewBag.PriceSortParm,
+               currentFilter = ViewBag.curentFilter,
+               authorID = ViewBag.AuthorID,
+               searchString = ViewBag.CurrentFilter,
+               movieGenre = ViewBag.GenreFilter
+
+
+           })
             </th>
             <th></th>
         </tr>
-       
+
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
-                <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN })" title="@item.BookModel.Title Detail" class="links">
-                    <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="150" height="150">
-                </a>
-
-            </td>
-
-            <td>
-                @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = "guest" }, null)
-            </td>
-            <td>
-                $@Html.DisplayFor(modelItem => item.BookModel.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookGenreModel.GenreName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorModel.AuthorFirst)
-                @Html.DisplayFor(modelItem => item.AuthorModel.AuthorMiddle)
-                @Html.DisplayFor(modelItem => item.AuthorModel.AuthorLast)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.reviews)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookModel.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookModel.DatePublished)
-            </td>
-            <td>
-                @Html.ActionLink("Add to Wish List", "WishList", new { id = item.BookModel.ISBN })  |
-                @Html.ActionLink("Add to Shopping Cart", "ShoppingCart", new { id = item.BookModel.ISBN })
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
+                    <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = "guest" })" title="@item.BookModel.Title Detail" class="links">
+                        <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
+                    </a>
+                </td>
+                <td>
+                    @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = "guest" }, null)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.BookModel.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookGenreModel.GenreName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorFirst)
+                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorMiddle)
+                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorLast)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.reviews)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookModel.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookModel.DatePublished)
+                </td>
+                <td>
+                    @Html.ActionLink("Add to Wish List", "WishList", new { id = item.BookModel.ISBN })  |
+                    @Html.ActionLink("Add to Shopping Cart", "ShoppingCart", new { id = item.BookModel.ISBN })
+                </td>
+            </tr>
         }
     </table>
     <br />
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("Index",
         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
     <!--Hard Coded Below-->
     @*
         <a href="~/Book/Details/1">

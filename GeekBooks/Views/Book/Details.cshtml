@@ -1,88 +1,76 @@
 ﻿@model GeekBooks.Models.BookeModel
-
 @{
     ViewBag.Title = "Details";
 }
-
 <h3>Book Details</h3>
-
 <hr />
-
 <div class="row">
-    <div class="col-md-6">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.BookModel.Title)
-            </dt>
+    <div class="col-sm-8">
 
-            <dd>
-                @Html.DisplayFor(model => model.BookModel.Title)
-            </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.BookModel.Price)
-            </dt>
+        @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
+        @*<a href="@Url.Action("Details", "Book", new { id = Model.BookModel.ISBN })" title="@Model.BookModel.Title Detail" class="links">
+                <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="300" height="450">
+            </a>
+        *@
 
-            <dd>
-                @Html.DisplayFor(model => model.BookModel.Price)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.BookGenreModel.GenreName)
-            </dt>
+        <a class="btn" data-toggle="modal" data-target=".bootstrapmodal" title="Click to enlarge">
 
-            <dd>
-                @Html.DisplayFor(model => model.BookGenreModel.GenreName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.BookModel.BookDescription)
-            </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.BookModel.BookDescription)
-            </dd>
+            <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="250" height="400">
 
-            <dt>
-                @Html.DisplayNameFor(model => model.BookModel.PublisherName)
-            </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.BookModel.PublisherName)
-            </dd>
+        </a>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.BookModel.DatePublished)
-            </dt>
+        <div class="modal fade bootstrapmodal">
 
-            <dd>
-                @Html.DisplayFor(model => model.BookModel.DatePublished)
-            </dd>
-            <dt>
-                @Html.DisplayName("Author Name")
-            </dt>
+            <div class="modal-dialog">
 
-            <dd>
-                @Html.DisplayFor(model => model.AuthorModel.AuthorFirst) @Html.DisplayFor(model => model.AuthorModel.AuthorLast)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.AuthorModel.Bio)
-            </dt>
+                <div class="modal-body">
+                    <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="500" height="750">
 
-            <dd>
-                @Html.DisplayFor(model => model.AuthorModel.Bio)
-            </dd>
 
-        </dl>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
     </div>
-    <div class="col-md-6">
-        @using (Html.BeginForm("Details", "Book"))
+
+
+
+
+    <div class="col-sm-4">
+        @using (Html.BeginForm("AddBookToShoppingCart", "Account"))
         {
 
+
+
+            @Html.HiddenFor(b => b.ShoppingCart.ISBN, new { Value = Model.BookModel.ISBN })
+            @Html.HiddenFor(b => b.ShoppingCart.Username, new { Value = Model.username })
+            @Html.HiddenFor(b => b.ShoppingCart.Quantity, new { Value = 1 })
+            @Html.HiddenFor(b => b.ShoppingCart.PriceEach, new { Value = Model.BookModel.Price })
+
             <button type="submit" class="btn btn-primary w-50">Add To Cart</button>
+
+
         }
         <p></p>
+
+
+
+
         <p>
-            @Html.ActionLink("Create a Review", "CreateReview", "Review", new { Model.BookModel.ISBN }, new { @class = "btn btn-primary w-50" }) <br /> <br />
+            @Html.ActionLink("Create a Review", "CreateReview", "Review", new { id = Model.BookModel.ISBN }, new { @class = "btn btn-primary w-50" }) <br /> <br />
         </p>
+
+
+
         @using (Html.BeginForm("AddBookToWishlist", "Account"))
         {
             <div class="form-group">
@@ -101,4 +89,104 @@
         <p></p>
         @Html.ActionLink("Back to List", "Index")
     </div>
+
+
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <hr align="left" width="350" />
+            <dl align="left">
+
+                <dd>
+                    <b>@Html.DisplayName("Title: ")</b>
+                    @Html.DisplayFor(model => model.BookModel.Title)
+                </dd>
+
+
+                <dd>
+                    <b>@Html.DisplayName("Price: ")</b>
+
+                    $@Html.DisplayFor(model => model.BookModel.Price)
+                </dd>
+
+
+                <dd>
+                    <b>@Html.DisplayName("Genre: ")</b>
+
+                    @Html.DisplayFor(model => model.BookGenreModel.GenreName)
+                </dd>
+
+
+
+                <dd>
+                    <b>@Html.DisplayName("Publisher: ")</b>
+
+                    @Html.DisplayFor(model => model.BookModel.PublisherName)
+                </dd>
+
+
+                <dd>
+                    <b>@Html.DisplayName("Date Published: ")</b>
+
+                    @Html.DisplayFor(model => model.BookModel.DatePublished)
+                </dd>
+
+
+                <dd>
+                    <b>@Html.DisplayName("Author Name: ")</b>
+                    @*
+                        @Html.DisplayFor(model => model.AuthorModel.AuthorFirst)
+                        @Html.DisplayFor(model => model.AuthorModel.AuthorMiddle)
+                        @Html.DisplayFor(model => model.AuthorModel.AuthorLast)
+                    *@
+                    <a href="@Url.Action("Index", "Book", new { authorID = Model.AuthorModel.AuthorID,  })" title="More books from @Html.DisplayFor(model => model.AuthorModel.AuthorFirst) @Html.DisplayFor(model => model.AuthorModel.AuthorMiddle) @Html.DisplayFor(model => model.AuthorModel.AuthorLast)" class="links">
+
+                        @Html.DisplayFor(model => model.AuthorModel.AuthorFirst)
+                        @Html.DisplayFor(model => model.AuthorModel.AuthorMiddle)
+                        @Html.DisplayFor(model => model.AuthorModel.AuthorLast)
+
+                    </a>
+                </dd>
+
+
+
+            </dl>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <br />
+            <span class="A">
+                <b>@Html.DisplayName("Description: ")</b>
+
+                @Html.DisplayFor(model => model.BookModel.BookDescription)
+            </span>
+
+
+
+            <span class="A">
+                <b>@Html.DisplayName("Author Bio: ")</b>
+
+                @Html.DisplayFor(model => model.AuthorModel.Bio)
+            </span>
+        </div>
+
+
+
+    </div>
+
+
 </div>
+<style>
+
+    span.A {
+        display: block;
+        width: 300px;
+        height: 100px;
+        padding: 5px;
+        background-color: white;
+    }
+</style>
