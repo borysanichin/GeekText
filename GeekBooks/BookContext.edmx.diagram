@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cc34085f403240c58089a1ece1780fc5" Name="Diagram1">
-        <EntityTypeShape EntityType="GeektextDB2017Model.Author" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+      <Diagram DiagramId="f81b35825a114c419cac349aceb09b4d" Name="Diagram1">
+        <EntityTypeShape EntityType="GeektextDB2017Model.Author" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="GeektextDB2017Model.Book" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model.BookGenre" Width="1.5" PointX="3" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model.CreditCard" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model.Genre" Width="1.5" PointX="0.75" PointY="18.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model.HomeAddress" Width="1.5" PointX="5.25" PointY="21.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model.Review" Width="1.5" PointX="8.25" PointY="18.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model.ShippingAddress" Width="1.5" PointX="5.25" PointY="24.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model.ShoppingCart" Width="1.5" PointX="8.25" PointY="15.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model.User" Width="1.5" PointX="3" PointY="21.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model.Wishlist" Width="1.5" PointX="5.25" PointY="27.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model.WishlistBook" Width="1.5" PointX="8.25" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="GeektextDB2017Model.Wrote" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.BookGenre" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.CreditCard" Width="1.5" PointX="5.25" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.Genre" Width="1.5" PointX="0.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.HomeAddress" Width="1.5" PointX="5.25" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.Review" Width="1.5" PointX="8.25" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.ShippingAddress" Width="1.5" PointX="5.25" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.ShoppingCart" Width="1.5" PointX="5.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.User" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.Wishlist" Width="1.5" PointX="5.25" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.WishlistBook" Width="1.5" PointX="8.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GeektextDB2017Model.Wrote" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
         <AssociationConnector Association="GeektextDB2017Model.FK__Wrote__AuthorID__5629CD9C" ManuallyRouted="false" />
         <AssociationConnector Association="GeektextDB2017Model.FK__BookGenre__ISBN__22751F6C" ManuallyRouted="false" />
         <AssociationConnector Association="GeektextDB2017Model.FK__Reviews__ISBN__6D0D32F4" ManuallyRouted="false" />
