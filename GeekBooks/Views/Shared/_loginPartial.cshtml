@@ -2,10 +2,10 @@
 {
     <ul class=" nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Register", "Register", "Account", null, null)
+            @Html.ActionLink("Register", "Register", "Account", new { area = "" }, new { @class = "navbar" })
         </li>
         <li>
-            @Html.ActionLink("Login", "Login", "Account", null, null)
+            @Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "navbar" })
         </li>
     </ul>
 
@@ -14,10 +14,10 @@ else
 {
     <ul class=" nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + Session["Email"] + "!", "Index", "Home", null, null)
+            @Html.ActionLink("Hello " + Session["Email"] + "!", "Index", "Home", new { area = "" }, new { @class = "navbar" })
         </li>
         <li>
-            @Html.ActionLink("Logout", "Logout", "Account", null, null)
+            @Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "navbar" })
         </li>
     </ul>
 
