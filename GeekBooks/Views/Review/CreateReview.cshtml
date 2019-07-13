@@ -71,13 +71,13 @@
         color: orange;
     }
 
-    /*.rating {
+    .rating {
         color: black;
         unicode-bidi: bidi-override;
         direction: rtl;
     }
 
-        .rating > i {
+        /*.rating > i {
             display: inline-block;
             position: relative;
             width: 1.1em;
@@ -90,7 +90,9 @@
                 position: absolute;
             }*/
 
-        .rating > i:hover:before {
+        .rating > i:hover:before,
+        .rating > i:hover ~ i:before
+        {
             color: rgb(209, 136, 0);
         }
 
@@ -103,10 +105,10 @@
 @using (Html.BeginForm("CreateReview", "Review", FormMethod.Post))
 
 {
-    <div class="form-group">
+<div class="form-group">
     <h3>ISBN</h3>
     @*@Html.HiddenFor(m => m.ISBN, new { id = "isbn"})*@
-    @Html.TextBoxFor(m => m.ISBN, new { @class = "form-control", id = "isbn"})
+    @Html.TextBoxFor(m => m.ISBN, new { @class = "form-control", id = "isbn" })
     <br />
     <hr />
     <h3>Username</h3>
@@ -119,26 +121,25 @@
     <div class="rating">
 
         <!--<span class="glyphicon glyphicon-star" data-hook="star" id="s1">☆</span>
-    <span class="glyphicon glyphicon-star" data-hook="star" id="s2">☆</span>
-    <span class="glyphicon glyphicon-star" data-hook="star" id="s3">☆</span>
-    <span class="glyphicon glyphicon-star" data-hook="star" id="s4">☆</span>
-    <span class="glyphicon glyphicon-star" data-hook="star" id="s5">☆</span>-->
+        <span class="glyphicon glyphicon-star" data-hook="star" id="s2">☆</span>
+        <span class="glyphicon glyphicon-star" data-hook="star" id="s3">☆</span>
+        <span class="glyphicon glyphicon-star" data-hook="star" id="s4">☆</span>
+        <span class="glyphicon glyphicon-star" data-hook="star" id="s5">☆</span>-->
 
-        <i class="fa fa-star" aria-hidden="true" id="s1"></i>
-        <i class="fa fa-star" aria-hidden="true" id="s2"></i>
-        <i class="fa fa-star" aria-hidden="true" id="s3"></i>
-        <i class="fa fa-star" aria-hidden="true" id="s4"></i>
         <i class="fa fa-star" aria-hidden="true" id="s5"></i>
-
-        <b id="rate">0/5</b>
+        <i class="fa fa-star" aria-hidden="true" id="s4"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s3"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s2"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s1"></i>
 
     </div>
+    <b id="rate">0/5</b>
     @Html.TextBoxFor(m => m.Rating, new { @class = "form-control", id = "rateBox" })
     @Html.ValidationMessageFor(m => m.Rating)
     <br />
     <hr />
     <h3>Write your review</h3>
-    @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", placeholder= "What did you like or dislike?", cols = "20", rows = "5" })
+    @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", placeholder = "What did you like or dislike?", cols = "20", rows = "5" })
     @Html.ValidationMessageFor(m => m.Comment)
     <br />
     <hr />
@@ -149,10 +150,10 @@
     <br />
     <hr />
     <h4>Post anonymously?</h4>
-    @Html.CheckBoxFor(m => m.BoolValue, new { @class = "form-check"})
+    @Html.CheckBoxFor(m => m.BoolValue, new { @class = "form-check" })
     <br />
     <hr />
-    </div>
+</div>
 
     <input type="submit" value="Submit" class="btn btn-primary" />
 

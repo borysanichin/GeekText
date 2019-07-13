@@ -14,22 +14,33 @@ namespace GeekBooks.Controllers
 {
     public class BookController : Controller
     {
-
         private BookContext db = new BookContext();
-        //List<Book> booklist = new List<Book>(); //To be removed
 
-        // GET: Book
+
         public ActionResult Index(string sortOrder, string movieGenre, string searchString,
-                                  string currentFilter, int? page)
+                                    string currentFilter, int? page, int? authorID)
         {
             Search sh = new Search();
             Sort st = new Sort();
+            IQueryableBookeModel bm = new IQueryableBookeModel();
+
+            var book = bm.newBookModel(db);
+
+            if (authorID != null)
+            {
+                book = book.Where(a => a.AuthorModel.AuthorID == authorID);
+            }
+
+
+            ViewBag.AuthorID = authorID;
             ViewBag.CurrentSort = sortOrder;
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
             ViewBag.AuthorSortParm = sortOrder == "Author" ? "author_desc" : "Author";
             ViewBag.RatingSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+
 
 
             if (searchString != null)
@@ -45,22 +56,28 @@ namespace GeekBooks.Controllers
 
             var GenreList = sh.genreList(db);
             ViewBag.movieGenre = new SelectList(GenreList);
+            ViewBag.GenreFilter = movieGenre;
 
 
 
-            var book = sh.search(db, searchString, movieGenre);
-            book = st.sort(book, sortOrder);
+            book = sh.search(db, searchString, movieGenre, authorID, book);
+            book = st.sort(book, sortOrder, authorID);
 
 
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
 
+
             return View(book.ToPagedList(pageNumber, pageSize));
 
 
-            // return View(book);
+
+
+
         }
+
+
         //Can u please integrate this with the other index method
         // POST: Book
         /* [HttpPost]
@@ -104,11 +121,11 @@ namespace GeekBooks.Controllers
 
             // var test = viewBook.Find(id);
 
-            /*if (bookM == null)
+            if (bookmodel == null)
             {
                 return HttpNotFound();
             }
-            return View(bookM);*/
+            
             return View(bookmodel);
         }
 
@@ -138,7 +155,7 @@ namespace GeekBooks.Controllers
         
         public ActionResult ShoppingCart()
         {
-            return RedirectToAction("ShoppingCart", "Home");
+            return RedirectToAction("ShoppingCart", "Account");
             return View();
         }
 
