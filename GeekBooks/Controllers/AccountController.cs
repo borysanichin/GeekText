@@ -132,6 +132,11 @@ namespace GeekBooks.Controllers
             if (wishlist == null)
             {
                 _context.Wishlists.Add(id);
+                foreach (var wlist in _context.Wishlists.Where(w => w.Username == id.Username))
+                {
+                    if (wlist.Preferred && wlist.WishlistName != id.WishlistName)
+                        wlist.Preferred = false;
+                }
                 _context.SaveChanges();
             }
 
