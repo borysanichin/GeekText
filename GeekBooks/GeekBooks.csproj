@@ -200,7 +200,6 @@
     </Content>
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Home\ShoppingCart.cshtml" />
     <Content Include="Views\Account\WishList.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Book\Index.cshtml" />
@@ -235,10 +234,10 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
-    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CreateBooks.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="CreditCard.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
@@ -271,9 +270,7 @@
       <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BookDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Cart\CartVM.cs" />
     <Compile Include="ViewModels\RenameWishlist.cs" />
-    <Compile Include="ViewModels\ShoppingCartView.cs" />
     <Compile Include="ViewModels\WIshlistWishlistBook.cs" />
     <Compile Include="Wishlist.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
@@ -316,16 +313,12 @@
     <Content Include="Views\CreateBooks\Edit.cshtml" />
     <Content Include="Views\CreateBooks\Index.cshtml" />
     <Content Include="Views\Account\AddWishlist.cshtml" />
-    <Content Include="Views\Cart\CartPartial.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Account\AddBookToWishlist.cshtml" />
     <Content Include="Views\Account\RenameWishlist.cshtml" />
     <Content Include="Views\Book\BookDetails.cshtml" />
     <Content Include="Views\Account\UpdateWishlistQuantity.cshtml" />
     <Content Include="Views\Shared\_loginPartial.cshtml" />
-    <Content Include="Views\Account\UpdateShoppingCartQuantity.cshtml" />
-    <Content Include="Views\Account\ShoppingCartDetail.cshtml" />
-    <Content Include="Views\Account\ShoppingCart.cshtml" />
+    <Content Include="Views\ShoppingCart\ShoppingCartPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
