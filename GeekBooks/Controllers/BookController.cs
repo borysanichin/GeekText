@@ -158,7 +158,23 @@ namespace GeekBooks.Controllers
             return RedirectToAction("ShoppingCart", "Account");
             return View();
         }
+        //Add to Shopping Cart
+       /* public ActionResult AddtoShoppingCart(ShoppingCart shoppingCart)
+        {
 
+            ShoppingCart sCart = _context.ShoppingCarts.Find(shoppingCart.Username, shoppingCart.ISBN);
+
+
+
+            if (sCart == null)
+            {
+
+                _context.ShoppingCarts.Add(shoppingCart);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("ShoppingCartDetail", "Account", new { shoppingCart.Username });
+        }*/
         /*[HttpGet] //To be removed
         public ActionResult Details(int id)
         {

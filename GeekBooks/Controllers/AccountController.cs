@@ -162,6 +162,7 @@ namespace GeekBooks.Controllers
         }
 
         [Route("Account/ShoppingCartDetail/{username}")]
+        
         public ActionResult ShoppingCartDetail(string username)
         {
             IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username).ToList();
@@ -232,6 +233,8 @@ namespace GeekBooks.Controllers
 
             return View(sCart);
         }
+
+        
         public ActionResult SaveWishlistQuantity(WishlistBook id)
         {
             var wishlistOldBook = _context.WishlistBooks.Find(id.Username, id.ISBN, id.WishlistName);
