@@ -15,4 +15,10 @@ select,
 textarea {
     max-width: 280px;
 }
-
+.ajaxcart {
+   position: fixed;
+   top: 0;
+   right: 0;
+   z-index:999;
+   float: right;
+}
