@@ -23,10 +23,23 @@
             <td>          
                 @Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)
             </td>
-            <td><input id="QuantityTextBox" type="text" value="@book.Quantity" size="4" /> </td>
+            @*<td><input id="QuantityTextBox" type="text" value="@book.Quantity" size="4" /> </td>*@
+        <td>
+            @using (Html.BeginForm("SaveShoppingCartQuantity", "Account"))
+            {
+                @Html.TextBox("Quantity", book.Quantity)<button type="submit" class="btn btn-primary"><img src="~/Content/icons/save.png" height="4" width="4"/></button>
+
+
+
+                @Html.Hidden("Username", book.Username)
+                @Html.Hidden("ISBN", book.ISBN)
+
+
+            }
+        </td>
             <td>$@(book.Quantity * book.Book.Price)</td>
             <td align="right">
-                @Html.ActionLink("Update", "UpdateShoppingCartQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN }, null)
+                @*@Html.ActionLink("Update", "UpdateShoppingCartQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN }, null)*@
                 @Html.ActionLink("|", null)
                 @Html.ActionLink("Remove", "DeleteShoppingCartBook", "Account", new { username = book.Username, isbn = book.ISBN }, null)
                 @Html.ActionLink("|", null)

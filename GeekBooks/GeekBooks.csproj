@@ -150,6 +150,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap-united.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\icons\save.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
