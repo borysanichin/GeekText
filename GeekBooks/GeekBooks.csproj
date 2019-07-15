@@ -239,6 +239,7 @@
     <Compile Include="Controllers\CreateBooks.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="CreditCard.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
@@ -322,6 +323,7 @@
     <Content Include="Views\Account\UpdateShoppingCartQuantity.cshtml" />
     <Content Include="Views\Account\ShoppingCartDetail.cshtml" />
     <Content Include="Views\Account\ShoppingCart.cshtml" />
+    <Content Include="Views\ShoppingCart\DisplayShoppingCartDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

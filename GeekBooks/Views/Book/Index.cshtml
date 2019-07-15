@@ -125,7 +125,34 @@
                 </td>
                 <td>
                     @Html.ActionLink("Add to Wish List", "WishList", new { id = item.BookModel.ISBN })  |
-                    @Html.ActionLink("Add to Shopping Cart", "ShoppingCart", new { id = item.BookModel.ISBN })
+                    @*this is in the book index page*@
+                    @*this actionlinkk should call addbooktoshoppingcart from sh*@
+                   @* @Html.ActionLink("Add to Shopping Cart", "AddBookToShoppingCart", "ShoppingCart")*@
+
+                    @using (Html.BeginForm("AddBookToShoppingCart", "ShoppingCart"))
+                    {
+
+
+
+                        @*@Html.HiddenFor(m => m.Select(a => a.ShoppingCart.ISBN), new { Value = item.BookModel.ISBN })
+                        @Html.HiddenFor(m => m.Select(a => a.ShoppingCart.Username), new { Value = item.username })
+                        @Html.HiddenFor(m => m.Select(a => a.ShoppingCart.Quantity), new { Value = 1 })
+                        @Html.HiddenFor(m => m.Select(a => a.ShoppingCart.PriceEach), new { Value = item.BookModel.Price })
+                            *@
+
+                       @Html.Hidden("ISBN", item.BookModel.ISBN)
+                       @Html.Hidden("Username", "guest" )
+                       @Html.Hidden("Quantity", 1 )
+                       @Html.Hidden("Price", item.BookModel.Price)
+
+
+
+
+                    <button type="submit" class="btn btn-primary w-50">Add To Cart</button>
+
+
+                    }
+
                 </td>
             </tr>
         }

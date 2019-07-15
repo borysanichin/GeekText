@@ -1,0 +1,38 @@
+﻿@*@model List<GeekBooks.ShoppingCart>*@
+@model IEnumerable<GeekBooks.ShoppingCart>
+
+    @{
+        ViewBag.Title = "DisplayShoppingCartDetail";
+        @* Layout = "~/Views/Shared/_Layout.cshtml";*@
+WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
+}
+
+<h2>Displaying ShoppingCart Details</h2>
+<hr/>
+
+<div class="row">
+
+    @grid.GetHtml(
+          tableStyle: "table table-responsive table striped table-bordered",
+
+              columns: grid.Columns(
+
+grid.Column(header: "Title", format: @<text><div class="edit" data-id="@item.Book.Title" data-propertyname="ISBN">@item.Book.Title</div></text>),
+grid.Column(header: "ISBN", format: @<text><div class="edit" data-id="@item.ISBN" data-propertyname="ISBN">@item.ISBN</div></text>),
+grid.Column(header: "Price", format: @<text><div class="edit" data-id="@item.PriceEach" data-propertyname="Price">@item.PriceEach</div></text>),
+grid.Column(header: "Quantity", format: @<text><div class="edit" data-id="@item.Quantity" data-propertyname="Quantity">@item.Quantity</div></text>)
+
+
+
+)
+)
+
+</div>
+
+<style>
+    .table td {
+        width:25%;
+    }
+
+</style>
+
