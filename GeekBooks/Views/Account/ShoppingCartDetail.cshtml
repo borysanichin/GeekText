@@ -23,7 +23,7 @@
             <td>          
                 @Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)
             </td>
-            <td>@book.Quantity<input id="QuantityTextBox" type="text" value="@book.Quantity" /> </td>
+            <td><input id="QuantityTextBox" type="text" value="@book.Quantity" size="4" /> </td>
             <td>$@(book.Quantity * book.Book.Price)</td>
             <td align="right">
                 @Html.ActionLink("Update", "UpdateShoppingCartQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN }, null)
