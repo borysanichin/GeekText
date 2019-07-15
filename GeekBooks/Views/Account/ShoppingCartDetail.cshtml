@@ -20,13 +20,10 @@
         @foreach (var book in Model)
         {
         <tr>
-            <td>
-          
-                <div class="quantity buttons_added">
-                    <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
-                </div>@Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)
+            <td>          
+                @Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)
             </td>
-            <td>@book.Quantity<input id="Text1" type="text" /> </td>
+            <td>@book.Quantity<input id="QuantityTextBox" type="text" value="@book.Quantity" /> </td>
             <td>$@(book.Quantity * book.Book.Price)</td>
             <td align="right">
                 @Html.ActionLink("Update", "UpdateShoppingCartQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN }, null)
@@ -41,3 +38,5 @@
 </table>
 <hr />
 @Html.ActionLink("Continue Shopping", "Index", "Book", null, new { @class = "btn btn-primary btn-small" })
+
+@*This is to modify *@
