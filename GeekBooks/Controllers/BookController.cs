@@ -121,6 +121,9 @@ namespace GeekBooks.Controllers
 
             // var test = viewBook.Find(id);
 
+            var reviews = from r in db.Reviews join b in db.Books on r.ISBN equals b.ISBN where b.ISBN == id select new { Rating = r.Rating, Comment = r.Comment };
+            reviews.ToList().ForEach(r => Console.WriteLine("Rating: {0}; Comment: {1}", r.Rating, r.Comment)); 
+
             if (bookmodel == null)
             {
                 return HttpNotFound();

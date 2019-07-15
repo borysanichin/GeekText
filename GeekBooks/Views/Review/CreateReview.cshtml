@@ -77,6 +77,14 @@
         direction: rtl;
     }
 
+    .form-group{
+        text-align: center;
+        display: block;
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+
         /*.rating > i {
             display: inline-block;
             position: relative;
@@ -94,26 +102,50 @@
         .rating > i:hover ~ i:before
         {
             color: rgb(209, 136, 0);
+            cursor: pointer;
         }
 
     .fa-star{
         font-size: 50px;
     }
+
+    #isbn:hover{
+        color: #ffaa00;
+    }
+
+    #commentbox {
+        border: 5px ridge orange;
+        outline: none;
+        outline-color: orange;
+        outline-width: 3px;
+    }
+    #commentbox:hover {
+        color: rgb(209, 136, 0);
+    }
+
+    #commentbox:active{
+        color:orange;
+    }
+
+    #commentbox:focus{
+        border: 5px inset orange;
+        background-color: lightblue;
+    }
 </style>
 
-<h2>Create a Review</h2>
+<h2 style="text-align: center;">Create a Review</h2>
 @using (Html.BeginForm("CreateReview", "Review", FormMethod.Post))
 
 {
 <div class="form-group">
     <h3>ISBN</h3>
     @*@Html.HiddenFor(m => m.ISBN, new { id = "isbn"})*@
-    @Html.TextBoxFor(m => m.ISBN, new { @class = "form-control", id = "isbn" })
+    @Html.TextBoxFor(m => m.ISBN, new { @class = "form-control;form-group", id = "isbn", style="border:5px ridge orange;" })
     <br />
     <hr />
     <h3>Username</h3>
     @*Html.HiddenFor(m => m.Username)*@
-    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", id = "user" })
+    @Html.TextBoxFor(m => m.Username, new { @class = "form-control;form-group", id = "user" })
     <br />
     <hr />
     <h3>Rating</h3>
@@ -134,12 +166,12 @@
 
     </div>
     <b id="rate">0/5</b>
-    @Html.TextBoxFor(m => m.Rating, new { @class = "form-control", id = "rateBox" })
+    @Html.TextBoxFor(m => m.Rating, new { @class = "form-control;form-group", id = "rateBox" })
     @Html.ValidationMessageFor(m => m.Rating)
     <br />
     <hr />
     <h3>Write your review</h3>
-    @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", placeholder = "What did you like or dislike?", cols = "20", rows = "5" })
+    @Html.TextAreaFor(m => m.Comment, new { @class = "form-control;form-group", id="commentbox", placeholder = "What did you like or dislike?", cols = "20", rows = "5" })
     @Html.ValidationMessageFor(m => m.Comment)
     <br />
     <hr />
@@ -150,12 +182,12 @@
     <br />
     <hr />
     <h4>Post anonymously?</h4>
-    @Html.CheckBoxFor(m => m.BoolValue, new { @class = "form-check" })
+    @Html.CheckBoxFor(m => m.BoolValue, new { @class = "form-check;form-group" })
     <br />
     <hr />
+    <input type="submit" value="Submit" class="btn btn-primary" />
 </div>
 
-    <input type="submit" value="Submit" class="btn btn-primary" />
 
 }
 
