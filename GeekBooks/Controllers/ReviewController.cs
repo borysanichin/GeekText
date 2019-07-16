@@ -100,6 +100,11 @@ namespace GeekBooks.Controllers
                 ViewBag.BoolValue = reviewData.BoolValue;
                 ViewBag.Anonymous = reviewData.Anonymous;
                 //To Do: Check if user has purchased the book
+
+                if(reviewData.Username == db.Reviews.Where(u => u.Username == reviewData.Username).Select(u => u.Username).Single())
+                {
+                    return RedirectToRoute("BookRoute", new { id = reviewData.ISBN });
+                }
                 db.Reviews.Add(reviewData);
                 db.SaveChanges();
                 

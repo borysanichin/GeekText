@@ -62,6 +62,10 @@
         //$('#user').val(queries["user"]);
     });
 
+    $document.ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
     console.log(queries);
 
 </script>
@@ -98,12 +102,11 @@
                 position: absolute;
             }*/
 
-        .rating > i:hover:before,
-        .rating > i:hover ~ i:before
-        {
-            color: rgb(209, 136, 0);
-            cursor: pointer;
-        }
+    .rating > i:hover:before,
+    .rating > i:hover ~ i:before {
+        color: rgb(209, 136, 0);
+        cursor: pointer;
+    }
 
     .fa-star{
         font-size: 50px;
@@ -114,22 +117,38 @@
     }
 
     #commentbox {
-        border: 5px ridge orange;
-        outline: none;
-        outline-color: orange;
+        border: 5px ridge #E95420;
+        outline: 0;
+        outline-color: #E95420;
         outline-width: 3px;
     }
-    #commentbox:hover {
-        color: rgb(209, 136, 0);
+        /*#commentbox:hover {
+            color: #E95420;
+        }*/
+
+        /*Making it look like bootstrap focus*/
+        #commentbox:focus {
+            border: 5px inset #E95420;
+            /*box-shadow: 0 0 0 0.2rem rgba(236, 110, 65, 0.5);
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+            transition-property: color, background-color, border-color, box-shadow, -webkit-box-shadow;
+            transition-duration: 0.15s, 0.15s, 0.15s, 0.15s, 0.15s;
+            transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+            transition-delay: 0s, 0s, 0s, 0s, 0s;*/
+        }
+
+    #button1:active {
+        background-color: #ce4414;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
     }
 
-    #commentbox:active{
-        color:orange;
+    #button1:checked {
+        cursor: progress;
     }
 
-    #commentbox:focus{
-        border: 5px inset orange;
-        background-color: lightblue;
+    #checkbox:checked {
+        border:#ce4414;
     }
 </style>
 
@@ -138,16 +157,16 @@
 
 {
 <div class="form-group">
-    <h3>ISBN</h3>
-    @*@Html.HiddenFor(m => m.ISBN, new { id = "isbn"})*@
-    @Html.TextBoxFor(m => m.ISBN, new { @class = "form-control;form-group", id = "isbn", style="border:5px ridge orange;" })
-    <br />
+    <!--<h3>ISBN</h3>-->
+    @Html.HiddenFor(m => m.ISBN, new { id = "isbn"})
+    @*@Html.TextBoxFor(m => m.ISBN, new { @class = "form-control form-group", id = "isbn", style="border:5px ridge orange;" })*@
+    <!--<br />
     <hr />
-    <h3>Username</h3>
-    @*Html.HiddenFor(m => m.Username)*@
-    @Html.TextBoxFor(m => m.Username, new { @class = "form-control;form-group", id = "user" })
+    <h3>Username</h3>-->
+    @Html.HiddenFor(m => m.Username, new { id = "user" })
+    @*@Html.TextBoxFor(m => m.Username, new { @class = "form-control form-group", id = "user" })
     <br />
-    <hr />
+    <hr />*@
     <h3>Rating</h3>
     <!--To Do: Change rating textbox to star-icons-->
     <div class="rating">
@@ -158,40 +177,41 @@
         <span class="glyphicon glyphicon-star" data-hook="star" id="s4">☆</span>
         <span class="glyphicon glyphicon-star" data-hook="star" id="s5">☆</span>-->
 
-        <i class="fa fa-star" aria-hidden="true" id="s5"></i>
-        <i class="fa fa-star" aria-hidden="true" id="s4"></i>
-        <i class="fa fa-star" aria-hidden="true" id="s3"></i>
-        <i class="fa fa-star" aria-hidden="true" id="s2"></i>
-        <i class="fa fa-star" aria-hidden="true" id="s1"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s5" data-toggle="tooltip" data-placement="top" title="Excellent"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s4" data-toggle="tooltip" data-placement="top" title="Very good"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s3"  data-toggle="tooltip" data-placement="top" title="Good"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s2" data-toggle="tooltip" data-placement="top" title="Below average"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s1" data-toggle="tooltip" data-placement="top" title="Poor"></i>
 
     </div>
     <b id="rate">0/5</b>
-    @Html.TextBoxFor(m => m.Rating, new { @class = "form-control;form-group", id = "rateBox" })
+    @Html.HiddenFor(m => m.Rating, new { id = "rateBox" })
+    @*@Html.TextBoxFor(m => m.Rating, new { @class = "form-control form-group", id = "rateBox" })*@
     @Html.ValidationMessageFor(m => m.Rating)
     <br />
     <hr />
     <h3>Write your review</h3>
-    @Html.TextAreaFor(m => m.Comment, new { @class = "form-control;form-group", id="commentbox", placeholder = "What did you like or dislike?", cols = "20", rows = "5" })
+    @Html.TextAreaFor(m => m.Comment, new { @class = "form-control form-group", id="commentbox", placeholder = "What did you like or dislike?", cols = "20", rows = "5", style="text-align: left;" })
     @Html.ValidationMessageFor(m => m.Comment)
-    <br />
+    @*<br />
     <hr />
-    <h3>DatePosted</h3>
+    <h3>DatePosted</h3>*@
     @Html.HiddenFor(m => m.DatePosted)
     @*@Html.TextBoxFor(m => m.DatePosted, new { @class = "form-control" })*@
 
     <br />
     <hr />
     <h4>Post anonymously?</h4>
-    @Html.CheckBoxFor(m => m.BoolValue, new { @class = "form-check;form-group" })
+    @Html.CheckBoxFor(m => m.BoolValue, new { @class = "form-check form-group", id="checkbox" })
     <br />
     <hr />
-    <input type="submit" value="Submit" class="btn btn-primary" />
+    <input type="submit" value="Submit" class="btn btn-primary" id="button1" />
 </div>
 
 
 }
 
-<hr />
+<!--<hr />
 <h4 style="color:purple">
     ISBN: @ViewBag.ISBN <br />
     Username: @ViewBag.Username <br />
@@ -199,7 +219,7 @@
     Comment: @ViewBag.Comment <br />
     DatePosted: @ViewBag.DatePosted <br />
     Anonymous?: @ViewBag.BoolValue | @ViewBag.Anonymous <br />
-</h4>
+</h4>-->
 
 <!--onclick="postStar(this)"-->
 <!--
