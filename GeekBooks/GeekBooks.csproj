@@ -325,6 +325,7 @@
     <Content Include="Views\Account\UpdateShoppingCartQuantity.cshtml" />
     <Content Include="Views\Account\ShoppingCartDetail.cshtml" />
     <Content Include="Views\Account\ShoppingCart.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

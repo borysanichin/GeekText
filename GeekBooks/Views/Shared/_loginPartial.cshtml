@@ -1,4 +1,4 @@
-﻿@if (Session["Email"] == null)
+﻿@if (Session["Username"] == null)
 {
     <ul class=" nav navbar-nav navbar-right">
         <li>
@@ -14,7 +14,10 @@ else
 {
     <ul class=" nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + Session["Email"] + "!", "Index", "Home", null, null)
+            @Html.ActionLink("Hello " + Session["Username"] + "!    ", "Index", "Home", null, null)
+        </li>
+        <li>
+
         </li>
         <li>
             @Html.ActionLink("Logout", "Logout", "Account", null, null)

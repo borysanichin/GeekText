@@ -15,16 +15,16 @@
         <table>
             <tr>
                 <td>
-                    @Html.LabelFor(model => model.Email)
+                    @Html.LabelFor(model => model.Username)
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model.Email)
+                    @Html.TextBoxFor(model => model.Username)
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text text-danger" })
+                    @Html.ValidationMessageFor(model => model.Username, null, new { @class = "text text-danger" })
                 </td>
             </tr>
 
