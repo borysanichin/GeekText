@@ -27,7 +27,7 @@
         <td>
             @using (Html.BeginForm("SaveShoppingCartQuantity", "Account"))
             {
-                @Html.TextBox("Quantity", book.Quantity)<button type="submit" class="btn btn-primary"><img src="~/Content/icons/save.png" height="4" width="4"/></button>
+                @Html.TextBox("Quantity", book.Quantity)<button type="submit" class="w3-button w3-tiny"><img src="~/Content/icons/save.png" height="32" width="32"/></button>
 
 
 
@@ -40,7 +40,7 @@
             <td>$@(book.Quantity * book.Book.Price)</td>
             <td align="right">
                 @*@Html.ActionLink("Update", "UpdateShoppingCartQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN }, null)*@
-                @Html.ActionLink("|", null)
+                @*@Html.ActionLink("|", null)*@
                 @Html.ActionLink("Remove", "DeleteShoppingCartBook", "Account", new { username = book.Username, isbn = book.ISBN }, null)
                 @Html.ActionLink("|", null)
                 @Html.ActionLink("Move to Wishlist", "MoveWishlistBookToCart", "Account")
@@ -50,6 +50,11 @@
     </tbody>
 </table>
 <hr />
+<style>
+    .TextBox {
+        resize:both;
+    }
+</style>
 @Html.ActionLink("Continue Shopping", "Index", "Book", null, new { @class = "btn btn-primary btn-small" })
 
 @*This is to modify *@
