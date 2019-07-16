@@ -42,20 +42,38 @@ namespace GeekBooks.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (objBookContext.Users.Where(m => m.Email == objLoginModel.Email && m.UserPassword == objLoginModel.UserPassword).FirstOrDefault() == null)
+                if (objBookContext.Users.Where(m => m.Username == objLoginModel.Username && m.UserPassword == objLoginModel.UserPassword).FirstOrDefault() == null)
                 {
                     ModelState.AddModelError("Error", "The password you entered is incorrect. Please try again.");
                     return View();
                 }
                 else
                 {
-                    Session["Email"] = objLoginModel.Email;
+                    Session["Username"] = objLoginModel.Username;
+                   
                     return RedirectToAction("Index", "Home");
                 }
             }
 
             return View();
            
+        }
+
+        public ActionResult Profile()
+        {
+
+            
+            string usernames = Convert.ToString(Session["Username"]);
+            if (usernames == "")
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return View(objBookContext.Users.Find(usernames));
+            }
+            
+
         }
         public ActionResult Register()
         {
@@ -97,6 +115,8 @@ namespace GeekBooks.Controllers
             return View();
         }
 
+     
+        
         public ActionResult Logout()
         {
             Session.Abandon();
