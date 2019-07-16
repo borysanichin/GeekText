@@ -3,7 +3,7 @@
 <div class="ajaxcart" style="color:gold;">
     Your Shopping Cart: @Model.Quantity item(s) - $@Model.Price
     <br/>
-    @Html.ActionLink("Checkout", "Index")
+    @Html.ActionLink("Checkout", "ShoppingCartDetail", "Account", new { username = "guest"}, null)
 </div>
 
 

@@ -152,6 +152,11 @@ namespace GeekBooks.Controllers
             if (wishlist == null)
             {
                 _context.Wishlists.Add(id);
+                foreach (var wlist in _context.Wishlists.Where(w => w.Username == id.Username))
+                {
+                    if (wlist.Preferred && wlist.WishlistName != id.WishlistName)
+                        wlist.Preferred = false;
+                }
                 _context.SaveChanges();
             }
 
@@ -257,9 +262,6 @@ namespace GeekBooks.Controllers
             return View(sCart);
         }
 
-
-
-
         [Route("Account/DeleteWishlistBook/{username}/{isbn}/{wishlistname}")]
         public ActionResult DeleteWishlistBook(string username, string isbn, string wishlistname)
         {
@@ -300,6 +302,54 @@ namespace GeekBooks.Controllers
             }
 
             return RedirectToAction("WishlistDetail", "Account", new { wishlistname, wishlistbook.Username });
+        }
+        [Route("Account/MoveWishlistBookToCart/{Username}/{ISBN}/{WishlistName}")]
+        public ActionResult MoveWishlistBookToCart(string Username, string ISBN, string WishlistName)
+        {
+
+            if (_context.ShoppingCarts.Find(Username, ISBN) == null)
+            {
+                var wb = _context.WishlistBooks.Find(Username, ISBN, WishlistName);
+
+                _context.WishlistBooks.Remove(wb);
+
+                Book book = _context.Books.Find(ISBN);
+
+                ShoppingCart shoppingCart = new ShoppingCart
+                {
+                    Username = wb.Username,
+                    ISBN = wb.ISBN,
+                    PriceEach = book.Price,
+                    Quantity = wb.Quantity
+                };
+
+                _context.ShoppingCarts.Add(shoppingCart);
+
+                _context.SaveChanges();
+
+                return RedirectToAction("ShoppingCartDetail", "Account", new { Username });
+            }
+            else
+                return RedirectToAction("WishlistDetail", "Account", new { WishlistName, Username });
+        }
+        [Route("Account/MakePrimary/{WishlistName}/{Username}")]
+        public ActionResult MakePrimary(string WishlistName, string Username)
+        {
+            var wishlistInDb = _context.Wishlists.Find(Username, WishlistName);
+
+            if (wishlistInDb == null)
+                return HttpNotFound();
+
+            foreach (var wlist in _context.Wishlists.Where(w => w.Username == Username))
+            {
+                if (wlist.Preferred)
+                    wlist.Preferred = false;
+            }
+
+            wishlistInDb.Preferred = true;
+            _context.SaveChanges();
+
+            return RedirectToAction("Wishlist", "Account");
         }
 
         [Route("Account/UpdateWishlistQuantity/{Username}/{Isbn}/{Wishlistname}")]

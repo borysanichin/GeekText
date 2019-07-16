@@ -18,8 +18,8 @@
                 <li>@Html.ActionLink("Profile", "Profile", "Account", new { area = "" }, new { @class = "navbar" })</li>
 
                 <li>@Html.ActionLink("Wish Lists", "WishList", "Account", new { area = "" }, new { @class = "navbar" })</li>
+                <li>@Html.Partial("_loginPartial")</li>
             </ul>
-            @Html.Partial("_loginPartial")
             <div class="navbar-collapse collapse">
                 <ul class="navbar-collapse collapse navbar-right">
                     @Html.Action("CartPartial", "Cart")

@@ -26,7 +26,7 @@
                 <td>
                     @Html.ActionLink("delete", "DeleteWishlistBook", "Account", new { username = book.Username, isbn = book.ISBN, wishlistname = book.WishlistName }, null)
                     @Html.ActionLink("|", null)
-                    @Html.ActionLink("move to cart", "MoveWishlistBookToCart", "Account")
+                    @Html.ActionLink("move to cart", "MoveWishlistBookToCart", "Account", new { username = book.Username, isbn = book.ISBN, wishlistname = book.WishlistName }, null)
                 </td>
                 <td>
                     @using (Html.BeginForm("MoveWishlistBook", "Account", new { wishlistname = book.WishlistName, wishlistbook = Model.WishlistBook }))
