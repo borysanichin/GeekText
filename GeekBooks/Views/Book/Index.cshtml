@@ -93,48 +93,77 @@
 
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
-                <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = "guest" })" title="@item.BookModel.Title Detail" class="links">
-                    <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
-                </a>
-            </td>
-            <td>
-                @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = "guest" }, null)
-            </td>
-            <td>
-                $@Html.DisplayFor(modelItem => item.BookModel.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookGenreModel.GenreName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorModel.AuthorFirst)
-                @Html.DisplayFor(modelItem => item.AuthorModel.AuthorMiddle)
-                @Html.DisplayFor(modelItem => item.AuthorModel.AuthorLast)
-            </td>
-            @{
-                var StarRatio = item.reviews * 120 / 5;
+    <tr>
+        <td>
+            @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
+            <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = "guest" })" title="@item.BookModel.Title Detail" class="links">
+                <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
+            </a>
+        </td>
+        <td>
+            @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = "guest" }, null)
+        </td>
+        <td>
+            $@Html.DisplayFor(modelItem => item.BookModel.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookGenreModel.GenreName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuthorModel.AuthorFirst)
+            @Html.DisplayFor(modelItem => item.AuthorModel.AuthorMiddle)
+            @Html.DisplayFor(modelItem => item.AuthorModel.AuthorLast)
+        </td>
+        @{
+            var StarRatio = item.reviews * 120 / 5;
+
+        }
+        <td>
+            <!--@Html.DisplayFor(modelItem => item.reviews)-->
+            <div id="emptyStars" style="background-image: url('/Content/Images/EmptyStars.png'); width: 120px;">
+                <div id="filledStars" style="background-image: url('/Content/Images/FilledStars.png'); width: @StarRatio.ToString()px; height: 23px;"> </div>
+            </div>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookModel.ISBN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookModel.DatePublished)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Add to Wish List", "WishList", new { id = item.BookModel.ISBN })  |
+            @*this is in the book index page*@
+            @*this actionlinkk should call addbooktoshoppingcart from sh*@
+            @* @Html.ActionLink("Add to Shopping Cart", "AddBookToShoppingCart", "ShoppingCart")*@
+
+            @using (Html.BeginForm("AddBookToShoppingCart", "ShoppingCart"))
+            {
+
+
+
+                @*@Html.HiddenFor(m => m.Select(a => a.ShoppingCart.ISBN), new { Value = item.BookModel.ISBN })
+                @Html.HiddenFor(m => m.Select(a => a.ShoppingCart.Username), new { Value = item.username })
+                @Html.HiddenFor(m => m.Select(a => a.ShoppingCart.Quantity), new { Value = 1 })
+                @Html.HiddenFor(m => m.Select(a => a.ShoppingCart.PriceEach), new { Value = item.BookModel.Price })
+                *@
+
+                @Html.Hidden("ISBN", item.BookModel.ISBN)
+                @Html.Hidden("Username", "guest")
+                @Html.Hidden("Quantity", 1)
+                @Html.Hidden("Price", item.BookModel.Price)
+
+
+
+
+                <button type="submit" class="btn btn-primary w-50">Add To Cart</button>
+
 
             }
-            <td>
-                <!--@Html.DisplayFor(modelItem => item.reviews)-->
-                <div id="emptyStars" style="background-image: url('/Content/Images/EmptyStars.png'); width: 120px;">
-                    <div id="filledStars" style="background-image: url('/Content/Images/FilledStars.png'); width: @StarRatio.ToString()px; height: 23px;"> </div>
-                </div>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookModel.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookModel.DatePublished)
-            </td>
-            <td>
-                @Html.ActionLink("Add to Wish List", "WishList", new { id = item.BookModel.ISBN })  |
-                @Html.ActionLink("Add to Shopping Cart", "ShoppingCart", new { id = item.BookModel.ISBN })
-            </td>
-        </tr>
+
+        
+        </td>
+    </tr>
         }
     </table>
     <br />
