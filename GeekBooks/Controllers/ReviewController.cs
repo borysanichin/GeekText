@@ -34,10 +34,10 @@ namespace GeekBooks.Controllers
         public ActionResult CreateReview(string id = "1")
         {
             //To Do: Check if user is logged in
-            /*if(Session["Username"] == null)
+            if(Session["Username"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            }*/
+            }
 
             if(id == null)
             {
@@ -47,7 +47,7 @@ namespace GeekBooks.Controllers
             var review = new Review();
             var book = new BookeModel();
             review.DatePosted = System.DateTime.Now;
-            review.Username = "guest"; //(string)Session["Username"];
+            review.Username = (string)Session["Username"];
             var isbn = db.Books.Where(i => i.ISBN == id).Select(i => i.ISBN).Single();
             review.ISBN = isbn;
             /*var isbn = from b in db.Books
@@ -100,10 +100,11 @@ namespace GeekBooks.Controllers
                 ViewBag.BoolValue = reviewData.BoolValue;
                 ViewBag.Anonymous = reviewData.Anonymous;
                 //To Do: Check if user has purchased the book
-
-                if(reviewData.Username == db.Reviews.Where(u => u.Username == reviewData.Username).Select(u => u.Username).Single())
+                var reviewPrimaryKey = db.Reviews.Where(u => u.Username == reviewData.Username && u.ISBN == reviewData.ISBN).Select(u => u.Username).Single();
+                if (reviewData.Username == reviewPrimaryKey)
                 {
-                    return RedirectToRoute("BookRoute", new { id = reviewData.ISBN });
+                    //TempData["msg"] = "<script>alert('Only one review allowed per book');</script>";
+                    return RedirectToAction("Details", "Book", new { id = reviewData.ISBN, username = "guest" });
                 }
                 db.Reviews.Add(reviewData);
                 db.SaveChanges();
