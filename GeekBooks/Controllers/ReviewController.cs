@@ -100,11 +100,11 @@ namespace GeekBooks.Controllers
                 ViewBag.BoolValue = reviewData.BoolValue;
                 ViewBag.Anonymous = reviewData.Anonymous;
                 //To Do: Check if user has purchased the book
-                var reviewPrimaryKey = db.Reviews.Where(u => u.Username == reviewData.Username && u.ISBN == reviewData.ISBN).Select(u => u.Username).Single();
+                var reviewPrimaryKey = db.Reviews.Where(u => u.Username == reviewData.Username && u.ISBN == reviewData.ISBN).Select(u => u.Username).SingleOrDefault();
                 if (reviewData.Username == reviewPrimaryKey)
                 {
                     //TempData["msg"] = "<script>alert('Only one review allowed per book');</script>";
-                    return RedirectToAction("Details", "Book", new { id = reviewData.ISBN, username = "guest" });
+                    return RedirectToAction("Details", "Book", new { id = reviewData.ISBN, username = reviewData.Username });
                 }
                 db.Reviews.Add(reviewData);
                 db.SaveChanges();
