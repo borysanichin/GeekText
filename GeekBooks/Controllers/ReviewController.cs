@@ -103,7 +103,7 @@ namespace GeekBooks.Controllers
                 var reviewPrimaryKey = db.Reviews.Where(u => u.Username == reviewData.Username && u.ISBN == reviewData.ISBN).Select(u => u.Username).Single();
                 if (reviewData.Username == reviewPrimaryKey)
                 {
-                    TempData["msg"] = "<script>alert('Only one review allowed per book');</script>";
+                    //TempData["msg"] = "<script>alert('Only one review allowed per book');</script>";
                     return RedirectToAction("Details", "Book", new { id = reviewData.ISBN, username = "guest" });
                 }
                 db.Reviews.Add(reviewData);
