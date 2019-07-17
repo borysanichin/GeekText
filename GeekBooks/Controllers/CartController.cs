@@ -9,6 +9,7 @@ namespace GeekBooks.Controllers
 {
     public class CartController : Controller
     {
+        BookContext db = new BookContext();
         // GET: Cart
         public ActionResult Index()
         {
