@@ -333,6 +333,7 @@
     <Content Include="Views\Account\ShoppingCart.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\ShoppingCart\DisplayShoppingCartDetail.cshtml" />
+    <Content Include="Views\Review\_ReviewError.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

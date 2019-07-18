@@ -104,6 +104,7 @@ namespace GeekBooks.Controllers
                 if (reviewData.Username == reviewPrimaryKey)
                 {
                     //TempData["msg"] = "<script>alert('Only one review allowed per book');</script>";
+                    return View("_ReviewError");
                     return RedirectToAction("Details", "Book", new { id = reviewData.ISBN, username = reviewData.Username });
                 }
                 db.Reviews.Add(reviewData);

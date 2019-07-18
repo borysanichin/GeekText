@@ -96,12 +96,28 @@
     <tr>
         <td>
             @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
+            @if (Session["Username"] == null)
+            {
             <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = "guest" })" title="@item.BookModel.Title Detail" class="links">
                 <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
             </a>
+            }
+            else
+            {
+            <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = Session["Username"] })" title="@item.BookModel.Title Detail" class="links">
+                <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
+            </a>
+            }
         </td>
         <td>
-            @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = "guest" }, null)
+            @if (Session["Username"] == null)
+            {
+                @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = "guest" }, null)
+            }
+            else
+            {
+                @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = Session["Username"] }, null)
+            }
         </td>
         <td>
             $@Html.DisplayFor(modelItem => item.BookModel.Price)
