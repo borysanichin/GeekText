@@ -1,0 +1,8 @@
+﻿@model GeekBooks.ShoppingCart
+
+    <div class=" ajaxcart" style="color:white;">
+        You cart: @Model.Quantity item(s) - @Model.PriceEach
+        </br>
+        @Html.ActionLink("Checkout", "Index")
+        @* @Html.ActionLink("Checkout", "DisplayShoppingCartDetail")*@
+    </div>

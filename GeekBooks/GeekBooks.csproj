@@ -150,6 +150,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap-united.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\icons\ajax-loader.gif" />
     <Content Include="Content\icons\save.png" />
     <Content Include="Content\Images\EmptyStars.png" />
     <Content Include="Content\Images\FilledStars.png" />
@@ -333,6 +334,9 @@
     <Content Include="Views\Account\ShoppingCart.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\ShoppingCart\DisplayShoppingCartDetail.cshtml" />
+    <Content Include="Views\ShoppingCart\CartPartial.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\AddToCartPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

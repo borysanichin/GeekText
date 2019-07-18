@@ -2,6 +2,7 @@
 @using PagedList.Mvc
 @model PagedList.IPagedList<GeekBooks.Models.BookeModel>
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Book List";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -133,6 +134,13 @@
        
         <td>
             @Html.ActionLink("Add to Wish List", "WishList", new { id = item.BookModel.ISBN })  |
+            <div class="addtocart">
+                <a href="#" class="addtocart">Add to Shopping Cart</a>
+                <span class="loader">
+                    <img src="~/Content/icons/ajax-loader.gif" />
+                </span>
+                <span class="ajaxmsg">The book has been added to your shopping cart.</span>
+             </div>
             @*this is in the book index page*@
             @*this actionlinkk should call addbooktoshoppingcart from sh*@
             @* @Html.ActionLink("Add to Shopping Cart", "AddBookToShoppingCart", "ShoppingCart")*@
@@ -179,3 +187,39 @@
         <a href="~/Book/Details/2">
         <img src="~/Content/Books/ChamberOfSecrets.jpg" alt="ChamberOfSecrets" style="width:256px;height:256px;" />
         </a>*@
+
+@section Scripts{
+    
+    <script>
+        $(function () {
+            //////////////////////////////////////////////////////
+            /*
+             * Add to shopping cart
+             */
+            $("a.addtocart").click(function (e) {
+                e.preventDefault();
+
+                $("span.loader").addClass("ib");
+
+                var url = "/ShoppingCart/AddToCartPartial";
+
+                /**/
+                $.get(url, { isbn: item.BookModel.ISBN, username : item.username }, function (data) {
+            /**/
+            $(".ajaxcart").html(data);
+        }).done(function () {
+            $("span.loader").removeClass("ib");
+            $("span.ajaxmsg").addClass("ib");
+            setTimeout(function () {
+                $("span.ajaxmsg").fadeOut("fast");
+                $("span.ajaxmsg").removeClass("ib");
+            }, 1000);
+        });
+
+    });
+    ///////////////////////////////////////////////////////
+
+});
+
+    </script>
+    } 
