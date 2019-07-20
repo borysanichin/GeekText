@@ -14,17 +14,85 @@ namespace GeekBooks.Controllers
 {
     public class BookController : Controller
     {
-        private BookContext db = new BookContext();
+        List<string> GenreList = (from m in db.Genres
+                                  select m.GenreName).ToList();
 
 
-        public ActionResult Index(string sortOrder, string movieGenre, string searchString,
+        public static List<string> gL = new List<string>() { "All" };
+
+
+
+
+        public static BookContext db = new BookContext();
+
+
+
+
+
+        public ActionResult Index(string sortOrder, string searchString, string bookGenre, string removeGenre,
                                     string currentFilter, int? page, int? authorID)
         {
+
             Search sh = new Search();
             Sort st = new Sort();
             IQueryableBookeModel bm = new IQueryableBookeModel();
 
-            var book = bm.newBookModel(db);
+
+
+            if (bookGenre != null)
+            {
+                /*
+                while (gL.Contains(""))
+                {
+                    gL.Remove("");
+                }
+
+                if (gL.Contains(bookGenre))
+                {
+
+                    gL.Remove(removeGenre);
+                }
+                else
+                {
+                    gL.Add(bookGenre);
+                }*/
+
+                if (!gL.Contains(bookGenre))
+                {
+                    gL.Add(bookGenre);
+                }
+
+            }
+
+            gL.Remove(removeGenre);
+            removeGenre = "";
+
+            var book = bm.newBookModel(db, gL);
+
+            /*
+             string fok = "";
+             string bok = "";
+             for(int i = 0; i < gL.Count();i++)
+             {
+                 fok += gL[i] + ", ";
+             }
+
+             for (int i = 0; i < book.First().ViewBagGenreList.Count(); i++)
+             {
+                 bok += book.First().ViewBagGenreList[i] + ", ";
+             }
+
+
+             System.Windows.Forms.MessageBox.Show("gL: " + fok + "\ngL length: " + gL.Count() + "\nViewBag: " + bok + "\nViewBag length: ");
+
+
+            */
+
+
+
+
+
+
 
             if (authorID != null)
             {
@@ -34,6 +102,7 @@ namespace GeekBooks.Controllers
 
             ViewBag.AuthorID = authorID;
             ViewBag.CurrentSort = sortOrder;
+            //  ViewBag.BookGenreFilter = gL;
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
             ViewBag.AuthorSortParm = sortOrder == "Author" ? "author_desc" : "Author";
@@ -54,13 +123,13 @@ namespace GeekBooks.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var GenreList = sh.genreList(db);
-            ViewBag.movieGenre = new SelectList(GenreList);
-            ViewBag.GenreFilter = movieGenre;
+
+            ViewBag.bookGenre = new SelectList(GenreList.Except(gL));
+            ViewBag.GenreFilter = bookGenre;
 
 
 
-            book = sh.search(db, searchString, movieGenre, authorID, book);
+            book = sh.search(db, searchString, authorID, book, gL);
             book = st.sort(book, sortOrder, authorID);
 
 
