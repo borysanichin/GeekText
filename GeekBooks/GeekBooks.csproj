@@ -156,6 +156,7 @@
     <Content Include="Content\Images\FilledStars.png" />
     <Content Include="Content\Images\FilledStars2.png" />
     <Content Include="Content\Images\SearchIcon.png" />
+    <Content Include="Content\Images\SearchIconBlue.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />

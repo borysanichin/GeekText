@@ -39,6 +39,7 @@ namespace GeekBooks.Controllers
 
 
 
+            
             if (bookGenre != null)
             {
                 /*
@@ -57,13 +58,15 @@ namespace GeekBooks.Controllers
                     gL.Add(bookGenre);
                 }*/
 
-                if (!gL.Contains(bookGenre))
+                
+                if (!gL.Contains(bookGenre) && GenreList.Contains(bookGenre))
                 {
                     gL.Add(bookGenre);
                 }
 
             }
 
+            
             gL.Remove(removeGenre);
             removeGenre = "";
 
