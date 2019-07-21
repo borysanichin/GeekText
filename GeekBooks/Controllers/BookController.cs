@@ -14,8 +14,7 @@ namespace GeekBooks.Controllers
 {
     public class BookController : Controller
     {
-        List<string> GenreList = (from m in db.Genres
-                                  select m.GenreName).ToList();
+       
 
 
         public static List<string> gL = new List<string>() { "All" };
@@ -25,6 +24,8 @@ namespace GeekBooks.Controllers
 
         public static BookContext db = new BookContext();
 
+        public static List<string> GenreList = (from m in db.Genres
+                                                select m.GenreName).ToList();
 
 
 
@@ -179,7 +180,8 @@ namespace GeekBooks.Controllers
                 BookGenreModel = db.BookGenres.SingleOrDefault(m => m.ISBN == id),
                 AuthorModel = db.Authors.SingleOrDefault(b => b.AuthorID == bmodel.WroteModel.AuthorID),
                 Wishlists = db.Wishlists.Where(b => b.Username == username).ToList(),
-                username = username
+                username = username,
+                reviews = db.Reviews.Where(a => a.ISBN == id).Select(a => a.Rating).DefaultIfEmpty(0).Average()
             };
 
             //bookM.BookModel = db.Books.Find(id);
