@@ -369,13 +369,17 @@
                     @Html.DisplayFor(modelItem => item.AuthorModel.AuthorLast)
                 </td>
                 @{
-                    var StarRatio = (double)item.reviews * 120.5 / 5;
+
+                    var Emptyresize = 120;
+                    var Filledresize = 120.5;
+                    var StarRatio = (double)item.reviews * Filledresize / 5;
+                    var height = 23;
 
                 }
                 <td>
                     <!--@Html.DisplayFor(modelItem => item.reviews)-->
-                    <div id="emptyStars" style="background-image: url('/Content/Images/EmptyStars.png'); width: 120px;">
-                        <div id="filledStars" style="background-image: url('/Content/Images/FilledStars2.png'); width: @StarRatio.ToString()px; height: 23px;"> </div>
+                    <div id="emptyStars" style="background-image: url('/Content/Images/EmptyStarsHD.png'); width: @Emptyresize.ToString()px; background-size: @Emptyresize.ToString()px">
+                        <div id="filledStars" style="background-image: url('/Content/Images/FilledStarsHD.png'); width: @StarRatio.ToString()px; background-size: @Filledresize.ToString()px; height: @height.ToString()px;"> </div>
                     </div>
                 </td>
                 <td>
