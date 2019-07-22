@@ -24,7 +24,7 @@
     {
 <div class="reviews">
     <b>ISBN:</b> @Html.DisplayFor(modelItem => item.ISBN)    <br />
-    <b>User:</b> @if (item.BoolValue == true) { <span style="color:black">Anonymous user</span> } else { @Html.DisplayFor(modelItem => item.Username) } <br />
+    <b>User:</b> @if (item.BoolValue == true) { <span style="color:black">GeekBooks User</span> } else { @Html.DisplayFor(modelItem => item.Username) } <br />
     <b>Rating:</b> @Html.DisplayFor(modelItem => item.Rating)        <br />
     <b>Posted:</b> @Html.DisplayFor(modelItem => item.DatePosted)       <br />
     <b>Comment:</b> @Html.DisplayFor(modelItem => item.Comment)   <br />

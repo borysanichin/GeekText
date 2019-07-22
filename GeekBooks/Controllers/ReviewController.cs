@@ -48,8 +48,18 @@ namespace GeekBooks.Controllers
             var book = new BookeModel();
             review.DatePosted = System.DateTime.Now;
             review.Username = (string)Session["Username"];
-            var isbn = db.Books.Where(i => i.ISBN == id).Select(i => i.ISBN).Single();
-            review.ISBN = isbn;
+            try
+            {
+                var isbn = db.Books.Where(i => i.ISBN == id).Select(i => i.ISBN).Single();
+                review.ISBN = isbn;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return View("Error");
+                return RedirectToAction("Details", "Book", new { id = review.ISBN, username = review.Username });
+                return RedirectToAction("Index", "Book");
+            }
             /*var isbn = from b in db.Books
                        join r in db.Reviews
                        on b.ISBN equals r.ISBN
