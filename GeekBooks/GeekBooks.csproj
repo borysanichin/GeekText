@@ -151,8 +151,14 @@
     <Content Include="Content\bootstrap-united.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\icons\save.png" />
+    <Content Include="Content\Images\AddToCart.png" />
     <Content Include="Content\Images\EmptyStars.png" />
+    <Content Include="Content\Images\EmptyStarsHD.png" />
     <Content Include="Content\Images\FilledStars.png" />
+    <Content Include="Content\Images\FilledStars2.png" />
+    <Content Include="Content\Images\FilledStarsHD.png" />
+    <Content Include="Content\Images\SearchIcon.png" />
+    <Content Include="Content\Images\SearchIconBlue.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
