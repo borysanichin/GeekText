@@ -347,29 +347,44 @@
         </tr>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
-                    <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = "guest" })" title="@item.BookModel.Title Detail" class="links">
-                        <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
-                    </a>
-                </td>
-                <td>
-                    @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = "guest" }, null)
-                </td>
-                <td>
-                    $@Html.DisplayFor(modelItem => item.BookModel.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.viewGenres)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorFirst)
-                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorMiddle)
-                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorLast)
-                </td>
-                @{
-
+    <tr>
+        <td>
+            @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
+            @if (Session["Username"] == null)
+            {
+            <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = "guest" })" title="@item.BookModel.Title Detail" class="links">
+                <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
+            </a>
+            }
+            else
+            {
+            <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = Session["Username"] })" title="@item.BookModel.Title Detail" class="links">
+                <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
+            </a>
+            }
+        </td>
+        <td>
+            @if (Session["Username"] == null)
+            {
+                @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = "guest" }, null)
+            }
+            else
+            {
+                @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = Session["Username"] }, null)
+            }
+        </td>
+        <td>
+            $@Html.DisplayFor(modelItem => item.BookModel.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.viewGenres)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuthorModel.AuthorFirst)
+            @Html.DisplayFor(modelItem => item.AuthorModel.AuthorMiddle)
+            @Html.DisplayFor(modelItem => item.AuthorModel.AuthorLast)
+        </td>
+        @{
                     var Emptyresize = 120;
                     var Filledresize = 120.5;
                     var StarRatio = (double)item.reviews * Filledresize / 5;
