@@ -63,7 +63,7 @@ namespace GeekBooks.Controllers
             //exchange data between review objects
             FillReviewModel(review, reviewM);
 
-            return View(review);
+            return View(reviewM);
         }
 
         // POST: CreateReview/{isbn}
