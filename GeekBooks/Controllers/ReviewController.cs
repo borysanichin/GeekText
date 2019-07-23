@@ -15,15 +15,9 @@ namespace GeekBooks.Controllers
 
         //Temporarily list reviews in Review/Index
         // GET: Review
-        public ActionResult Index(Review review)
+        public ActionResult Index()
         {
-            ViewBag.UserName = "No data";
-            if (review.BoolValue)
-                ViewBag.UserName = "Anonymous user";
-            else
-                ViewBag.UserName = review.Username;
-            ViewBag.BoolValue = review.BoolValue;
-            List<Review> reviews = db.Reviews.ToList();              
+            List<Review> reviews =  db.Reviews.ToList();              
           
             return View(reviews);
         }
@@ -45,16 +39,18 @@ namespace GeekBooks.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var review = new Review();
-            var book = new BookeModel();
-            review.DatePosted = System.DateTime.Now;
-            review.Username = (string)Session["Username"];
+            //Creating review model objects to exchange data for display
+            ReviewModel reviewM = new ReviewModel();
+            Review review = new Review();
+ 
+            reviewM.DatePosted = System.DateTime.Now;
+            reviewM.Username = (string)Session["Username"];
 
             //Check if book isbn is valid
             try
             {
                 var isbn = db.Books.Where(i => i.ISBN == id).Select(i => i.ISBN).Single();
-                review.ISBN = isbn;
+                reviewM.ISBN = isbn;
             }
             catch(ArgumentNullException e)
             {
@@ -62,14 +58,17 @@ namespace GeekBooks.Controllers
                 return View("Error");
                 return RedirectToAction("Details", "Book", new { id = review.ISBN, username = review.Username });
             }
-            ViewBag.ISBN = review.ISBN;
+            ViewBag.ISBN = reviewM.ISBN;
+
+            //exchange data between review objects
+            FillReviewModel(review, reviewM);
 
             return View(review);
         }
 
         // POST: CreateReview/{isbn}
         [HttpPost]
-        public ActionResult CreateReview(Review reviewData)
+        public ActionResult CreateReview(ReviewModel reviewData)
         {
             if (string.IsNullOrEmpty(reviewData.Comment))
             {
@@ -78,20 +77,24 @@ namespace GeekBooks.Controllers
 
             if (ModelState.IsValid)
             {
+                //BookContext.edmx/BookContext.tt/Review object
+                Review review = new Review();
+
+                FillReviewModel(review, reviewData);
+
                 FillReviewViewBag(reviewData, true);
 
                 //Check if the user hasn't already made a review for the book, redirect to error page if true.
                 var reviewUser = db.Reviews.Where(u => u.Username == reviewData.Username && u.ISBN == reviewData.ISBN).Select(u => u.Username).SingleOrDefault();
                 if (reviewData.Username == reviewUser)
                 {
-                    //TempData["msg"] = "<script>alert('Only one review allowed per book');</script>";
                     return View("_ReviewError");
 
                     return RedirectToAction("Details", "Book", new { id = reviewData.ISBN, username = reviewData.Username });
                 }
                 //return View(); //for testing
 
-                db.Reviews.Add(reviewData);
+                db.Reviews.Add(review);
 
                 //Try catch (just incase, functions the same as the previous code block) 
                 try
@@ -119,7 +122,7 @@ namespace GeekBooks.Controllers
         }
 
         //Pass Review Model data to CreateReview view for testing (with ViewBag, without saving to database)
-        public void FillReviewViewBag(Review reviewData, bool flag)
+        public void FillReviewViewBag(ReviewModel reviewData, bool flag)
         {
             if (flag)
             {
@@ -143,6 +146,17 @@ namespace GeekBooks.Controllers
                 ViewBag.DatePosted = "No Data";
                 ViewBag.Anynomous = "No Data";
             }
+        }
+
+        //Used to fill /BookContext.edmx/BookContext.tt/Review.cs object with ReviewModel.cs object data
+        public void FillReviewModel(Review review, ReviewModel reviewM)
+        {
+            review.ISBN = reviewM.ISBN;
+            review.Username = reviewM.Username;
+            review.Rating = reviewM.Rating;
+            review.Comment = reviewM.Comment;
+            review.DatePosted = reviewM.DatePosted;
+            review.Anonymous = reviewM.Anonymous;
         }
     }
 }
