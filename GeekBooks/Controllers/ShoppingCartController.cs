@@ -159,7 +159,7 @@ namespace GeekBooks.Controllers
 
             return View(sCart);
         }
-        [Route("ShoppinCart/ShoppingCartDetail/{username}")]
+        [Route("ShoppingCart/ShoppingCartDetail/{username}")]
 
         public ActionResult ShoppingCartDetail(string username)
         {
