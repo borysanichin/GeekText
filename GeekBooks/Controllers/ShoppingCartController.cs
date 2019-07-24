@@ -170,5 +170,19 @@ namespace GeekBooks.Controllers
 
             return View(sCart);
         }
+
+        [Route("ShoppingCart/DeleteShoppingCartBook/{username}/{isbn}")]
+        public ActionResult DeleteShoppingCartBook(string username, string isbn)
+        {
+            var sCart = _context.ShoppingCarts.Find(username, isbn);
+
+            if (sCart == null)
+                return HttpNotFound();
+
+            _context.ShoppingCarts.Remove(sCart);
+            _context.SaveChanges();
+
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { username });
+        }
     }
 }

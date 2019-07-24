@@ -249,19 +249,7 @@ namespace GeekBooks.Controllers
             return RedirectToAction("WishlistDetail", "Account", new { wishlistname, username});
         }
 
-        [Route("Account/DeleteWishlistBook/{username}/{isbn}")]
-        public ActionResult DeleteShoppingCartBook(string username, string isbn)
-        {
-            var sCart = _context.ShoppingCarts.Find(username, isbn);
-
-            if (sCart == null)
-                return HttpNotFound();
-
-            _context.ShoppingCarts.Remove(sCart);
-            _context.SaveChanges();
-
-            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new {username });
-        }
+      
         //[Route("Account/MoveWishlistBook/{wishlistname}/{wishlistbook}")]
         public ActionResult MoveWishlistBook(string wishlistname, WishlistBook wishlistbook)
         {
@@ -363,5 +351,6 @@ namespace GeekBooks.Controllers
 
             return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { id.Username });
         }
+        
     }
 }
