@@ -361,7 +361,7 @@ namespace GeekBooks.Controllers
             _context.ShoppingCarts.Add(id);
             _context.SaveChanges();
 
-            return RedirectToAction("ShoppingCartDetail", "Account", new { id.Username });
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { id.Username });
         }
     }
 }
