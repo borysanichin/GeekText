@@ -233,35 +233,7 @@ namespace GeekBooks.Controllers
         }
 
 
-        public ActionResult AddBookToShoppingCart(ShoppingCart shoppingCart)
-        {
-
-
-            ShoppingCart sCart = _context.ShoppingCarts.Find(shoppingCart.Username, shoppingCart.ISBN);
-
-          
-            
-            if (sCart == null)
-            {
-                 
-                _context.ShoppingCarts.Add(shoppingCart);
-                _context.SaveChanges();
-            }
-
-            return RedirectToAction("ShoppingCartDetail", "Account", new { shoppingCart.Username });
-        }
-
-        [Route("Account/ShoppingCartDetail/{username}")]
-        
-        public ActionResult ShoppingCartDetail(string username)
-        {
-            IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username).ToList();
- 
-            if (sCart == null)
-                return HttpNotFound();
-
-            return View(sCart);
-        }
+       
 
         [Route("Account/DeleteWishlistBook/{username}/{isbn}/{wishlistname}")]
         public ActionResult DeleteWishlistBook(string username, string isbn, string wishlistname)

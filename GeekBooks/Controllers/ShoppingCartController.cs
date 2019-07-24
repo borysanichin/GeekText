@@ -142,7 +142,8 @@ namespace GeekBooks.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("DisplayShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
+            //return RedirectToAction("DisplayShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
         }
         // oh my god y just noticed it another thing is
         
@@ -150,6 +151,17 @@ namespace GeekBooks.Controllers
         [Route("ShoppingCart/DisplayShoppingCartDetail/{username}")]
 
         public ActionResult DisplayShoppingCartDetail(string username)
+        {
+            IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username).ToList();
+
+            if (sCart == null)
+                return HttpNotFound();
+
+            return View(sCart);
+        }
+        [Route("ShoppinCart/ShoppingCartDetail/{username}")]
+
+        public ActionResult ShoppingCartDetail(string username)
         {
             IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username).ToList();
 

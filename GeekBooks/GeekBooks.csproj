@@ -337,6 +337,7 @@
     <Content Include="Views\ShoppingCart\CartPartial.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\ShoppingCart\AddToCartPartial.cshtml" />
+    <Content Include="Views\ShoppingCart\ShoppingCartDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
