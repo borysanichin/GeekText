@@ -260,7 +260,7 @@ namespace GeekBooks.Controllers
             _context.ShoppingCarts.Remove(sCart);
             _context.SaveChanges();
 
-            return RedirectToAction("ShoppingCartDetail", "Account", new {username });
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new {username });
         }
         //[Route("Account/MoveWishlistBook/{wishlistname}/{wishlistbook}")]
         public ActionResult MoveWishlistBook(string wishlistname, WishlistBook wishlistbook)

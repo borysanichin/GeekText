@@ -7,38 +7,42 @@
 <div class="row">
     <div class="col-sm-8">
 
-
         @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
         @*<a href="@Url.Action("Details", "Book", new { id = Model.BookModel.ISBN })" title="@Model.BookModel.Title Detail" class="links">
-                <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="300" height="450">
-            </a>
+            <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="300" height="450">
+        </a>
         *@
-
         <a class="btn" data-toggle="modal" data-target=".bootstrapmodal" title="Click to enlarge">
-
 
             <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="250" height="400">
 
-
         </a>
-
         <div class="modal fade bootstrapmodal">
-
             <div class="modal-dialog">
-
                 <div class="modal-body">
                     <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="500" height="750">
 
-
                 </div>
-
 
             </div>
 
-
         </div>
 
+        @{
+            var Emptyresize = 280;
+            var Filledresize = 280.5;
+            var StarRatio = (double)Model.reviews * Filledresize / 5;
+            var height = 23 * Filledresize / 120;
 
+        }
+
+        <div style="position: relative; width: 200px; height:auto">
+
+            <div id="emptyStars" style="background-image: url('/Content/Images/EmptyStarsHD.png'); width: @Emptyresize.ToString()px; background-size: @Emptyresize.ToString()px">
+                  <div id="filledStars" style="background-image: url('/Content/Images/FilledStarsHD.png'); width: @StarRatio.ToString()px; background-size: @Filledresize.ToString()px; height: @height.ToString()px;"> </div>
+                 
+             </div>
+         </div>
 
     </div>
 
