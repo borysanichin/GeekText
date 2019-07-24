@@ -19,16 +19,17 @@
 
 <h2>Reviews</h2>
 
+
 @{
     foreach(var item in Model)
     {
 <div class="reviews">
     <b>ISBN:</b> @Html.DisplayFor(modelItem => item.ISBN)    <br />
-    <b>User:</b> @if (item.BoolValue == true) { <span style="color:black">Anonymous user</span> } else { @Html.DisplayFor(modelItem => item.Username) } <br />
+    <b>User:</b> @if (item.Anonymous == 1) { <span style="color:black">GeekBooks User</span> } else { @Html.DisplayFor(modelItem => item.Username) } <br />
     <b>Rating:</b> @Html.DisplayFor(modelItem => item.Rating)        <br />
     <b>Posted:</b> @Html.DisplayFor(modelItem => item.DatePosted)       <br />
     <b>Comment:</b> @Html.DisplayFor(modelItem => item.Comment)   <br />
-    <b>Anonymous check: </b> @item.Anonymous | @item.BoolValue <br />
+    <b>Anonymous check: </b> @item.Anonymous <br />
 </div>
     }
 

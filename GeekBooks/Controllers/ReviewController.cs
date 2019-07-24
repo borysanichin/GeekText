@@ -10,77 +10,65 @@ namespace GeekBooks.Controllers
 {
     public class ReviewController : Controller
     {
-        // GET: Review
+        //initialize BookContext db
         BookContext db = new BookContext();
-        public ActionResult Index(Review review)
+
+        //Temporarily list reviews in Review/Index
+        // GET: Review
+        public ActionResult Index()
         {
-            //Session["Username"] = "guest2";
-            ViewBag.UserName = "No data";
-            if (review.BoolValue)
-                ViewBag.UserName = "Anonymous user";
-            else
-                ViewBag.UserName = review.Username;
-            ViewBag.BoolValue = review.BoolValue;
-            ViewBag.Test = "Testing";
-            List<Review> reviews = db.Reviews.ToList();              
-            //decimal rating = review.Rating;
-            //string comment = review.Comment;
+            List<Review> reviews =  db.Reviews.ToList();              
           
             return View(reviews);
         }
 
-        // GET: CreateReview
+        // GET: CreateReview/{id}
         [HttpGet]
         public ActionResult CreateReview(string id = "1")
         {
-            //To Do: Check if user is logged in
+            //Check if user is logged in
             if(Session["Username"] == null)
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            //To Do: Check if user has purchased the book
 
             if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var review = new Review();
-            var book = new BookeModel();
-            review.DatePosted = System.DateTime.Now;
-            review.Username = (string)Session["Username"];
-            var isbn = db.Books.Where(i => i.ISBN == id).Select(i => i.ISBN).Single();
-            review.ISBN = isbn;
-            /*var isbn = from b in db.Books
-                       join r in db.Reviews
-                       on b.ISBN equals r.ISBN
-                       where b.ISBN == id
-                       select new {
-                           _ISBN = b.ISBN
-                       };
-            foreach(var i in isbn)
-            {
-                review.ISBN = i._ISBN;
-                id = i._ISBN;
-            }
-            if(book.ISBN != id)
-            {
-                return HttpNotFound();
-            }
+            //Creating review model objects to exchange data for display
+            ReviewModel reviewM = new ReviewModel();
+            Review review = new Review();
+ 
+            reviewM.DatePosted = System.DateTime.Now;
+            reviewM.Username = (string)Session["Username"];
 
-            if (id.Equals(book.ISBN))
+            //Check if book isbn is valid
+            try
             {
-                review.ISBN = book.ISBN;
+                var isbn = db.Books.Where(i => i.ISBN == id).Select(i => i.ISBN).Single();
+                reviewM.ISBN = isbn;
+            }
+            catch(ArgumentNullException e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return View("Error");
+                return RedirectToAction("Details", "Book", new { id = review.ISBN, username = review.Username });
+            }
+            ViewBag.ISBN = reviewM.ISBN;
 
-            }*/
-            ViewBag.ISBN = review.ISBN;
-            //ModelState.Clear();
-            return View(review);
+            //exchange data between review objects
+            FillReviewModel(review, reviewM);
+
+            return View(reviewM);
         }
 
-        // POST: CreateReview
+        // POST: CreateReview/{isbn}
         [HttpPost]
-        public ActionResult CreateReview(Review reviewData)
-        //public ActionResult CreateReview(FormCollection fc)
+        public ActionResult CreateReview(ReviewModel reviewData)
         {
             if (string.IsNullOrEmpty(reviewData.Comment))
             {
@@ -88,6 +76,55 @@ namespace GeekBooks.Controllers
             }
 
             if (ModelState.IsValid)
+            {
+                //BookContext.edmx/BookContext.tt/Review object
+                Review review = new Review();
+
+                FillReviewModel(review, reviewData);
+
+                FillReviewViewBag(reviewData, true);
+
+                //Check if the user hasn't already made a review for the book, redirect to error page if true.
+                var reviewUser = db.Reviews.Where(u => u.Username == reviewData.Username && u.ISBN == reviewData.ISBN).Select(u => u.Username).SingleOrDefault();
+                if (reviewData.Username == reviewUser)
+                {
+                    return View("_ReviewError");
+
+                    return RedirectToAction("Details", "Book", new { id = reviewData.ISBN, username = reviewData.Username });
+                }
+                //return View(); //for testing
+
+                db.Reviews.Add(review);
+
+                //Try catch (just incase, functions the same as the previous code block) 
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.StackTrace);
+                    return View("_ReviewError");
+                }
+                
+                ModelState.Clear();
+
+                //To Do: remember to route to Book/Details/{isbn}/{user}
+                return RedirectToAction("Index");
+
+                return RedirectToRoute("BookRoute", new { id = reviewData.ISBN });
+            }
+            else
+            {
+                FillReviewViewBag(reviewData, false);
+                return View();
+            }
+        }
+
+        //Pass Review Model data to CreateReview view for testing (with ViewBag, without saving to database)
+        public void FillReviewViewBag(ReviewModel reviewData, bool flag)
+        {
+            if (flag)
             {
                 ViewBag.ISBN = reviewData.ISBN;
                 if (reviewData.BoolValue)
@@ -99,20 +136,6 @@ namespace GeekBooks.Controllers
                 ViewBag.DatePosted = reviewData.DatePosted;
                 ViewBag.BoolValue = reviewData.BoolValue;
                 ViewBag.Anonymous = reviewData.Anonymous;
-                //To Do: Check if user has purchased the book
-                var reviewPrimaryKey = db.Reviews.Where(u => u.Username == reviewData.Username && u.ISBN == reviewData.ISBN).Select(u => u.Username).SingleOrDefault();
-                if (reviewData.Username == reviewPrimaryKey)
-                {
-                    //TempData["msg"] = "<script>alert('Only one review allowed per book');</script>";
-                    return RedirectToAction("Details", "Book", new { id = reviewData.ISBN, username = reviewData.Username });
-                }
-                db.Reviews.Add(reviewData);
-                db.SaveChanges();
-                
-                ModelState.Clear();
-                return RedirectToAction("Index");
-                return RedirectToRoute("BookRoute", new { id = reviewData.ISBN });
-                return View();
             }
             else
             {
@@ -122,37 +145,18 @@ namespace GeekBooks.Controllers
                 ViewBag.Comment = "No Data";
                 ViewBag.DatePosted = "No Data";
                 ViewBag.Anynomous = "No Data";
-                return View();
             }
+        }
 
-            //var review = new Review();
-
-            /*ViewBag.ISBN = fc["ISBN"];
-            ViewBag.UserName = fc["UserName"];
-            ViewBag.Rating = fc["Rating"];
-            ViewBag.Comment = fc["Comment"];
-            ViewBag.DatePosted = fc["DatePosted"];  //Derived attribute*/
-
-            /*review.ISBN = fc["ISBN"];
-            review.Username = fc["UserName"];
-            review.Rating = Convert.ToDecimal(fc["Rating"]);
-            review.Comment = fc["Comment"];
-            review.DatePosted = Convert.ToDateTime(fc["DatePosted"]);*/
-
-            /*var review = reviewData;
-
-            if (ModelState.IsValid) { 
-
-                 db.Reviews.Add(reviewData);
-                 db.SaveChanges();
-
-                 return RedirectToAction("Index");
-             }
-             */
-            //return View("Index");
-
-            //TODO: return Book/Details/{isbn}
-            return View();
+        //Used to fill /BookContext.edmx/BookContext.tt/Review.cs object with ReviewModel.cs object data
+        public void FillReviewModel(Review review, ReviewModel reviewM)
+        {
+            review.ISBN = reviewM.ISBN;
+            review.Username = reviewM.Username;
+            review.Rating = reviewM.Rating;
+            review.Comment = reviewM.Comment;
+            review.DatePosted = reviewM.DatePosted;
+            review.Anonymous = reviewM.Anonymous;
         }
     }
 }
