@@ -342,6 +342,9 @@
     <Content Include="Views\ShoppingCart\DisplayShoppingCartDetail.cshtml" />
     <Content Include="Views\Review\_ReviewError.cshtml" />
     <Content Include="Views\ShoppingCart\ShoppingCartDetail.cshtml" />
+    <Content Include="Views\ShoppingCart\AddToCartPartial.cshtml" />
+    <Content Include="Views\ShoppingCart\CartPartial.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "ShoppingCartDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 <h2>Shopping Cart</h2>
 <hr />
@@ -19,37 +20,42 @@
     <tbody>
         @foreach (var book in Model)
         {
-            <tr>
-                <td>
-                    @Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)
-                </td>
-                @*<td><input id="QuantityTextBox" type="text" value="@book.Quantity" size="4" /> </td>*@
-                <td>
-                    @using (Html.BeginForm("SaveShoppingCartQuantity", "ShoppingCart"))
-                    {
-                        @Html.TextBox("Quantity", book.Quantity)<button type="submit" class="w3-button w3-tiny"><img src="~/Content/icons/save.png" height="32" width="32" /></button>
+            if (book.SaveForLater)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)
+                    </td>
+
+                    <td>
+                        @using (Html.BeginForm("SaveShoppingCartQuantity", "ShoppingCart"))
+                        {
+                            @Html.TextBox("Quantity", book.Quantity)<button type="submit" class="w3-button w3-tiny"><img src="~/Content/icons/save.png" height="32" width="32" /></button>
 
 
 
-                        @Html.Hidden("Username", book.Username)
-                        @Html.Hidden("ISBN", book.ISBN)
+                            @Html.Hidden("Username", book.Username)
+                            @Html.Hidden("ISBN", book.ISBN)
 
 
-                    }
-                </td>
-                <td>$@(book.Quantity * book.Book.Price)</td>
-                <td align="right">
-                    @*@Html.ActionLink("Update", "UpdateShoppingCartQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN }, null)*@
-                    @*@Html.ActionLink("|", null)*@
-                    @Html.ActionLink("Remove", "DeleteShoppingCartBook", "ShoppingCart", new { username = book.Username, isbn = book.ISBN }, null)
-                    @Html.ActionLink("|", null)
-                    @Html.ActionLink("Move to Wishlist", "MoveWishlistBookToCart", "Account")
-                </td>
-            </tr>
+                        }
+                    </td>
+                    <td>$@(book.Quantity * book.Book.Price)</td>
+                    <td align="right">
+                        @*@Html.ActionLink("Update", "UpdateShoppingCartQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN }, null)*@
+                        @*@Html.ActionLink("|", null)*@
+                        @Html.ActionLink("Remove", "DeleteShoppingCartBook", "ShoppingCart", new { username = book.Username, isbn = book.ISBN }, null)
+                        @Html.ActionLink("|", null)
+                        @Html.ActionLink("Move to Wishlist", "MoveWishlistBookToCart", "Account")
+                    </td>
+                </tr>
+            } 
+
         }
     </tbody>
 </table>
 <hr />
+
 <style>
     .TextBox {
         resize: both;
@@ -57,4 +63,35 @@
 </style>
 @Html.ActionLink("Continue Shopping", "Index", "Book", null, new { @class = "btn btn-primary btn-small" })
 
+
+<hr />
+<h3>Save for Later</h3>
+<table class="table table-borderless table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+        
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            if (!(book.SaveForLater))
+            {
+        <tr>
+            <td>
+                @Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)
+                
+            </td>
+            <td align="right">
+                @Html.ActionLink("Move to Shopping Cart", "MoveSaveforlaterToShoppingCart", "ShoppingCart", new { username = book.Username, isbn = book.ISBN }, null)
+
+            </td>
+
+        </tr>
+            }
+
+        }
+    </tbody>
+</table>
 @*This is to modify *@

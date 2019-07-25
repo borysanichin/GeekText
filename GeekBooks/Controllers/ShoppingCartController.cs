@@ -163,7 +163,7 @@ namespace GeekBooks.Controllers
 
         public ActionResult ShoppingCartDetail(string username)
         {
-            IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username).ToList();
+            IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username ).ToList();
 
             if (sCart == null)
                 return HttpNotFound();

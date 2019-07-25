@@ -20,7 +20,14 @@ namespace GeekBooks
         public short Quantity { get; set; }
         public decimal Total { get { return Quantity * PriceEach; } }
 
+        public bool SaveForLater { get; set; } 
+
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }
     }
+
+    /*Public ShoppingCart()
+    {
+        SaveForLater = 0;
+    }*/
 }
