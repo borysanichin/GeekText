@@ -10,8 +10,17 @@ namespace GeekBooks.Controllers
 {
     public class ReviewController : Controller
     {
-        //initialize BookContext db
-        BookContext db = new BookContext();
+        static BookContext db;
+
+        public ReviewController()
+        {
+            db = new BookContext();
+        }
+
+        ~ReviewController()
+        {
+            db.Dispose();
+        }
 
         //Temporarily list reviews in Review/Index
         // GET: Review
