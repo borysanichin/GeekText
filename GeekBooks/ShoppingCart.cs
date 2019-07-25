@@ -18,16 +18,9 @@ namespace GeekBooks
         public string ISBN { get; set; }
         public decimal PriceEach { get; set; }
         public short Quantity { get; set; }
-        public decimal Total { get { return Quantity * PriceEach; } }
-
-        public bool SaveForLater { get; set; } 
-
+        public bool SaveForLater { get; set; }
+    
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }
     }
-
-    /*Public ShoppingCart()
-    {
-        SaveForLater = 0;
-    }*/
 }

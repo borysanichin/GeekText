@@ -34,7 +34,7 @@ namespace GeekBooks.Controllers
             decimal total = 0m;
             foreach (var item in cart)
             {
-                total += item.Total;
+               // total += item.Total;
             }
 
             ViewBag.GrandTotal = total;
@@ -196,6 +196,29 @@ namespace GeekBooks.Controllers
             var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
 
             _context.ShoppingCarts.Remove(oldShoppingCart);
+            _context.ShoppingCarts.Add(id);
+            _context.SaveChanges();
+
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { id.Username });
+        }
+        //Update save for later
+        [Route("ShoppingCart/UpdateShoppingCartSaveForLater/{Username}/{Isbn}")]
+        public ActionResult UpdateShoppingCartSaveForLater(string Username, string Isbn)
+        {
+            ShoppingCart sCart = _context.ShoppingCarts.Find(Username, Isbn);
+            //sCart.SaveForLater = true;
+            return View(sCart);
+        }
+ 
+        public ActionResult SaveForLater(ShoppingCart id)
+        {
+            var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
+
+           /* if (oldShoppingCart == null)
+                return HttpNotFound();*/
+
+      _context.ShoppingCarts.Remove(oldShoppingCart);
+            id.SaveForLater = true;
             _context.ShoppingCarts.Add(id);
             _context.SaveChanges();
 
