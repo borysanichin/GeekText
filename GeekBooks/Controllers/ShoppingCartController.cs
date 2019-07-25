@@ -184,5 +184,22 @@ namespace GeekBooks.Controllers
 
             return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { username });
         }
+        [Route("ShoppingCart/UpdateShoppingCartQuantity/{Username}/{Isbn}")]
+        public ActionResult UpdateShoppingCartQuantity(string Username, string Isbn)
+        {
+            ShoppingCart sCart = _context.ShoppingCarts.Find(Username, Isbn);
+
+            return View(sCart);
+        }
+        public ActionResult SaveShoppingCartQuantity(ShoppingCart id)
+        {
+            var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
+
+            _context.ShoppingCarts.Remove(oldShoppingCart);
+            _context.ShoppingCarts.Add(id);
+            _context.SaveChanges();
+
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { id.Username });
+        }
     }
 }

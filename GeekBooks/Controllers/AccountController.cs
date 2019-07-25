@@ -321,14 +321,7 @@ namespace GeekBooks.Controllers
             return View(wbook);
         }
 
-        [Route("Account/UpdateShoppingCartQuantity/{Username}/{Isbn}")]
-        public ActionResult UpdateShoppingCartQuantity(string Username, string Isbn)
-        {
-            ShoppingCart sCart = _context.ShoppingCarts.Find(Username, Isbn);
-
-            return View(sCart);
-        }
-
+        
         
         public ActionResult SaveWishlistQuantity(WishlistBook id)
         {
@@ -341,16 +334,7 @@ namespace GeekBooks.Controllers
             return RedirectToAction("WishlistDetail", "Account", new { id.WishlistName, id.Username });
         }
 
-        public ActionResult SaveShoppingCartQuantity(ShoppingCart id)
-        {
-            var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
-
-            _context.ShoppingCarts.Remove(oldShoppingCart);
-            _context.ShoppingCarts.Add(id);
-            _context.SaveChanges();
-
-            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { id.Username });
-        }
+       
         
     }
 }
