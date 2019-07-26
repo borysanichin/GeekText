@@ -102,7 +102,7 @@ namespace GeekBooks.Controllers
                 {
                     return View("_ReviewError");
                 }
-                //return View(); //for testing
+                return View(); //for testing
 
                 db.Reviews.Add(review);
 
@@ -136,11 +136,16 @@ namespace GeekBooks.Controllers
         {
             if (flag)
             {
+                var nickname = db.Users.Where(u => u.Username == reviewData.Username).Select(u => u.Nickname).SingleOrDefault();
                 ViewBag.ISBN = reviewData.ISBN;
                 if (reviewData.BoolValue)
                     ViewBag.UserName = "Anonymous";
                 else
                     ViewBag.Username = reviewData.Username;
+                if (reviewData.Nickname)
+                    ViewBag.UserName = nickname;
+                else
+                    ViewBag.UserName = reviewData.Username;
                 ViewBag.Rating = reviewData.Rating;
                 ViewBag.Comment = reviewData.Comment;
                 ViewBag.DatePosted = reviewData.DatePosted;
