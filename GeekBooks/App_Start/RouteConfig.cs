@@ -17,8 +17,8 @@ namespace GeekBooks
 
             routes.MapRoute(
                 name: "BookRoute",
-                url: "Book/Details/{id}",
-                defaults: new { controller = "Book", action = "Details", id = UrlParameter.Optional }
+                url: "Book/Details/{id}/{username}",
+                defaults: new { controller = "Book", action = "Details", id = UrlParameter.Optional, username = UrlParameter.Optional }
             );
 
             routes.MapRoute(

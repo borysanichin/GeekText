@@ -19,17 +19,40 @@
 
 <h2>Reviews</h2>
 
+@functions{
 
+    public string getUserCheckName()
+    {
+        foreach (var item in Model) {
+            if (item.Anonymous == 1)
+            {
+                return "Anonymous";
+            }
+            if(item.Nickname == true)
+            {
+                return item.User.Nickname;
+            }
+            else
+            {
+                return item.Username;
+            }
+        }
+        return "";
+    }
+
+    }
 @{
     foreach(var item in Model)
     {
 <div class="reviews">
     <b>ISBN:</b> @Html.DisplayFor(modelItem => item.ISBN)    <br />
-    <b>User:</b> @if (item.Anonymous == 1) { <span style="color:black">GeekBooks User</span> } else { @Html.DisplayFor(modelItem => item.Username) } <br />
+    <b>User:</b> @getUserCheckName() <br />
+    @*<b>User:</b> @if (item.Anonymous == 1) { <span style="color:black">GeekBooks User</span> } else { @Html.DisplayFor(modelItem => item.Username) } <br />*@
     <b>Rating:</b> @Html.DisplayFor(modelItem => item.Rating)        <br />
     <b>Posted:</b> @Html.DisplayFor(modelItem => item.DatePosted)       <br />
     <b>Comment:</b> @Html.DisplayFor(modelItem => item.Comment)   <br />
     <b>Anonymous check: </b> @item.Anonymous <br />
+    <b>Nickname check: </b> @item.Nickname <br />
 </div>
     }
 
