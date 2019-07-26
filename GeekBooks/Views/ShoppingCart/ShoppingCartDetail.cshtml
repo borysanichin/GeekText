@@ -48,7 +48,7 @@
             <td>
                 @using (Html.BeginForm("SaveShoppingCartQuantity", "ShoppingCart"))
                 {
-                    @Html.TextBox("Quantity", cart.Quantity)<button type="submit" class="w3-button w3-tiny"><img src="~/Content/icons/save.png" height="32" width="32" /></button>
+                    @Html.TextBox("Quantity", cart.Quantity,new {@style = "width: 50px" })<button type="submit" class="w3-button w3-tiny"><img src="~/Content/icons/save.png" height="32" width="32" /></button>
 
 
 
