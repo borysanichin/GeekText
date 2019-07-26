@@ -181,7 +181,8 @@ namespace GeekBooks.Controllers
                 AuthorModel = db.Authors.SingleOrDefault(b => b.AuthorID == bmodel.WroteModel.AuthorID),
                 Wishlists = db.Wishlists.Where(b => b.Username == username).ToList(),
                 username = username,
-                reviews = db.Reviews.Where(a => a.ISBN == id).Select(a => a.Rating).DefaultIfEmpty(0).Average()
+                reviews = db.Reviews.Where(a => a.ISBN == id).Select(a => a.Rating).DefaultIfEmpty(0).Average(),
+                ReviewModel = db.Reviews.Where(b => b.ISBN == id)
             };
 
             //bookM.BookModel = db.Books.Find(id);
