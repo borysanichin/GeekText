@@ -37,6 +37,7 @@ namespace GeekBooks.Controllers
         [HttpGet]
         public ActionResult CreateReview(string id = "1")
         {
+            bool flag = false;
             //Check if user is logged in
             if(Session["Username"] == null)
             {
@@ -45,7 +46,7 @@ namespace GeekBooks.Controllers
 
             //To Do: Check if user has purchased the book
 
-            if(id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -57,24 +58,58 @@ namespace GeekBooks.Controllers
             reviewM.DatePosted = System.DateTime.Now;
             reviewM.Username = (string)Session["Username"];
 
-            //Check if book isbn is valid
-            try
-            {
-                var isbn = db.Books.Where(i => i.ISBN == id).Select(i => i.ISBN).Single();
-                reviewM.ISBN = isbn;
-            }
-            catch(ArgumentNullException e)
-            {
-                Console.WriteLine(e.StackTrace);
-                return View("Error");
-                return RedirectToAction("Details", "Book", new { id = review.ISBN, username = review.Username });
-            }
-            ViewBag.ISBN = reviewM.ISBN;
+            //query to search user-book purchases
+            var userPurchasedQuery = from u in db.Users
+                                join p in db.Purchaseds
+                                on u.Username equals p.Username
+                                join b in db.Books
+                                on p.ISBN equals b.ISBN
+                                select new
+                                {
+                                    p.ISBN,
+                                    p.Username
+                                };
 
-            //exchange data between review objects
-            FillReviewModel(review, reviewM);
+            //if one of the queried records matches the logged in user, set flag to true
+            foreach(var userPurchases in userPurchasedQuery)
+            {
+                if(userPurchases.Username == (string)Session["Username"] && userPurchases.ISBN == id)
+                {
+                    flag = true;
+                }
+                else
+                {
+                    flag = false;
+                }
+            }
 
-            return View(reviewM);
+            //if user purchased the book, allow him or her to review it
+            if (flag)
+            {
+                flag = false;
+                //Check if book isbn is valid
+                try
+                {
+                    var isbn = db.Books.Where(i => i.ISBN == id).Select(i => i.ISBN).Single();
+                    reviewM.ISBN = isbn;
+                }
+                catch (ArgumentNullException e)
+                {
+                    Console.WriteLine(e.StackTrace);
+                    return View("Error");
+                    return RedirectToAction("Details", "Book", new { id = review.ISBN, username = review.Username });
+                }
+                ViewBag.ISBN = reviewM.ISBN;
+
+                //exchange data between review objects
+                FillReviewModel(review, reviewM);
+
+                return View(reviewM);
+            }
+            else
+            {
+                return Content("<script>alert('You have not purchased this book'); window.history.go(-1);</script>");
+            }
         }
 
         // POST: CreateReview/{isbn}
@@ -97,7 +132,7 @@ namespace GeekBooks.Controllers
                 FillReviewViewBag(reviewData, true);
 
                 //Check if the user hasn't already made a review for the book, redirect to error page if true.
-                var reviewUser = db.Reviews.Where(u => u.Username == reviewData.Username && u.ISBN == reviewData.ISBN).Select(u => u.Username).SingleOrDefault();
+                var reviewUser = db.Reviews.Where(r => r.Username == reviewData.Username && r.ISBN == reviewData.ISBN).Select(u => u.Username).SingleOrDefault();
                 if (reviewData.Username == reviewUser)
                 {
                     return View("_ReviewError");
