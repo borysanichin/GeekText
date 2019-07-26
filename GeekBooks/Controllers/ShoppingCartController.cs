@@ -19,27 +19,16 @@ namespace GeekBooks.Controllers
             _context.Dispose();
         }
         // GET: ShoppingCart
-        public ActionResult Index()
+        public ActionResult Index()//String username)
         {
             //Init the cart list
-            var cart = Session["cart"] as List<ShoppingCart> ?? new List<ShoppingCart>();
-            //Check if cart is empty
-            if (cart.Count == 0 || Session["cart"] == null)
-            {
-                ViewBag.Message = "Your cart is empty.";
-                return View();
-            }
+           // var cart = Session["cart"] as List<ShoppingCart> ?? new List<ShoppingCart>();
+            //Ch/
+            var carts = from sc in _context.ShoppingCarts
+                        where sc.Username == "guest"
+                        select sc;
 
-            //Calculate total and save to Viewbag
-            decimal total = 0m;
-            foreach (var item in cart)
-            {
-                total += item.Total;
-            }
-
-            ViewBag.GrandTotal = total;
-            //Return the view with list
-            return View(cart);
+            return View(carts);
         }
         public ActionResult CartPartial()
         {
@@ -71,7 +60,8 @@ namespace GeekBooks.Controllers
             }
 
             //Return partial view with model
-            return PartialView(model);
+             return View(model);
+            //return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { model.Username });
         }
         public ActionResult AddToCartPartial(string isbn, string username) {
 
@@ -148,7 +138,7 @@ namespace GeekBooks.Controllers
         // oh my god y just noticed it another thing is
         
 
-        [Route("ShoppingCart/DisplayShoppingCartDetail/{username}")]
+        //[Route("ShoppingCart/DisplayShoppingCartDetail/{username}")]
 
         public ActionResult DisplayShoppingCartDetail(string username)
         {
@@ -159,11 +149,11 @@ namespace GeekBooks.Controllers
 
             return View(sCart);
         }
-        [Route("ShoppingCart/ShoppingCartDetail/{username}")]
+        //[Route("ShoppingCart/ShoppingCartDetail/{username}")]
 
         public ActionResult ShoppingCartDetail(string username)
         {
-            IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username).ToList();
+            IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username ).ToList();
 
             if (sCart == null)
                 return HttpNotFound();
@@ -171,7 +161,7 @@ namespace GeekBooks.Controllers
             return View(sCart);
         }
 
-        [Route("ShoppingCart/DeleteShoppingCartBook/{username}/{isbn}")]
+        //[Route("ShoppingCart/DeleteShoppingCartBook/{username}/{isbn}")]
         public ActionResult DeleteShoppingCartBook(string username, string isbn)
         {
             var sCart = _context.ShoppingCarts.Find(username, isbn);
@@ -196,6 +186,29 @@ namespace GeekBooks.Controllers
             var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
 
             _context.ShoppingCarts.Remove(oldShoppingCart);
+            _context.ShoppingCarts.Add(id);
+            _context.SaveChanges();
+
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { id.Username });
+        }
+        //Update save for later
+        [Route("ShoppingCart/UpdateShoppingCartSaveForLater/{Username}/{Isbn}")]
+        public ActionResult UpdateShoppingCartSaveForLater(string Username, string Isbn)
+        {
+            ShoppingCart sCart = _context.ShoppingCarts.Find(Username, Isbn);
+            //sCart.SaveForLater = true;
+            return View(sCart);
+        }
+ 
+        public ActionResult SaveForLater(ShoppingCart id)
+        {
+            var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
+
+           /* if (oldShoppingCart == null)
+                return HttpNotFound();*/
+
+      _context.ShoppingCarts.Remove(oldShoppingCart);
+            id.SaveForLater = true;
             _context.ShoppingCarts.Add(id);
             _context.SaveChanges();
 

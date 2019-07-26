@@ -27,7 +27,7 @@ namespace GeekBooks.Controllers
             decimal total = 0m;
             foreach (var item in cart)
             {
-                total += item.Total;
+                //total += item.Total;
             }
 
             ViewBag.GrandTotal = total;

@@ -152,6 +152,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\icons\save.png" />
     <Content Include="Content\Images\AddToCart.png" />
+    <Content Include="Content\Images\CartDetail.png" />
     <Content Include="Content\Images\EmptyStars.png" />
     <Content Include="Content\Images\EmptyStarsHD.png" />
     <Content Include="Content\Images\FilledStars.png" />
@@ -159,6 +160,7 @@
     <Content Include="Content\Images\FilledStarsHD.png" />
     <Content Include="Content\Images\SearchIcon.png" />
     <Content Include="Content\Images\SearchIconBlue.png" />
+    <Content Include="Content\Images\TrashIcon.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
@@ -342,6 +344,9 @@
     <Content Include="Views\ShoppingCart\DisplayShoppingCartDetail.cshtml" />
     <Content Include="Views\Review\_ReviewError.cshtml" />
     <Content Include="Views\ShoppingCart\ShoppingCartDetail.cshtml" />
+    <Content Include="Views\ShoppingCart\AddToCartPartial.cshtml" />
+    <Content Include="Views\ShoppingCart\CartPartial.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
