@@ -88,6 +88,7 @@ namespace GeekBooks.Controllers
 
             if (ModelState.IsValid)
             {
+
                 //BookContext.edmx/BookContext.tt/Review object
                 Review review = new Review();
 
@@ -137,7 +138,7 @@ namespace GeekBooks.Controllers
             {
                 ViewBag.ISBN = reviewData.ISBN;
                 if (reviewData.BoolValue)
-                    ViewBag.UserName = "Anonymous user";
+                    ViewBag.UserName = "Anonymous";
                 else
                     ViewBag.Username = reviewData.Username;
                 ViewBag.Rating = reviewData.Rating;
@@ -145,6 +146,7 @@ namespace GeekBooks.Controllers
                 ViewBag.DatePosted = reviewData.DatePosted;
                 ViewBag.BoolValue = reviewData.BoolValue;
                 ViewBag.Anonymous = reviewData.Anonymous;
+                ViewBag.NickName = reviewData.Nickname;
             }
             else
             {
@@ -154,6 +156,7 @@ namespace GeekBooks.Controllers
                 ViewBag.Comment = "No Data";
                 ViewBag.DatePosted = "No Data";
                 ViewBag.Anynomous = "No Data";
+                ViewBag.Nickname = "No Data";
             }
         }
 
@@ -166,6 +169,7 @@ namespace GeekBooks.Controllers
             review.Comment = reviewM.Comment;
             review.DatePosted = reviewM.DatePosted;
             review.Anonymous = reviewM.Anonymous;
+            review.Nickname = reviewM.Nickname;
         }
     }
 }
