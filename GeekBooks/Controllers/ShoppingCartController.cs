@@ -19,27 +19,16 @@ namespace GeekBooks.Controllers
             _context.Dispose();
         }
         // GET: ShoppingCart
-        public ActionResult Index()
+        public ActionResult Index()//String username)
         {
             //Init the cart list
-            var cart = Session["cart"] as List<ShoppingCart> ?? new List<ShoppingCart>();
-            //Check if cart is empty
-            if (cart.Count == 0 || Session["cart"] == null)
-            {
-                ViewBag.Message = "Your cart is empty.";
-                return View();
-            }
+           // var cart = Session["cart"] as List<ShoppingCart> ?? new List<ShoppingCart>();
+            //Ch/
+            var carts = from sc in _context.ShoppingCarts
+                        where sc.Username == "guest"
+                        select sc;
 
-            //Calculate total and save to Viewbag
-            decimal total = 0m;
-            foreach (var item in cart)
-            {
-               // total += item.Total;
-            }
-
-            ViewBag.GrandTotal = total;
-            //Return the view with list
-            return View(cart);
+            return View(carts);
         }
         public ActionResult CartPartial()
         {
@@ -71,7 +60,8 @@ namespace GeekBooks.Controllers
             }
 
             //Return partial view with model
-            return PartialView(model);
+             return View(model);
+            //return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { model.Username });
         }
         public ActionResult AddToCartPartial(string isbn, string username) {
 
@@ -148,7 +138,7 @@ namespace GeekBooks.Controllers
         // oh my god y just noticed it another thing is
         
 
-        [Route("ShoppingCart/DisplayShoppingCartDetail/{username}")]
+        //[Route("ShoppingCart/DisplayShoppingCartDetail/{username}")]
 
         public ActionResult DisplayShoppingCartDetail(string username)
         {
@@ -159,7 +149,7 @@ namespace GeekBooks.Controllers
 
             return View(sCart);
         }
-        [Route("ShoppingCart/ShoppingCartDetail/{username}")]
+        //[Route("ShoppingCart/ShoppingCartDetail/{username}")]
 
         public ActionResult ShoppingCartDetail(string username)
         {
@@ -171,7 +161,7 @@ namespace GeekBooks.Controllers
             return View(sCart);
         }
 
-        [Route("ShoppingCart/DeleteShoppingCartBook/{username}/{isbn}")]
+        //[Route("ShoppingCart/DeleteShoppingCartBook/{username}/{isbn}")]
         public ActionResult DeleteShoppingCartBook(string username, string isbn)
         {
             var sCart = _context.ShoppingCarts.Find(username, isbn);
