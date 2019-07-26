@@ -10,6 +10,7 @@ namespace GeekBooks.Controllers
 {
     public class ReviewController : Controller
     {
+        //Initialize db object
         static BookContext db;
 
         public ReviewController()
@@ -17,6 +18,7 @@ namespace GeekBooks.Controllers
             db = new BookContext();
         }
 
+        //free db object from memory
         ~ReviewController()
         {
             db.Dispose();
@@ -98,8 +100,6 @@ namespace GeekBooks.Controllers
                 if (reviewData.Username == reviewUser)
                 {
                     return View("_ReviewError");
-
-                    return RedirectToAction("Details", "Book", new { id = reviewData.ISBN, username = reviewData.Username });
                 }
                 //return View(); //for testing
 
@@ -119,9 +119,9 @@ namespace GeekBooks.Controllers
                 ModelState.Clear();
 
                 //To Do: remember to route to Book/Details/{isbn}/{user}
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
 
-                return RedirectToRoute("BookRoute", new { id = reviewData.ISBN });
+                return RedirectToRoute("BookRoute", new { id = reviewData.ISBN, username = reviewData.Username });
             }
             else
             {
