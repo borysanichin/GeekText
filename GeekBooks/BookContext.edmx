@@ -108,6 +108,7 @@
           <Property Name="ISBN" Type="varchar" MaxLength="13" Nullable="false" />
           <Property Name="PriceEach" Type="decimal" Precision="7" Scale="2" Nullable="false" />
           <Property Name="Quantity" Type="smallint" Nullable="false" />
+          <Property Name="SaveForLater" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -537,6 +538,7 @@
           <Property Name="ISBN" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PriceEach" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
           <Property Name="Quantity" Type="Int16" Nullable="false" />
+          <Property Name="SaveForLater" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Book" Relationship="Self.FK__ShoppingCa__ISBN__60A75C0F" FromRole="ShoppingCart" ToRole="Book" />
           <NavigationProperty Name="User" Relationship="Self.FK__ShoppingC__Usern__5FB337D6" FromRole="ShoppingCart" ToRole="Users" />
         </EntityType>
@@ -944,6 +946,7 @@
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
                 <ScalarProperty Name="PriceEach" ColumnName="PriceEach" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="SaveForLater" ColumnName="SaveForLater" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
