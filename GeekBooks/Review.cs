@@ -19,7 +19,8 @@ namespace GeekBooks
         public decimal Rating { get; set; }
         public string Comment { get; set; }
         public System.DateTime DatePosted { get; set; }
-        public Nullable<int> Anonymous { get; set; }
+        public int Anonymous { get; set; }
+        public bool Nickname { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }
