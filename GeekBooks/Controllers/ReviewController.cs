@@ -76,6 +76,7 @@ namespace GeekBooks.Controllers
                 if(userPurchases.Username == (string)Session["Username"] && userPurchases.ISBN == id)
                 {
                     flag = true;
+                    break;
                 }
                 else
                 {
@@ -93,11 +94,11 @@ namespace GeekBooks.Controllers
                     var isbn = db.Books.Where(i => i.ISBN == id).Select(i => i.ISBN).Single();
                     reviewM.ISBN = isbn;
                 }
+                //if not, re-direct to error page
                 catch (ArgumentNullException e)
                 {
                     Console.WriteLine(e.StackTrace);
                     return View("Error");
-                    return RedirectToAction("Details", "Book", new { id = review.ISBN, username = review.Username });
                 }
                 ViewBag.ISBN = reviewM.ISBN;
 
@@ -137,7 +138,7 @@ namespace GeekBooks.Controllers
                 {
                     return View("_ReviewError");
                 }
-                return View(); //for testing
+                //return View(); //for testing
 
                 db.Reviews.Add(review);
 
@@ -203,6 +204,7 @@ namespace GeekBooks.Controllers
         //Used to fill /BookContext.edmx/BookContext.tt/Review.cs object with ReviewModel.cs object data
         public void FillReviewModel(Review review, ReviewModel reviewM)
         {
+            //var nickname = db.Users.Where(u => u.Username == reviewM.Username).Select(u => u.Nickname).SingleOrDefault();
             review.ISBN = reviewM.ISBN;
             review.Username = reviewM.Username;
             review.Rating = reviewM.Rating;
