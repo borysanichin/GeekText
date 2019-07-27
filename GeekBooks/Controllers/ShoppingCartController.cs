@@ -120,7 +120,11 @@ namespace GeekBooks.Controllers
         //all working good with the functions below
         public ActionResult AddBookToShoppingCart(ShoppingCart shoppingCart)
         {
-
+            //Check if user is logged in
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             ShoppingCart sCart = _context.ShoppingCarts.Find(shoppingCart.Username, shoppingCart.ISBN);
 
