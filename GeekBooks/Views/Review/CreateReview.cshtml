@@ -1,0 +1,227 @@
+﻿@model GeekBooks.Models.ReviewModel
+@{
+    ViewBag.Title = "Review Form";
+}
+
+<script type="text/javascript">
+
+    //Star rating functionality jquery by IDs and font-awesome css class
+    $(document).ready(function () {
+        var colorStar = "grey";
+        $('#s1').click(function () {
+            $('.fa-star').css("color", colorStar);
+            $('#s1').css("color", "orange");
+            $('#rate').text('1/5');
+            $('#rateBox').val(1); 
+        });
+        $('#s2').click(function () {
+            $('.fa-star').css("color", colorStar);
+            $('#s1, #s2').css("color", "orange");
+            $('#rate').text('2/5');
+            $('#rateBox').val(2);
+        });
+        $('#s3').click(function () {
+            $('.fa-star').css("color", colorStar);
+            $('#s1, #s2, #s3').css("color", "orange");
+            $('#rate').text('3/5');
+            $('#rateBox').val(3);
+        });
+        $('#s4').click(function () {
+            $('.fa-star').css("color", colorStar);
+            $('#s1, #s2, #s3, #s4').css("color", "orange");
+            $('#rate').text('4/5');
+            $('#rateBox').val(4);
+        });
+        $('#s5').click(function () {
+            $('.fa-star').css("color", colorStar);
+            $('#s1, #s2, #s3, #s4, #s5').css("color", "orange");
+            $('#rate').text('5/5');
+            $('#rateBox').val(5);
+        });
+
+    });
+
+    $(document).ready(function () {
+        var g = "blue";
+        var b = "black";
+ 
+        $("#aBox").change(function () {
+            var checked = $(this).is(':checked');
+            if (!checked) {
+                $("#aLabel").css("color", b);
+            }
+            else {
+                $("#aLabel").css("color", g);
+            }
+        });
+
+        $("#nBox").change(function () {
+            var checked = $(this).is(':checked');
+            if (!checked) {
+                $("#nLabel").css("color", b);
+            }
+            else {
+                $("#nLabel").css("color", g);
+            }
+        });
+
+    });
+
+    //bootstrap tooltip for star rating
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+</script>
+
+<style>
+
+    /*Center the review form elements*/
+    .form-group {
+        text-align: center;
+        display: block;
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+
+    /*Invert css star hovers*/
+    .rating {
+        color: grey;
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    }
+
+    /*Colors the previous stars on hover*/
+    .rating > i:hover:before,
+    .rating > i:hover ~ i:before {
+        color: rgb(209, 136, 0);
+        cursor: pointer;
+    }
+
+    /*Increase the size of the stars*/
+    .fa-star{
+        font-size: 50px;
+    }
+
+    /*Make the comment box border 3D-like*/
+    #commentbox {
+        border: 5px ridge #E95420;
+        margin: auto;
+        outline: 0;
+        outline-color: #E95420;
+        outline-width: 3px;
+    }
+
+    /*On focus, change border to inset*/
+        #commentbox:focus {
+            border: 5px inset #E95420;
+        }
+
+    /*On submit button active, translate it down to give it a 3D effect*/
+    #button1:active {
+        background-color: #ce4414;
+        box-shadow: 0 5px #667;
+        transform: translateY(4px);
+    }
+
+    /*Progress cursor when submit button is checked*/
+    #button1:checked {
+        cursor: progress;
+    }
+
+    .checkboxes{
+        margin: auto;
+        width: 50%;
+        padding: 5px 5px;
+    }
+
+    .checkboxes label{
+        display: inline-block;
+        margin: 3px;
+        padding-right: 30px;
+        white-space: nowrap;
+    }
+
+        .checkboxes input {
+            width: 25px;
+            height: 25px;
+            margin: 0;
+            cursor: pointer;
+            vertical-align: middle;
+            position: absolute;
+            left: 0;
+        }
+
+</style>
+
+<h2 style="text-align: center;">Create a Review</h2>
+@using (Html.BeginForm("CreateReview", "Review", FormMethod.Post))
+
+{
+<div class="form-group">
+
+    @Html.HiddenFor(m => m.ISBN, new { id = "isbn" })
+
+    @Html.HiddenFor(m => m.Username, new { id = "user" })
+
+    <h3>Rating</h3>
+    <div class="rating">
+
+        <i class="fa fa-star" aria-hidden="true" id="s5" data-toggle="tooltip" data-placement="bottom" title="Excellent"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s4" data-toggle="tooltip" data-placement="bottom" title="Very good"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s3" data-toggle="tooltip" data-placement="bottom" title="Good"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s2" data-toggle="tooltip" data-placement="bottom" title="Below average"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s1" data-toggle="tooltip" data-placement="bottom" title="Poor"></i>
+
+    </div>
+    <b id="rate">0/5</b>
+    @Html.HiddenFor(m => m.Rating, new { id = "rateBox" })
+
+    @Html.ValidationMessageFor(m => m.Rating)
+
+    <hr />
+    <h3>Write your review</h3>
+    @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", id = "commentbox", placeholder = "What did you like or dislike?", cols = "20", rows = "5", style = "text-align: left;" })
+    @Html.ValidationMessageFor(m => m.Comment)
+
+    @Html.HiddenFor(m => m.DatePosted)
+
+
+
+    <hr />
+
+    <div class="checkboxes">
+        <ul style="list-style: none">
+            <li style="position:relative">
+                @Html.CheckBoxFor(m => m.BoolValue, new { id = "aBox" })
+                @Html.LabelFor(m => m.Anonymous, new { id = "aLabel" })
+            </li>
+
+            <li style="position:relative">
+                @Html.CheckBoxFor(m => m.Nickname, new { id = "nBox" })
+                @Html.LabelFor(m => m.Nickname, new { id = "nLabel" })
+            </li>
+        </ul>
+    </div>
+
+    <hr />
+    <input type="submit" value="Submit" class="btn btn-primary" id="button1" />
+</div>
+
+    }
+
+
+    <!--ViewBag sent from Model-Controller for testing-->
+
+    <!--<hr />
+    <h4 style="color:purple">
+        ISBN: @ViewBag.ISBN <br />
+        Username: @ViewBag.Username <br />
+        Rating: @ViewBag.Rating <br />
+        Comment: @ViewBag.Comment <br />
+        DatePosted: @ViewBag.DatePosted <br />
+        Anonymous?: @ViewBag.BoolValue | @ViewBag.Anonymous <br />
+        Nickname?: @ViewBag.Nickname <br />
+    </h4>-->
+
