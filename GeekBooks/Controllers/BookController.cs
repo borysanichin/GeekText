@@ -228,39 +228,7 @@ namespace GeekBooks.Controllers
            
             return View();
         }
+     
         
-        public ActionResult ShoppingCart()
-        {
-            return RedirectToAction("ShoppingCart", "Account");
-            return View();
-        }
-        //Add to Shopping Cart
-       /* public ActionResult AddtoShoppingCart(ShoppingCart shoppingCart)
-        {
-
-            ShoppingCart sCart = _context.ShoppingCarts.Find(shoppingCart.Username, shoppingCart.ISBN);
-
-
-
-            if (sCart == null)
-            {
-
-                _context.ShoppingCarts.Add(shoppingCart);
-                _context.SaveChanges();
-            }
-
-            return RedirectToAction("ShoppingCartDetail", "Account", new { shoppingCart.Username });
-        }*/
-        /*[HttpGet] //To be removed
-        public ActionResult Details(int id)
-        {
-            booklist.Add(new Book() { Id = 1, Name = "Sorcerer's Stone" });
-            booklist.Add(new Book() { Id = 2, Name = "Chamber of Secrets" });
-
-            if (id > booklist.Count)
-                return HttpNotFound();
-    
-            return View(booklist[id - 1]);
-        }*/
     }
 }
