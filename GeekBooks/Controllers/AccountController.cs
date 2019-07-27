@@ -123,9 +123,9 @@ namespace GeekBooks.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult WishList()
+        public ActionResult WishList(String id)
         {
-            string username = (string)Session["Username"];
+            string username = id;
             List<Wishlist> wishlists = _context.Wishlists.Where(w => w.Username == username).ToList();
             return View(wishlists);
         }
@@ -161,7 +161,7 @@ namespace GeekBooks.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Wishlist", "Account");
+            return RedirectToAction("Wishlist", "Account", new { id = Session["Username"] });
         }
 
         [Route("Account/SaveRenameWishList/{oldName}/{wishlist}")]
@@ -176,7 +176,7 @@ namespace GeekBooks.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Wishlist", "Account");
+            return RedirectToAction("Wishlist", "Account", new { id = Session["Username"] });
         }
 
         [Route("Account/DeleteWishList/{WishlistName}/{Username}")]
@@ -198,7 +198,7 @@ namespace GeekBooks.Controllers
             _context.Wishlists.Remove(wishlist);
             _context.SaveChanges();
 
-            return RedirectToAction("Wishlist", "Account");
+            return RedirectToAction("Wishlist", "Account", new { id = Session["Username"] });
         }
 
         //[Route("Account/AddBookToWishlist/{wishlistBook}")]
@@ -320,7 +320,7 @@ namespace GeekBooks.Controllers
             wishlistInDb.Preferred = true;
             _context.SaveChanges();
 
-            return RedirectToAction("Wishlist", "Account");
+            return RedirectToAction("Wishlist", "Account", new { id = Session["Username"] });
         }
 
         [Route("Account/UpdateWishlistQuantity/{Username}/{Isbn}/{Wishlistname}")]
