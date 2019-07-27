@@ -40,7 +40,7 @@
                 <ul class="navbar-collapse collapse navbar-right">
                     @using (Html.BeginForm("ShoppingCartDetail", "ShoppingCart"))
                     {
-                        @Html.Hidden("Username", "guest")
+                        @Html.Hidden("Username", Session["Username"])
 
 
                         <input type="image" img alt="Cart" src="~/Content/Images/CartDetail.png" style=" width: 40px; height: auto;">

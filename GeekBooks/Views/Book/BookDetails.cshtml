@@ -25,7 +25,6 @@
     @Html.HiddenFor(b => b.WishlistBook.ISBN, new { Value = Model.Book.ISBN })
     @Html.HiddenFor(b => b.WishlistBook.Quantity, new { Value = 1 })
     @Html.HiddenFor(b => b.WishlistBook.Username, new { Value = "guest" })
-    @Html.HiddenFor(b => b.WishlistBook.Preferred, new { Value = false })
 
     <button type="submit" class="btn btn-primary">Add Book To Wishlist</button>
 }

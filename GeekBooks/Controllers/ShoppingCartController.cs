@@ -6,7 +6,8 @@ using System.Web.Mvc;
 
 namespace GeekBooks.Controllers
 {
-    public class ShoppingCartController : Controller
+    public class  
+        ShoppingCartController : Controller
     {
         private BookContext _context;
 
@@ -204,11 +205,20 @@ namespace GeekBooks.Controllers
         {
             var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
 
-           /* if (oldShoppingCart == null)
-                return HttpNotFound();*/
-
-      _context.ShoppingCarts.Remove(oldShoppingCart);
+            _context.ShoppingCarts.Remove(oldShoppingCart);
             id.SaveForLater = true;
+            _context.ShoppingCarts.Add(id);
+            _context.SaveChanges();
+
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { id.Username });
+        }
+
+        public ActionResult BackToShoppingCart(ShoppingCart id)
+        {
+            var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
+
+            _context.ShoppingCarts.Remove(oldShoppingCart);
+            id.SaveForLater = false;
             _context.ShoppingCarts.Add(id);
             _context.SaveChanges();
 
