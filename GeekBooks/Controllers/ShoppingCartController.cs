@@ -6,7 +6,8 @@ using System.Web.Mvc;
 
 namespace GeekBooks.Controllers
 {
-    public class ShoppingCartController : Controller
+    public class  
+        ShoppingCartController : Controller
     {
         private BookContext _context;
 
@@ -19,13 +20,25 @@ namespace GeekBooks.Controllers
             _context.Dispose();
         }
         // GET: ShoppingCart
-        public ActionResult Index()
+        public ActionResult Index()//String username)
         {
-            return View();
+          
+            var carts = from sc in _context.ShoppingCarts
+                        where sc.Username == "guest"
+                        select sc;
+
+            return View(carts);
         }
+       
+
+        //all working good with the functions below
         public ActionResult AddBookToShoppingCart(ShoppingCart shoppingCart)
         {
-
+            //Check if user is logged in
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             ShoppingCart sCart = _context.ShoppingCarts.Find(shoppingCart.Username, shoppingCart.ISBN);
 
@@ -38,21 +51,85 @@ namespace GeekBooks.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("DisplayShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
+            //return RedirectToAction("DisplayShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
         }
-        // oh my god y just noticed it another thing is
-        
+       
+       
 
-        [Route("ShoppingCart/DisplayShoppingCartDetail/{username}")]
+        //[Route("ShoppingCart/ShoppingCartDetail/{username}")]
 
-        public ActionResult DisplayShoppingCartDetail(string username)
+        public ActionResult ShoppingCartDetail(string username)
         {
-            IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username).ToList();
+            IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username ).ToList();
 
             if (sCart == null)
                 return HttpNotFound();
 
             return View(sCart);
+        }
+
+        //[Route("ShoppingCart/DeleteShoppingCartBook/{username}/{isbn}")]
+        public ActionResult DeleteShoppingCartBook(string username, string isbn)
+        {
+            var sCart = _context.ShoppingCarts.Find(username, isbn);
+
+            if (sCart == null)
+                return HttpNotFound();
+
+            _context.ShoppingCarts.Remove(sCart);
+            _context.SaveChanges();
+
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { username });
+        }
+        [Route("ShoppingCart/UpdateShoppingCartQuantity/{Username}/{Isbn}")]
+        public ActionResult UpdateShoppingCartQuantity(string Username, string Isbn)
+        {
+            ShoppingCart sCart = _context.ShoppingCarts.Find(Username, Isbn);
+
+            return View(sCart);
+        }
+        public ActionResult SaveShoppingCartQuantity(ShoppingCart id)
+        {
+            var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
+
+            _context.ShoppingCarts.Remove(oldShoppingCart);
+            _context.ShoppingCarts.Add(id);
+            _context.SaveChanges();
+
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { id.Username });
+        }
+        //Update save for later
+        [Route("ShoppingCart/UpdateShoppingCartSaveForLater/{Username}/{Isbn}")]
+        public ActionResult UpdateShoppingCartSaveForLater(string Username, string Isbn)
+        {
+            ShoppingCart sCart = _context.ShoppingCarts.Find(Username, Isbn);
+            //sCart.SaveForLater = true;
+            return View(sCart);
+        }
+ 
+        public ActionResult SaveForLater(ShoppingCart id)
+        {
+            var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
+
+            _context.ShoppingCarts.Remove(oldShoppingCart);
+            id.SaveForLater = true;
+            _context.ShoppingCarts.Add(id);
+            _context.SaveChanges();
+
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { id.Username });
+        }
+
+        public ActionResult BackToShoppingCart(ShoppingCart id)
+        {
+            var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
+
+            _context.ShoppingCarts.Remove(oldShoppingCart);
+            id.SaveForLater = false;
+            _context.ShoppingCarts.Add(id);
+            _context.SaveChanges();
+
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { id.Username });
         }
     }
 }

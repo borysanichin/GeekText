@@ -1,0 +1,209 @@
+﻿@model IEnumerable<GeekBooks.ShoppingCart>
+
+@{
+    ViewBag.Title = "ShoppingCartDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<h2>Shopping Cart</h2>
+<hr />
+<table class="table table-borderless table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            decimal GrandTotal = 0;
+
+        }
+        @foreach (var cart in Model)
+        {
+            @* If the book in save for later is null or false, then it should display in the shoppingcart View *@
+            if (!(cart.SaveForLater))
+            {
+
+                <tr>
+
+                    <td width="200px">
+                        @if (Session["Username"] == null)
+                        {
+                            <a href="@Url.Action("Details", "Book", new { id = cart.Book.ISBN, username = "guest" })" title="@cart.Book.Title Detail" class="links">
+                                <img alt="More Details" src="@Url.Content(Url.Content(cart.Book.BookCover))" width="120" height="120">
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Details", "Book", new { id = cart.Book.ISBN, username = Session["Username"] })" title="@cart.Book.Title Detail" class="links">
+                                <img alt="More Details" src="@Url.Content(Url.Content(cart.Book.BookCover))" width="120" height="120">
+                            </a>
+                        }
+                        @{
+                            GrandTotal += cart.Book.Price * cart.Quantity;
+                        }
+                    </td>
+                    <td width="200px">
+                        @Html.ActionLink(cart.Book.Title, "Details", "Book", new { id = cart.ISBN, username = cart.Username }, null)
+                    </td>
+                    <td>$@(cart.Quantity * cart.Book.Price)</td>
+                    <td>
+                        @using (Html.BeginForm("SaveShoppingCartQuantity", "ShoppingCart"))
+                        {
+                            @Html.TextBox("Quantity", cart.Quantity, new { @style = "width: 50px" })<input type="image" src="~/Content/Images/EditQuantitypen.png" style="width: 32px; height:auto;" />
+
+
+
+                            @Html.Hidden("Username", Session["Username"])
+                            @Html.Hidden("ISBN", cart.ISBN)
+
+
+
+                        }
+                    </td>
+
+                    <td>
+                        @using (Html.BeginForm("SaveForLater", "ShoppingCart"))
+                        {
+
+
+
+
+                            @Html.Hidden("Username", Session["Username"])
+                            @Html.Hidden("ISBN", cart.ISBN)
+                            @Html.Hidden("Quantity", cart.Quantity)
+
+                            //<p><button type="submit" class="cartlink"><span>Save for Later</span></button></p>
+                            <input type="image" src="~/Content/Images/SaveForLater.jpeg" style="width: 40px; height: auto;" />
+                            //  <input type="submit" value="SaveForLater" />
+
+                        }
+
+                    </td>
+
+
+                    <td>
+                        @using (Html.BeginForm("DeleteShoppingCartBook", "ShoppingCart"))
+                        {
+
+
+                            @Html.Hidden("ISBN", cart.ISBN)
+                            @Html.Hidden("Username", Session["Username"])
+
+
+
+
+                            <input type="image" img alt="Remove" src="~/Content/Images/TrashIcon.png" style=" width: 40px; height: auto;">
+
+
+
+
+                        }
+                    </td>
+                </tr>
+
+            }
+
+        }
+
+
+
+    </tbody>
+</table>
+<hr />
+
+<style>
+    .TextBox {
+        resize: both;
+    }
+</style>
+
+<p><b> Shopping Cart Total: </b> $@GrandTotal</p>
+
+
+
+<hr />
+<h3>Save for Later</h3>
+<table class="table table-borderless table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            if (book.SaveForLater)
+            {
+        <tr>
+            <td width="200px">
+                @Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)
+
+            </td>
+            <td width="200px">
+            <td></td>
+            <td></td>
+            <td align="right">
+                @using (Html.BeginForm("BackToShoppingCart", "ShoppingCart"))
+                {
+
+
+
+
+                    @Html.Hidden("Username", Session["Username"])
+                    @Html.Hidden("ISBN", book.ISBN)
+                    @Html.Hidden("Quantity", book.Quantity)
+
+                    <input type="image" src="~/Content/Images/AddToCart.png" style="width: 40px; height: auto;" />
+                    // <input type="submit" value="BackToShoppingCart" />
+
+                }
+
+            </td>
+
+
+            <td>
+                @using (Html.BeginForm("DeleteShoppingCartBook", "ShoppingCart"))
+                {
+
+
+                    @Html.Hidden("ISBN", book.ISBN)
+                    @Html.Hidden("Username", Session["Username"])
+
+
+
+
+                    <input type="image" img alt="Remove" src="~/Content/Images/TrashIcon.png" style=" width: 40px; height: auto;">
+
+
+
+
+                }
+            </td>
+
+
+
+        </tr>
+            }
+
+        }
+    </tbody>
+</table>
+@*@Html.ActionLink("Continue Shopping", "Index", "Book", null, new { @class = "btn btn-primary btn-small" })*@
+
+@using (Html.BeginForm("Index", "Book"))
+{
+
+
+    <input type="image" img alt="Remove" src="~/Content/Images/ContinueShopping.png" style=" width: 70px; height: auto;"
+           title="Continue Shopping">
+
+
+
+}

@@ -181,7 +181,8 @@ namespace GeekBooks.Controllers
                 AuthorModel = db.Authors.SingleOrDefault(b => b.AuthorID == bmodel.WroteModel.AuthorID),
                 Wishlists = db.Wishlists.Where(b => b.Username == username).ToList(),
                 username = username,
-                reviews = db.Reviews.Where(a => a.ISBN == id).Select(a => a.Rating).DefaultIfEmpty(0).Average()
+                reviews = db.Reviews.Where(a => a.ISBN == id).Select(a => a.Rating).DefaultIfEmpty(0).Average(),
+                ReviewModel = db.Reviews.Where(b => b.ISBN == id)
             };
 
             //bookM.BookModel = db.Books.Find(id);
@@ -195,8 +196,6 @@ namespace GeekBooks.Controllers
 
             // var test = viewBook.Find(id);
 
-            var reviews = from r in db.Reviews join b in db.Books on r.ISBN equals b.ISBN where b.ISBN == id select new { Rating = r.Rating, Comment = r.Comment };
-            reviews.ToList().ForEach(r => Console.WriteLine("Rating: {0}; Comment: {1}", r.Rating, r.Comment)); 
 
             if (bookmodel == null)
             {
@@ -229,39 +228,7 @@ namespace GeekBooks.Controllers
            
             return View();
         }
+     
         
-        public ActionResult ShoppingCart()
-        {
-            return RedirectToAction("ShoppingCart", "Account");
-            return View();
-        }
-        //Add to Shopping Cart
-       /* public ActionResult AddtoShoppingCart(ShoppingCart shoppingCart)
-        {
-
-            ShoppingCart sCart = _context.ShoppingCarts.Find(shoppingCart.Username, shoppingCart.ISBN);
-
-
-
-            if (sCart == null)
-            {
-
-                _context.ShoppingCarts.Add(shoppingCart);
-                _context.SaveChanges();
-            }
-
-            return RedirectToAction("ShoppingCartDetail", "Account", new { shoppingCart.Username });
-        }*/
-        /*[HttpGet] //To be removed
-        public ActionResult Details(int id)
-        {
-            booklist.Add(new Book() { Id = 1, Name = "Sorcerer's Stone" });
-            booklist.Add(new Book() { Id = 2, Name = "Chamber of Secrets" });
-
-            if (id > booklist.Count)
-                return HttpNotFound();
-    
-            return View(booklist[id - 1]);
-        }*/
     }
 }

@@ -72,6 +72,7 @@
           </Key>
           <Property Name="Username" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="ISBN" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="qty" Type="int" />
         </EntityType>
         <EntityType Name="Reviews">
           <Key>
@@ -83,7 +84,8 @@
           <Property Name="Rating" Type="decimal" Precision="1" Scale="0" Nullable="false" />
           <Property Name="Comment" Type="varchar(max)" />
           <Property Name="DatePosted" Type="date" Nullable="false" />
-          <Property Name="Anonymous" Type="int" />
+          <Property Name="Anonymous" Type="int" Nullable="false" />
+          <Property Name="Nickname" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ShippingAddress">
           <Key>
@@ -108,6 +110,7 @@
           <Property Name="ISBN" Type="varchar" MaxLength="13" Nullable="false" />
           <Property Name="PriceEach" Type="decimal" Precision="7" Scale="2" Nullable="false" />
           <Property Name="Quantity" Type="smallint" Nullable="false" />
+          <Property Name="SaveForLater" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -450,11 +453,11 @@
           <Property Name="DatePublished" Type="DateTime" Precision="0" />
           <Property Name="BookCover" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BookGenres" Relationship="Self.FK__BookGenre__ISBN__22751F6C" FromRole="Book" ToRole="BookGenre" />
+          <NavigationProperty Name="Purchaseds" Relationship="Self.FK__Purchased__ISBN__693CA210" FromRole="Book" ToRole="Purchased" />
           <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__ISBN__6D0D32F4" FromRole="Book" ToRole="Reviews" />
           <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK__ShoppingCa__ISBN__60A75C0F" FromRole="Book" ToRole="ShoppingCart" />
           <NavigationProperty Name="WishlistBooks" Relationship="Self.FK__WishlistBo__ISBN__1AD3FDA4" FromRole="Book" ToRole="WishlistBook" />
           <NavigationProperty Name="Wrotes" Relationship="Self.FK__Wrote__ISBN__5535A963" FromRole="Book" ToRole="Wrote" />
-          <NavigationProperty Name="Users" Relationship="Self.Purchased" FromRole="Book" ToRole="Users" />
         </EntityType>
         <EntityType Name="BookGenre">
           <Key>
@@ -499,6 +502,17 @@
           <Property Name="Country" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK__HomeAddre__Usern__66603565" FromRole="HomeAddress" ToRole="Users" />
         </EntityType>
+        <EntityType Name="Purchased">
+          <Key>
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ISBN" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="qty" Type="Int32" />
+          <NavigationProperty Name="Book" Relationship="Self.FK__Purchased__ISBN__693CA210" FromRole="Purchased" ToRole="Book" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Purchased__Usern__6A30C649" FromRole="Purchased" ToRole="Users" />
+        </EntityType>
         <EntityType Name="Review">
           <Key>
             <PropertyRef Name="ISBN" />
@@ -509,7 +523,8 @@
           <Property Name="Rating" Type="Decimal" Precision="1" Scale="0" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DatePosted" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Anonymous" Type="Int32" />
+          <Property Name="Anonymous" Type="Int32" Nullable="false" />
+          <Property Name="Nickname" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Book" Relationship="Self.FK__Reviews__ISBN__6D0D32F4" FromRole="Reviews" ToRole="Book" />
           <NavigationProperty Name="User" Relationship="Self.FK__Reviews__Usernam__6E01572D" FromRole="Reviews" ToRole="Users" />
         </EntityType>
@@ -537,6 +552,7 @@
           <Property Name="ISBN" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PriceEach" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
           <Property Name="Quantity" Type="Int16" Nullable="false" />
+          <Property Name="SaveForLater" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Book" Relationship="Self.FK__ShoppingCa__ISBN__60A75C0F" FromRole="ShoppingCart" ToRole="Book" />
           <NavigationProperty Name="User" Relationship="Self.FK__ShoppingC__Usern__5FB337D6" FromRole="ShoppingCart" ToRole="Users" />
         </EntityType>
@@ -553,12 +569,12 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CreditCards" Relationship="Self.FK__CreditCar__Usern__59063A47" FromRole="Users" ToRole="CreditCard" />
           <NavigationProperty Name="HomeAddress" Relationship="Self.FK__HomeAddre__Usern__66603565" FromRole="Users" ToRole="HomeAddress" />
+          <NavigationProperty Name="Purchaseds" Relationship="Self.FK__Purchased__Usern__6A30C649" FromRole="Users" ToRole="Purchased" />
           <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__Usernam__6E01572D" FromRole="Users" ToRole="Reviews" />
           <NavigationProperty Name="ShippingAddresses" Relationship="Self.ShippingAddressUser_fk" FromRole="Users" ToRole="ShippingAddress" />
           <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK__ShoppingC__Usern__5FB337D6" FromRole="Users" ToRole="ShoppingCart" />
           <NavigationProperty Name="Wishlists" Relationship="Self.FK__Wishlist__Userna__0C85DE4D" FromRole="Users" ToRole="Wishlist" />
           <NavigationProperty Name="WishlistBooks" Relationship="Self.FK__WishlistB__Usern__19DFD96B" FromRole="Users" ToRole="WishlistBook" />
-          <NavigationProperty Name="Books" Relationship="Self.Purchased" FromRole="Users" ToRole="Book" />
         </EntityType>
         <EntityType Name="Wishlist">
           <Key>
@@ -614,6 +630,18 @@
               <PropertyRef Name="ISBN" />
             </Principal>
             <Dependent Role="BookGenre">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Purchased__ISBN__693CA210">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Purchased" Type="Self.Purchased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="Purchased">
               <PropertyRef Name="ISBN" />
             </Dependent>
           </ReferentialConstraint>
@@ -702,6 +730,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Purchased__Usern__6A30C649">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Purchased" Type="Self.Purchased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Purchased">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Reviews__Usernam__6E01572D">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
           <End Role="Reviews" Type="Self.Review" Multiplicity="*" />
@@ -762,10 +802,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Purchased">
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
-          <End Role="Users" Type="Self.User" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="BookContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authors" EntityType="Self.Author" />
           <EntitySet Name="Books" EntityType="Self.Book" />
@@ -773,6 +809,7 @@
           <EntitySet Name="CreditCards" EntityType="Self.CreditCard" />
           <EntitySet Name="Genres" EntityType="Self.Genre" />
           <EntitySet Name="HomeAddresses" EntityType="Self.HomeAddress" />
+          <EntitySet Name="Purchaseds" EntityType="Self.Purchased" />
           <EntitySet Name="Reviews" EntityType="Self.Review" />
           <EntitySet Name="ShippingAddresses" EntityType="Self.ShippingAddress" />
           <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
@@ -787,6 +824,10 @@
           <AssociationSet Name="FK__BookGenre__ISBN__22751F6C" Association="Self.FK__BookGenre__ISBN__22751F6C">
             <End Role="Book" EntitySet="Books" />
             <End Role="BookGenre" EntitySet="BookGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Purchased__ISBN__693CA210" Association="Self.FK__Purchased__ISBN__693CA210">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Purchased" EntitySet="Purchaseds" />
           </AssociationSet>
           <AssociationSet Name="FK__Reviews__ISBN__6D0D32F4" Association="Self.FK__Reviews__ISBN__6D0D32F4">
             <End Role="Book" EntitySet="Books" />
@@ -816,6 +857,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="HomeAddress" EntitySet="HomeAddresses" />
           </AssociationSet>
+          <AssociationSet Name="FK__Purchased__Usern__6A30C649" Association="Self.FK__Purchased__Usern__6A30C649">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Purchased" EntitySet="Purchaseds" />
+          </AssociationSet>
           <AssociationSet Name="FK__Reviews__Usernam__6E01572D" Association="Self.FK__Reviews__Usernam__6E01572D">
             <End Role="Users" EntitySet="Users" />
             <End Role="Reviews" EntitySet="Reviews" />
@@ -835,10 +880,6 @@
           <AssociationSet Name="FK__WishlistB__Usern__19DFD96B" Association="Self.FK__WishlistB__Usern__19DFD96B">
             <End Role="Users" EntitySet="Users" />
             <End Role="WishlistBook" EntitySet="WishlistBooks" />
-          </AssociationSet>
-          <AssociationSet Name="Purchased" Association="Self.Purchased">
-            <End Role="Book" EntitySet="Books" />
-            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -911,6 +952,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Purchaseds">
+            <EntityTypeMapping TypeName="BookContextModel.Purchased">
+              <MappingFragment StoreEntitySet="Purchased">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Reviews">
             <EntityTypeMapping TypeName="BookContextModel.Review">
               <MappingFragment StoreEntitySet="Reviews">
@@ -920,6 +970,7 @@
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="DatePosted" ColumnName="DatePosted" />
                 <ScalarProperty Name="Anonymous" ColumnName="Anonymous" />
+                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -944,6 +995,7 @@
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
                 <ScalarProperty Name="PriceEach" ColumnName="PriceEach" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="SaveForLater" ColumnName="SaveForLater" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -988,14 +1040,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Purchased" TypeName="BookContextModel.Purchased" StoreEntitySet="Purchased">
-            <EndProperty Name="Book">
-              <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-            </EndProperty>
-            <EndProperty Name="Users">
-              <ScalarProperty Name="Username" ColumnName="Username" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

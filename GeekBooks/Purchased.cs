@@ -12,13 +12,11 @@ namespace GeekBooks
     using System;
     using System.Collections.Generic;
     
-    public partial class ShoppingCart
+    public partial class Purchased
     {
         public string Username { get; set; }
         public string ISBN { get; set; }
-        public decimal PriceEach { get; set; }
-        public short Quantity { get; set; }
-        public bool SaveForLater { get; set; }
+        public Nullable<int> qty { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }

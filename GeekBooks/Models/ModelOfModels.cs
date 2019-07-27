@@ -22,7 +22,7 @@ namespace GeekBooks.Models
     {
         public Book BookModel { get; set; }
         public BookGenre BookGenreModel { get; set; }
-        public Review ReviewModel { get; set; }
+        public IEnumerable<Review> ReviewModel { get; set; }
         public List<Genre> GenreModel { get; set; }
         public Wrote WroteModel { get; set; }
         public Author AuthorModel { get; set; }
@@ -35,5 +35,7 @@ namespace GeekBooks.Models
         public IEnumerable<Wishlist> Wishlists { get; set; }
         public WishlistBook WishlistBook { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
+
+       
     }
 }

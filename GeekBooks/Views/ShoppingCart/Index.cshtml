@@ -1,10 +1,10 @@
-﻿@model IEnumerable<GeekBooks.ViewModels.Cart.CartVM>
+﻿@model IEnumerable<GeekBooks.ShoppingCart>
 
 @{
-    ViewBag.Title = "Shopping Cart Details";
+    ViewBag.Title = "Index";
 }
 
-<h2>Shopping Cart Details</h2>
+<h2>Index</h2>
 
 @if (ViewBag.Message != null)
 {
@@ -12,13 +12,11 @@
 }
 else
 {
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+   
     <table class="table">
         <tr>
             <th>
-                ISBM
+                ISBN
             </th>
             <th>
                 Title
@@ -47,24 +45,24 @@ else
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ISBM)
+                    @Html.DisplayFor(modelItem => item.ISBN)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @Html.DisplayFor(modelItem => item.Book.Title)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @Html.DisplayFor(modelItem => item.PriceEach)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Image)
+                  @*  @Html.DisplayFor(modelItem => item.Image)*@
                 </td>
                 <td>
-                    <a href="#" class="incrproduct" data-id="@item.ISBM">+</a>
-                    <a href="#" class="dcrproduct" data-id="@item.ISBM">-</a>
-                    <a href="#" class="removeproduct" data-id="@item.ISBM">Remove</a>
+                    <a href="#" class="incrproduct" data-id="@item.ISBN">+</a>
+                    <a href="#" class="dcrproduct" data-id="@item.ISBN">-</a>
+                    <a href="#" class="removeproduct" data-id="@item.ISBN">Remove</a>
                 </td>
 
                 <td>

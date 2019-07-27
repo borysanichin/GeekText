@@ -41,7 +41,7 @@
             <td align="right">
                 @*@Html.ActionLink("Update", "UpdateShoppingCartQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN }, null)*@
                 @*@Html.ActionLink("|", null)*@
-                @Html.ActionLink("Remove", "DeleteShoppingCartBook", "Account", new { username = book.Username, isbn = book.ISBN }, null)
+                @Html.ActionLink("Remove", "DeleteShoppingCartBook", "ShoppingCart", new { username = book.Username, isbn = book.ISBN }, null)
                 @Html.ActionLink("|", null)
                 @Html.ActionLink("Move to Wishlist", "MoveWishlistBookToCart", "Account")
             </td>
