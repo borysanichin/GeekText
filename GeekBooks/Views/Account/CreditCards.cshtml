@@ -1,0 +1,59 @@
+﻿@model IEnumerable<GeekBooks.CreditCard>
+
+@{
+    ViewBag.Title = "CreditCards";
+}
+
+<h2>CreditCards</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CCNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CVV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpDate)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <th>
+        @Html.DisplayFor(model => item.CCNumber)
+    </th>
+    <td>
+        @Html.DisplayFor(modelItem => item.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CVV)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ExpDate)
+    </td>
+
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { ccn = item.CCNumber, username = item.Username/* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Details", "Details", new { ccn = item.CCNumber, username = item.Username /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Delete", "Delete", new { ccn = item.CCNumber, username = item.Username/* id=item.PrimaryKey */ })
+    </td>
+</tr>
+}
+
+</table>
