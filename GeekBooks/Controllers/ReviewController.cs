@@ -44,8 +44,6 @@ namespace GeekBooks.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            //To Do: Check if user has purchased the book
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -155,7 +153,6 @@ namespace GeekBooks.Controllers
                 
                 ModelState.Clear();
 
-                //To Do: remember to route to Book/Details/{isbn}/{user}
                 //return RedirectToAction("Index");
 
                 return RedirectToRoute("BookRoute", new { id = reviewData.ISBN, username = reviewData.Username });
