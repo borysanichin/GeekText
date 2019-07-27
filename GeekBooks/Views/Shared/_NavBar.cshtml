@@ -22,20 +22,7 @@
                 <li>@Html.ActionLink("Wish Lists", "WishList", "Account", new { area = "" }, new { @class = "navbar" })</li>
                 <li>@Html.Partial("_loginPartial")</li>
             </ul>
-         @*   @{
-                var total = 0;
-            }
-
-            @foreach (var item in Model)
-            {
-
-                @total = @total +  item.Quantity * item.PriceEach;
-
-    }
-            <div>
-                @total;
-
-            </div>*@
+        
             <div class="navbar-collapse collapse" align="right">
                 <ul class="navbar-collapse collapse navbar-right">
                     @using (Html.BeginForm("ShoppingCartDetail", "ShoppingCart"))

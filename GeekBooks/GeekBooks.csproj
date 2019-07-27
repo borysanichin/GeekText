@@ -334,23 +334,16 @@
     <Content Include="Views\CreateBooks\Edit.cshtml" />
     <Content Include="Views\CreateBooks\Index.cshtml" />
     <Content Include="Views\Account\AddWishlist.cshtml" />
-    <Content Include="Views\Cart\CartPartial.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Account\AddBookToWishlist.cshtml" />
     <Content Include="Views\Account\RenameWishlist.cshtml" />
     <Content Include="Views\Book\BookDetails.cshtml" />
     <Content Include="Views\Account\UpdateWishlistQuantity.cshtml" />
     <Content Include="Views\Shared\_loginPartial.cshtml" />
-    <Content Include="Views\Account\UpdateShoppingCartQuantity.cshtml" />
     <Content Include="Views\Account\ShoppingCartDetail.cshtml" />
-    <Content Include="Views\Account\ShoppingCart.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
-    <Content Include="Views\ShoppingCart\DisplayShoppingCartDetail.cshtml" />
     <Content Include="Views\Review\_ReviewError.cshtml" />
     <Content Include="Views\ShoppingCart\ShoppingCartDetail.cshtml" />
-    <Content Include="Views\ShoppingCart\AddToCartPartial.cshtml" />
     <Content Include="Views\ShoppingCart\CartPartial.cshtml" />
-    <Content Include="Views\ShoppingCart\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
