@@ -3,10 +3,13 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="icon-bar"></span>
-               
+
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
+                @*<span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>*@
             </button>
             @Html.ActionLink("GeekText", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 
@@ -14,10 +17,24 @@
         <div class="navbar-collapse collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav mr-auto">
                 <li>@Html.ActionLink("Books", "Index", "Book", new { area = "" }, new { @class = "navbar" })</li>
-                
-                <li>@Html.ActionLink("Profile", "Profile", "Account", new { area = "" }, new { @class = "navbar" })</li>
-
+               
+        
+                @*<li>@Html.ActionLink("Profile", "Profile", "Account", new { area = "" }, new { @class = "navbar" })</li>
+        <li>@Html.ActionLink("Edit Profile", "EditProfile", "Account", new { area = "" }, new { @class = "navbar" })</li>
+        <li>@Html.ActionLink("Credit Cards", "CreditCards", "Account", new { area = "" }, new { @class = "navbar" })</li>*@
+                @*<li>@Html.ActionLink("Shipping Addressess", "Address", "Account", new { area = "" }, new { @class = "navbar" })</li>*@
                 <li>@Html.ActionLink("Wish Lists", "WishList", "Account", new { area = "" }, new { @class = "navbar" })</li>
+                @*<li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="/Account/Profile">Profile</a></li>
+                <li><a href="/Account/EditProfile">Profile</a></li>
+                <li><a href="/Account/CreditCards">CreditCards</a></li>
+                <li><a href="/Account/Address">Address</a></li>
+            </ul>
+        </li>*@
+
+
                 <li>@Html.Partial("_loginPartial")</li>
             </ul>
             <div class="navbar-collapse collapse">
