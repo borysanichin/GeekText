@@ -15,7 +15,7 @@ namespace GeekBooks.Controllers
         {
 
             //Init the cart list
-            var cart = Session["cart"] as List<CartVM> ?? new List<CartVM>();
+            var cart = Session["cart"] as List<ShoppingCart> ?? new List<ShoppingCart>();
             //Check if cart is empty
             if (cart.Count == 0 || Session["cart"] == null)
             {
@@ -27,7 +27,7 @@ namespace GeekBooks.Controllers
             decimal total = 0m;
             foreach (var item in cart)
             {
-                total += item.Total;
+                //total += item.Total;
             }
 
             ViewBag.GrandTotal = total;
@@ -38,7 +38,7 @@ namespace GeekBooks.Controllers
         public ActionResult CartPartial()
         {
             //Initialize CartVM
-            CartVM model = new CartVM();
+            ShoppingCart model = new ShoppingCart();
             // Initilize qty
             decimal qty = 0;
             //Initialize price 
@@ -48,12 +48,12 @@ namespace GeekBooks.Controllers
             if (Session["cart"] != null)
             {
                 //get total qty and price
-                var list = (List<CartVM>)Session["cart"];
+                var list = (List<ShoppingCart>)Session["cart"];
 
                 foreach (var item in list)
                 {
                     qty += item.Quantity;
-                    price += item.Quantity * item.Price;
+                    price += item.Quantity * item.PriceEach;
 
                 }
             }
@@ -61,7 +61,7 @@ namespace GeekBooks.Controllers
             {
                 //Or set qty and price to 0
                 model.Quantity = 0;
-                model.Price = 0m;
+                model.PriceEach = 0m;
             }
 
             //Return partial view with model

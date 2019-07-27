@@ -7,38 +7,42 @@
 <div class="row">
     <div class="col-sm-8">
 
-
         @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
         @*<a href="@Url.Action("Details", "Book", new { id = Model.BookModel.ISBN })" title="@Model.BookModel.Title Detail" class="links">
-                <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="300" height="450">
-            </a>
+            <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="300" height="450">
+        </a>
         *@
-
         <a class="btn" data-toggle="modal" data-target=".bootstrapmodal" title="Click to enlarge">
-
 
             <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="250" height="400">
 
-
         </a>
-
         <div class="modal fade bootstrapmodal">
-
             <div class="modal-dialog">
-
                 <div class="modal-body">
                     <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="500" height="750">
 
-
                 </div>
-
 
             </div>
 
-
         </div>
 
+        @{
+            var Emptyresize = 280;
+            var Filledresize = 280.5;
+            var StarRatio = (double)Model.reviews * Filledresize / 5;
+            var height = 23 * Filledresize / 120;
 
+        }
+
+        <div style="position: relative; width: 200px; height:auto">
+
+            <div id="emptyStars" style="background-image: url('/Content/Images/EmptyStarsHD.png'); width: @Emptyresize.ToString()px; background-size: @Emptyresize.ToString()px">
+                  <div id="filledStars" style="background-image: url('/Content/Images/FilledStarsHD.png'); width: @StarRatio.ToString()px; background-size: @Filledresize.ToString()px; height: @height.ToString()px;"> </div>
+                 
+             </div>
+         </div>
 
     </div>
 
@@ -46,7 +50,7 @@
 
 
     <div class="col-sm-4">
-        @using (Html.BeginForm("AddBookToShoppingCart", "Account"))
+        @using (Html.BeginForm("AddBookToShoppingCart", "ShoppingCart"))
         {
 
 
@@ -136,9 +140,9 @@
                 <dd>
                     <b>@Html.DisplayName("Author Name: ")</b>
                     @*
-                        @Html.DisplayFor(model => model.AuthorModel.AuthorFirst)
-                        @Html.DisplayFor(model => model.AuthorModel.AuthorMiddle)
-                        @Html.DisplayFor(model => model.AuthorModel.AuthorLast)
+            @Html.DisplayFor(model => model.AuthorModel.AuthorFirst)
+            @Html.DisplayFor(model => model.AuthorModel.AuthorMiddle)
+            @Html.DisplayFor(model => model.AuthorModel.AuthorLast)
                     *@
                     <a href="@Url.Action("Index", "Book", new { authorID = Model.AuthorModel.AuthorID,  })" title="More books from @Html.DisplayFor(model => model.AuthorModel.AuthorFirst) @Html.DisplayFor(model => model.AuthorModel.AuthorMiddle) @Html.DisplayFor(model => model.AuthorModel.AuthorLast)" class="links">
 
@@ -149,6 +153,43 @@
                     </a>
                 </dd>
 
+                <dd>
+                    @*
+        the part below is what I made for the comment selection. It loops in case if its a null
+                    *@
+                    <br />
+                    <br />
+                    <h2>@Html.DisplayName("Comments: ")</h2>
+                    <br />
+                    @foreach (Review review in Model.ReviewModel)
+                    {
+                        if (!string.IsNullOrEmpty(review.Comment))
+                        {
+
+                           
+                                var Ers = 120;
+                                var Frs = 120.5;
+                                var StarR = (double) review.Rating * Frs / 5;
+                                var h = 23 * Frs / 120;
+
+                            <hr />
+                            <b>@review.Username</b>
+                            <br />
+                            <div style="position: relative; width: 200px; height:auto">
+
+                                <div id="emptyStars" style="background-image: url('/Content/Images/EmptyStarsHD.png'); width: @Ers.ToString()px; background-size: @Ers.ToString()px">
+                                    <div id="filledStars" style="background-image: url('/Content/Images/FilledStarsHD.png'); width: @StarR.ToString()px; background-size: @Frs.ToString()px; height: @h.ToString()px;"> </div>
+
+                                </div>
+                            </div>
+                            <p>@review.DatePosted</p>
+                            <br />
+                            @review.Comment
+                            <br />
+                            <br />
+                        }
+                    }
+                </dd>
 
 
             </dl>
