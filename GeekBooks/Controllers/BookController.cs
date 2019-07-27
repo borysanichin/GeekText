@@ -228,12 +228,7 @@ namespace GeekBooks.Controllers
            
             return View();
         }
-        /*commented out to test for deletion Isumy
-        public ActionResult ShoppingCart()
-        {
-            return RedirectToAction("ShoppingCart", "Account");
-            return View();
-        }*/
+     
         
     }
 }

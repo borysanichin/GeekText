@@ -250,7 +250,6 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
-    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CreateBooks.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
