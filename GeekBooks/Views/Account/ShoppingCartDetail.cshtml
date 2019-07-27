@@ -6,7 +6,7 @@
 }
 <h2>Shopping Cart</h2>
 <hr />
-<table class="table table-bordered table-hover">
+<table class="table table-borderless table-hover">
     <thead>
         <tr>
             <th>Title</th>
@@ -19,18 +19,42 @@
     <tbody>
         @foreach (var book in Model)
         {
-            <tr>
-                <td>@Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)</td>
-                <td>@book.Quantity @Html.ActionLink("update", "UpdateShoppingCartQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN}, null)</td>
-                <td>$@(book.Quantity * book.Book.Price)</td>
-                <td>
-                    @Html.ActionLink("delete", "DeleteShoppingCartBook", "Account", new { username = book.Username, isbn = book.ISBN }, null)
-                    @Html.ActionLink("|", null)
-                    @Html.ActionLink("Move to Wishlist", "MoveWishlistBookToCart", "Account")
-                </td>             
-            </tr>
+        <tr>
+            <td>          
+                @Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)
+            </td>
+            @*<td><input id="QuantityTextBox" type="text" value="@book.Quantity" size="4" /> </td>*@
+        <td>
+            @using (Html.BeginForm("SaveShoppingCartQuantity", "Account"))
+            {
+                @Html.TextBox("Quantity", book.Quantity)<button type="submit" class="w3-button w3-tiny"><img src="~/Content/icons/save.png" height="32" width="32"/></button>
+
+
+
+                @Html.Hidden("Username", book.Username)
+                @Html.Hidden("ISBN", book.ISBN)
+
+
+            }
+        </td>
+            <td>$@(book.Quantity * book.Book.Price)</td>
+            <td align="right">
+                @*@Html.ActionLink("Update", "UpdateShoppingCartQuantity", "Account", new { Username = book.Username, Isbn = book.ISBN }, null)*@
+                @*@Html.ActionLink("|", null)*@
+                @Html.ActionLink("Remove", "DeleteShoppingCartBook", "ShoppingCart", new { username = book.Username, isbn = book.ISBN }, null)
+                @Html.ActionLink("|", null)
+                @Html.ActionLink("Move to Wishlist", "MoveWishlistBookToCart", "Account")
+            </td>
+        </tr>
         }
     </tbody>
 </table>
 <hr />
-@Html.ActionLink("Look for more books", "Index", "Book", null, new { @class = "btn btn-primary btn-small" })
+<style>
+    .TextBox {
+        resize:both;
+    }
+</style>
+@Html.ActionLink("Continue Shopping", "Index", "Book", null, new { @class = "btn btn-primary btn-small" })
+
+@*This is to modify *@

@@ -164,3 +164,14 @@
   cursor: not-allowed;
   background-color: #ffffff;
 }
+span.loader {
+    display: none;
+}
+span.ajaxmsg {
+background: orange;
+color : white;
+padding 10px;
+display: none;
+position: absolute;
+bottom: 0;
+}
