@@ -31,6 +31,7 @@ namespace GeekBooks
         public virtual DbSet<CreditCard> CreditCards { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<HomeAddress> HomeAddresses { get; set; }
+        public virtual DbSet<Purchased> Purchaseds { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<ShippingAddress> ShippingAddresses { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }

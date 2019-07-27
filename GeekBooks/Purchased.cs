@@ -12,15 +12,11 @@ namespace GeekBooks
     using System;
     using System.Collections.Generic;
     
-    public partial class Review
+    public partial class Purchased
     {
-        public string ISBN { get; set; }
         public string Username { get; set; }
-        public decimal Rating { get; set; }
-        public string Comment { get; set; }
-        public System.DateTime DatePosted { get; set; }
-        public int Anonymous { get; set; }
-        public bool Nickname { get; set; }
+        public string ISBN { get; set; }
+        public Nullable<int> qty { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }
