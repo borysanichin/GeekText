@@ -125,6 +125,10 @@ namespace GeekBooks.Controllers
 
         public ActionResult WishList(String id)
         {
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             string username = id;
             List<Wishlist> wishlists = _context.Wishlists.Where(w => w.Username == username).ToList();
             return View(wishlists);
@@ -153,10 +157,14 @@ namespace GeekBooks.Controllers
             if (wishlist == null)
             {
                 _context.Wishlists.Add(id);
-                foreach (var wlist in _context.Wishlists.Where(w => w.Username == id.Username))
+
+                if (id.Preferred == true)
                 {
-                    if (wlist.Preferred && wlist.WishlistName != id.WishlistName)
-                        wlist.Preferred = false;
+                    foreach (var wlist in _context.Wishlists.Where(w => w.Username == id.Username))
+                    {
+                        if (wlist.Preferred && wlist.WishlistName != id.WishlistName)
+                            wlist.Preferred = false;
+                    }
                 }
                 _context.SaveChanges();
             }
@@ -204,6 +212,13 @@ namespace GeekBooks.Controllers
         //[Route("Account/AddBookToWishlist/{wishlistBook}")]
         public ActionResult AddBookToWishlist(WishlistBook wishlistBook)
         {
+            /*if (wishlistBook.WishlistName == null)
+            {
+                var wll = _context.Wishlists.Where(w => w.Username == wishlistBook.Username);
+                var wl = wll.Where(w => w.Preferred == true);
+                
+            }*/
+
             WishlistBook wbook = _context.WishlistBooks.Find(wishlistBook.Username, wishlistBook.ISBN, wishlistBook.WishlistName);
 
             if (wbook == null)
