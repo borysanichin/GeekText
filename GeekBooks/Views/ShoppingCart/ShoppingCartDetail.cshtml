@@ -12,7 +12,7 @@
         <tr>
             <th></th>
             <th>Title</th>
-            <th>Price</th>
+            <th>Partial Total per Book</th>
             <th>Quantity</th>
             <th></th>
             <th></th>
@@ -55,7 +55,7 @@
                     <td>
                         @using (Html.BeginForm("SaveShoppingCartQuantity", "ShoppingCart"))
                         {
-                            @Html.TextBox("Quantity", cart.Quantity, new { @style = "width: 50px" })<input type="image" src="~/Content/Images/EditQuantitypen.png" style="width: 32px; height:auto;" />
+                            @Html.TextBox("Quantity", cart.Quantity, new { @style = "width: 50px" })<input type="image" src="~/Content/Images/EditQuantitypen.png" style="width: 32px; height:auto;" title="Save Updated Quantity" />
 
 
 
@@ -142,7 +142,7 @@
     }
 </style>
 
-<p><b> Shopping Cart Total: </b> $@GrandTotal</p>
+<p><b> Subtotal: </b> $@GrandTotal</p>
 
 
 
