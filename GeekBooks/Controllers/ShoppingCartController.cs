@@ -22,6 +22,11 @@ namespace GeekBooks.Controllers
         // GET: ShoppingCart
         public ActionResult Index()//String username)
         {
+            //Check if user is logged in
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             var carts = from sc in _context.ShoppingCarts
                         where sc.Username == "guest"
@@ -38,7 +43,7 @@ namespace GeekBooks.Controllers
             //Check if user is logged in
             if (Session["Username"] == null)
             {
-                RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Account");
             }
 
             ShoppingCart sCart = _context.ShoppingCarts.Find(shoppingCart.Username, shoppingCart.ISBN);
