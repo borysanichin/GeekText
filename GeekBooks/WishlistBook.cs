@@ -11,17 +11,12 @@ namespace GeekBooks
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class WishlistBook
     {
-        [Required]
         public string Username { get; set; }
         public string ISBN { get; set; }
         public short Quantity { get; set; }
-        [Required]
-        [StringLength(25)]
-        [Display(Name = "Wishlist Name")]
         public string WishlistName { get; set; }
     
         public virtual Book Book { get; set; }

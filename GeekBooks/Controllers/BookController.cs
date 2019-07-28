@@ -8,6 +8,7 @@ using System.Web.Routing;
 using GeekBooks.Models;
 using PagedList;
 using GeekBooks.ViewModels;
+using System.Windows;
 //using GeekBooks.Models;
 
 namespace GeekBooks.Controllers
@@ -18,6 +19,8 @@ namespace GeekBooks.Controllers
 
 
         public static List<string> gL = new List<string>() { "All" };
+
+        public static List<string> ISBNL = new List<string>() { "All" };
 
 
 
@@ -31,7 +34,7 @@ namespace GeekBooks.Controllers
 
 
         public ActionResult Index(string sortOrder, string searchString, string bookGenre, string removeGenre,
-                                    string currentFilter, int? page, int? authorID)
+                                    string currentFilter, int? page, int? authorID, Nullable<int> TopSeller, Nullable<int> rating)
         {
 
             Search sh = new Search();
@@ -43,22 +46,7 @@ namespace GeekBooks.Controllers
             
             if (bookGenre != null)
             {
-                /*
-                while (gL.Contains(""))
-                {
-                    gL.Remove("");
-                }
-
-                if (gL.Contains(bookGenre))
-                {
-
-                    gL.Remove(removeGenre);
-                }
-                else
-                {
-                    gL.Add(bookGenre);
-                }*/
-
+               
                 
                 if (!gL.Contains(bookGenre) && GenreList.Contains(bookGenre))
                 {
@@ -71,31 +59,20 @@ namespace GeekBooks.Controllers
             gL.Remove(removeGenre);
             removeGenre = "";
 
-            var book = bm.newBookModel(db, gL);
-
-            /*
-             string fok = "";
-             string bok = "";
-             for(int i = 0; i < gL.Count();i++)
-             {
-                 fok += gL[i] + ", ";
-             }
-
-             for (int i = 0; i < book.First().ViewBagGenreList.Count(); i++)
-             {
-                 bok += book.First().ViewBagGenreList[i] + ", ";
-             }
-
-
-             System.Windows.Forms.MessageBox.Show("gL: " + fok + "\ngL length: " + gL.Count() + "\nViewBag: " + bok + "\nViewBag length: ");
-
-
-            */
+       
+            var book = bm.newBookModel(db, gL, ISBNL, TopSeller, rating);
 
 
 
+            var topBooks = (from p in db.Purchaseds
+                            select new
+                            {
+                                ISBN = p.ISBN,
+                                qty = db.Purchaseds.Where(b => b.ISBN == p.ISBN).Select(a => a.qty).DefaultIfEmpty(0).Sum()
 
+                            }).Distinct().OrderByDescending(a => a.qty).ToList();
 
+          
 
 
             if (authorID != null)
@@ -104,6 +81,8 @@ namespace GeekBooks.Controllers
             }
 
 
+            ViewBag.Rating = rating;
+            ViewBag.TopSeller = TopSeller;
             ViewBag.AuthorID = authorID;
             ViewBag.CurrentSort = sortOrder;
             //  ViewBag.BookGenreFilter = gL;
@@ -227,6 +206,37 @@ namespace GeekBooks.Controllers
             return RedirectToAction("WishList", "Account");
            
             return View();
+        }
+
+
+
+
+        public ActionResult TopSellers()
+        {
+
+           // var books = from m in db.Purchaseds
+            var book = db.Purchaseds.Where(b => b.ISBN == "1").Select(a => a.qty).DefaultIfEmpty(0).Sum();
+
+            var bookz = (from p in db.Purchaseds
+                         select new
+                         {
+
+                             qty = db.Purchaseds.Where(b => b.ISBN == p.ISBN).Select(a => a.qty).DefaultIfEmpty(0).Sum()
+
+                         }).Distinct().OrderByDescending(a => a.qty).ToList();
+
+            
+
+
+
+
+
+
+
+            //  List<Book> AllBooks = db.Purchaseds.Where()
+
+            return View(book);
+
         }
      
         
