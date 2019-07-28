@@ -29,15 +29,16 @@ namespace GeekBooks.Controllers
 
             return View(carts);
         }
-       
+
 
         //all working good with the functions below
-        public ActionResult AddBookToShoppingCart(ShoppingCart shoppingCart)
+        public ActionResult AddBookToShoppingCart(ShoppingCart shoppingCart, string controller, string action)
+
         {
             //Check if user is logged in
             if (Session["Username"] == null)
             {
-                return RedirectToAction("Login", "Account");
+                RedirectToAction("Login", "Account");
             }
 
             ShoppingCart sCart = _context.ShoppingCarts.Find(shoppingCart.Username, shoppingCart.ISBN);
@@ -51,11 +52,23 @@ namespace GeekBooks.Controllers
                 _context.SaveChanges();
             }
 
+            //return new EmptyResult();
             //return RedirectToAction("DisplayShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
-            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
+            if (controller == null || action == null)
+            {
+                return RedirectToAction("DisplayShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
+            }
+            if (action == "Details")
+            {
+                return RedirectToAction(action, controller, new { username = Session["Username"].ToString(), id = shoppingCart.ISBN });
+            }
+
+            return RedirectToAction(action, controller);
+            // return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
         }
-       
-       
+
+
+
 
         //[Route("ShoppingCart/ShoppingCartDetail/{username}")]
 
@@ -130,6 +143,53 @@ namespace GeekBooks.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { id.Username });
+        }
+
+        public ActionResult PurchaseItems(ShoppingCart cart)
+        {
+
+
+            if (Session["Username"] == null)
+            {
+
+                RedirectToAction("Login", "Account");
+
+            }
+
+
+            List<ShoppingCart> ShoppingCartList = _context.ShoppingCarts.Where(a => a.Username == cart.Username).ToList();
+
+
+            foreach (var book in ShoppingCartList)
+            {
+
+                Purchased newPurchase = new Purchased()
+                {
+                    Username = Session["Username"].ToString(),
+                    ISBN = book.ISBN,
+                    qty = 1
+                };
+
+                var oldPurchase = _context.Purchaseds.Find(Session["Username"].ToString(), book.ISBN);
+                if (oldPurchase != null)
+                {
+                    _context.Purchaseds.Remove(oldPurchase);
+                    (newPurchase.qty) += book.Quantity;
+                    _context.Purchaseds.Add(newPurchase);
+                }
+                else
+                {
+                    _context.Purchaseds.Add(newPurchase);
+                }
+                _context.SaveChanges();
+                _context.ShoppingCarts.Remove(book);
+                _context.SaveChanges();
+
+
+            }
+
+            return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { cart.Username });
+
         }
     }
 }
