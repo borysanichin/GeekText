@@ -44,8 +44,6 @@ namespace GeekBooks.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            //To Do: Check if user has purchased the book
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -73,9 +71,10 @@ namespace GeekBooks.Controllers
             //if one of the queried records matches the logged in user, set flag to true
             foreach(var userPurchases in userPurchasedQuery)
             {
-                if(userPurchases.Username == (string)Session["Username"] && userPurchases.ISBN == id)
+                if(userPurchases.Username.ToLower() == Session["Username"].ToString().ToLower() && userPurchases.ISBN == id)
                 {
                     flag = true;
+                    reviewM.Username = userPurchases.Username;
                     break;
                 }
                 else
@@ -155,7 +154,6 @@ namespace GeekBooks.Controllers
                 
                 ModelState.Clear();
 
-                //To Do: remember to route to Book/Details/{isbn}/{user}
                 //return RedirectToAction("Index");
 
                 return RedirectToRoute("BookRoute", new { id = reviewData.ISBN, username = reviewData.Username });

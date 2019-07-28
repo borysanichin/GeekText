@@ -1,0 +1,76 @@
+﻿@model IEnumerable<GeekBooks.ShippingAddress>
+
+@{
+    ViewBag.Title = "Address";
+}
+
+<h2>Address</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateAddress")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PreferredAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddressNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Street)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserPassword)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreferredAddress)
+        </td>
+
+          <td>
+            @Html.DisplayFor(modelItem => item.AddressNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.User.UserPassword)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "EditAddress", new { username=item.Username, id=item.AddressNum/* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "DetailsAddress", new { username=item.Username, id=item.AddressNum }) |
+            @Html.ActionLink("Delete", "DeleteAddress", new { username=item.Username, id=item.AddressNum })
+        </td>
+    </tr>
+}
+
+</table>

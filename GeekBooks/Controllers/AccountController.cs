@@ -37,6 +37,8 @@ namespace GeekBooks.Controllers
             return View(objLoginModel);
         }
 
+
+
         [HttpPost]
         public ActionResult Login(LoginModel objLoginModel)
         {
@@ -59,6 +61,141 @@ namespace GeekBooks.Controllers
            
         }
 
+
+        public ActionResult Address()
+        {
+            string usernames = Convert.ToString(Session["Username"]);
+
+            var variable = objBookContext.ShippingAddresses.Where(m => m.Username == usernames).ToList();
+
+
+            return View(variable);
+        }
+
+        //display details of single address
+        public ActionResult DetailsAddress(string username, int id)
+        {
+            return View(objBookContext.ShippingAddresses.Find(username, id));
+        }
+
+
+        //adding a new address
+        public ActionResult CreateAddress()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateAddress(ShippingAddress newaddress)
+        {
+            using (objBookContext)
+            {
+               
+                objBookContext.ShippingAddresses.Add(newaddress);
+                objBookContext.SaveChanges();
+            }
+            return RedirectToAction("Address");
+        }
+        //Edit an address
+        public ActionResult EditAddress(string username, int id)
+        {
+            return View(objBookContext.ShippingAddresses.Find(username, id));
+        }
+
+
+        [HttpPost]
+        public ActionResult EditAddress(ShippingAddress address)
+        {
+            objBookContext.Entry(address).State = EntityState.Modified;
+            objBookContext.SaveChanges();
+            return RedirectToAction("Address");
+        }
+
+
+        //delete an address
+
+        public ActionResult DeleteAddress(string username, int id)
+        {
+            return View(objBookContext.ShippingAddresses.Find(username, id));
+
+        }
+
+        [HttpPost, ActionName("DeleteAddress")]
+        public ActionResult Delete_confirm(string username, int id)
+        {
+            ShippingAddress c = objBookContext.ShippingAddresses.Find(username, id);
+            objBookContext.ShippingAddresses.Remove(c);
+            objBookContext.SaveChanges();
+            return RedirectToAction("Address");
+        }
+
+
+        //display list of credit cards of the user
+
+        public ActionResult CreditCards()
+        {
+            string usernames = Convert.ToString(Session["Username"]);
+
+            var variable = objBookContext.CreditCards.Where(m => m.Username == usernames).ToList();
+
+
+            return View(variable);
+        }
+
+        //display details of single credit card
+        public ActionResult Details(string ccn, string username)
+        {
+            return View(objBookContext.CreditCards.Find(ccn, username));
+        }
+
+
+        //adding a new credit card
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(CreditCard newcard)
+        {
+            using(objBookContext)
+            {
+                //objBookContext.CreditCards.
+                objBookContext.CreditCards.Add(newcard);
+                objBookContext.SaveChanges();
+            }
+            return RedirectToAction("CreditCards");
+        }
+        //Credit Card edit
+        public ActionResult Edit(string ccn, string username)
+        {
+            return View(objBookContext.CreditCards.Find(ccn, username));
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit(CreditCard card)
+        {
+            objBookContext.Entry(card).State = EntityState.Modified;
+            objBookContext.SaveChanges();
+            return RedirectToAction("CreditCards");
+        }
+
+
+        //delete a credit card
+
+        public ActionResult Delete(string ccn, string username)
+        {
+            return View(objBookContext.CreditCards.Find(ccn, username));
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult Delete_confirm(string ccn, string username)
+        {
+            CreditCard c = objBookContext.CreditCards.Find(ccn, username);
+            objBookContext.CreditCards.Remove(c);
+            objBookContext.SaveChanges();
+            return RedirectToAction("CreditCards");
+        }
         public ActionResult Profile()
         {
 
@@ -75,6 +212,20 @@ namespace GeekBooks.Controllers
             
 
         }
+        public ActionResult EditProfile(string username)
+        {
+            
+            return View(objBookContext.Users.Find(username));
+        }
+
+        [HttpPost]
+        public ActionResult EditProfile(User user)
+        {
+            objBookContext.Entry(user).State = EntityState.Modified;
+            objBookContext.SaveChanges();
+            return RedirectToAction("Profile");
+        }
+
         public ActionResult Register()
         {
             Usermodel objUserModel = new Usermodel();
@@ -115,7 +266,7 @@ namespace GeekBooks.Controllers
             return View();
         }
 
-     
+
         
         public ActionResult Logout()
         {

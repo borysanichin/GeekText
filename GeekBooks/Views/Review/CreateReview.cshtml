@@ -48,9 +48,18 @@
         $("#aBox").change(function () {
             var checked = $(this).is(':checked');
             if (!checked) {
+                $("#nBox").attr("value", "true");
+                $("#nBox").attr('disabled', false);
+                $("#nBox").attr("style", "cursor: pointer");
+                $("#nLabel").css("color", b);
                 $("#aLabel").css("color", b);
             }
             else {
+                $("#nBox").attr("value", "false");
+                $("#nBox").attr('disabled', true);
+                $("#nBox").attr("style", "cursor: not-allowed");
+                $("#nLabel").css("color", "gray");
+                $("nBox").css("cursor", "not-allowed");
                 $("#aLabel").css("color", g);
             }
         });
@@ -58,12 +67,23 @@
         $("#nBox").change(function () {
             var checked = $(this).is(':checked');
             if (!checked) {
+                $("#aBox").attr("value", "true");
+                $("#aBox").attr('disabled', false);
+                $("#aBox").attr("style", "cursor: pointer");
+                $("#aLabel").css("color", b);
                 $("#nLabel").css("color", b);
             }
             else {
+                $("#aBox").attr("value", "false");
+                $("#aBox").attr('disabled', true);
+                $("#aBox").attr("style", "cursor: not-allowed");
+                $("#aLabel").css("color", "gray");
+                $("aBox").css("cursor", "not-allowed");
                 $("#nLabel").css("color", g);
             }
         });
+
+        $()
 
     });
 

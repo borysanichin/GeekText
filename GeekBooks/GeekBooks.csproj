@@ -340,10 +340,26 @@
     <Content Include="Views\Account\UpdateWishlistQuantity.cshtml" />
     <Content Include="Views\Shared\_loginPartial.cshtml" />
     <Content Include="Views\Account\ShoppingCartDetail.cshtml" />
+
+    
+    <Content Include="Views\Account\Address.cshtml" />
+    <Content Include="Views\Account\Create.cshtml" />
+    <Content Include="Views\Account\CreateAddress.cshtml" />
+    <Content Include="Views\Account\CreditCards.cshtml" />
+    <Content Include="Views\Account\Delete.cshtml" />
+    <Content Include="Views\Account\DeleteAddress.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\Account\DetailsAddress.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\EditAddress.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
+
+   
     <Content Include="Views\Review\_ReviewError.cshtml" />
     <Content Include="Views\ShoppingCart\ShoppingCartDetail.cshtml" />
     <Content Include="Views\ShoppingCart\CartPartial.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

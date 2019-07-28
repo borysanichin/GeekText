@@ -162,19 +162,35 @@
                     <br />
                     <h2>@Html.DisplayName("Comments: ")</h2>
                     <br />
+
+                    
                     @foreach (Review review in Model.ReviewModel)
                     {
+
+                        var name = review.Username;
+                        if (review.Anonymous == 1)
+                        {
+                            name = "Anonymous";
+                        }
+                        if(review.Nickname == true){
+                            name = review.User.Nickname;
+                            if (review.User.Nickname == null)
+                            {
+                                name = review.Username;
+                            }
+                           
+                        }
                         if (!string.IsNullOrEmpty(review.Comment))
                         {
 
-                           
-                                var Ers = 120;
-                                var Frs = 120.5;
-                                var StarR = (double) review.Rating * Frs / 5;
-                                var h = 23 * Frs / 120;
+
+                            var Ers = 120;
+                            var Frs = 120.5;
+                            var StarR = (double) review.Rating * Frs / 5;
+                            var h = 23 * Frs / 120;
 
                             <hr />
-                            <b>@review.Username</b>
+                            <b>@name</b>
                             <br />
                             <div style="position: relative; width: 200px; height:auto">
 
