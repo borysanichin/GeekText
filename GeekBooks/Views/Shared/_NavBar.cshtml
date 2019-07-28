@@ -22,7 +22,7 @@
 
                
         
-                <li>@Html.ActionLink("Wish Lists", "WishList", "Account", new { area = "" }, new { @class = "navbar" })</li>
+                <li>@Html.ActionLink("Wish Lists", "WishList", "Account", new { id = Session["Username"] }, new { @class = "navbar" })</li>
               
 
 
