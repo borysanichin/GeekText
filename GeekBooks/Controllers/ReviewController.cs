@@ -83,6 +83,25 @@ namespace GeekBooks.Controllers
                 }
             }
 
+            var reviewMadeQuery = from u in db.Users
+                                  join r in db.Reviews
+                                  on u.Username equals r.Username
+                                  join b in db.Books
+                                  on r.ISBN equals b.ISBN
+                                  select new
+                                  {
+                                      r.ISBN,
+                                      r.Username
+                                  };
+
+            foreach(var reviewMade in reviewMadeQuery)
+            {
+                if(reviewMade.Username.ToLower() == Session["Username"].ToString().ToLower() && reviewMade.ISBN == id)
+                {
+                    return Content("<script>alert('You have already made a review!'); window.history.go(-1);</script>");
+                }
+            }
+
             //if user purchased the book, allow him or her to review it
             if (flag)
             {
@@ -108,7 +127,7 @@ namespace GeekBooks.Controllers
             }
             else
             {
-                return Content("<script>alert('You have not purchased this book'); window.history.go(-1);</script>");
+                return Content("<script>alert('You can only review this book when purchased!'); window.history.go(-1);</script>");
             }
         }
 
@@ -132,11 +151,14 @@ namespace GeekBooks.Controllers
                 FillReviewViewBag(reviewData, true);
 
                 //Check if the user hasn't already made a review for the book, redirect to error page if true.
-                var reviewUser = db.Reviews.Where(r => r.Username == reviewData.Username && r.ISBN == reviewData.ISBN).Select(u => u.Username).SingleOrDefault();
+                //not being used anymore
+                /*var reviewUser = db.Reviews.Where(r => r.Username == reviewData.Username && r.ISBN == reviewData.ISBN).Select(u => u.Username).SingleOrDefault();
                 if (reviewData.Username == reviewUser)
                 {
+                    return Content("<script>alert('You've already made a review!'); window.history.go(-1);</script>");
                     return View("_ReviewError");
-                }
+                }*/
+
                 //return View(); //for testing
 
                 db.Reviews.Add(review);

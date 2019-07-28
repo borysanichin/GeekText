@@ -59,6 +59,9 @@ namespace GeekBooks.Controllers
 
             //return new EmptyResult();
             //return RedirectToAction("DisplayShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
+
+            
+
             if (controller == null || action == null)
             {
                 return RedirectToAction("DisplayShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
@@ -174,6 +177,10 @@ namespace GeekBooks.Controllers
             foreach (var book in ShoppingCartList)
             {
 
+                if (book.SaveForLater)
+                {
+                    continue;
+                }
                 Purchased newPurchase = new Purchased()
                 {
                     Username = Session["Username"].ToString(),
