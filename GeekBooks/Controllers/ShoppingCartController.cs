@@ -59,6 +59,9 @@ namespace GeekBooks.Controllers
 
             //return new EmptyResult();
             //return RedirectToAction("DisplayShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });
+
+            
+
             if (controller == null || action == null)
             {
                 return RedirectToAction("DisplayShoppingCartDetail", "ShoppingCart", new { shoppingCart.Username });

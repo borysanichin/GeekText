@@ -33,14 +33,11 @@
                     <a asp-action="bookGenre"></a>
                     <input type="image" class="searchIcon" src="~/Content/Images/SearchIconBlue.png" value="Submit" style="width: 45px; height: auto;" />
                 </form>
-
                 <div id="myDropdown" class="dropdown-content">
                     <a onclick="changeName('SearchString')">Title</a>
                     <a onclick="changeName('bookGenre')">Genre</a>
                 </div>
-
             </div>
-
         </div>
 
 
@@ -104,8 +101,8 @@
 
     }
 
-
     <style>
+
 
 
         .resize {
@@ -183,12 +180,7 @@
 
 
 
-
-
-
-
     @using GeekBooks.Controllers
-
 
     @*
 
@@ -204,8 +196,6 @@
 
 
     *@
-
-
 
     @foreach (var item in GeekBooks.Controllers.BookController.GenreList)
 
@@ -232,38 +222,33 @@
                                                                searchString = ViewBag.CurrentFilter,
                                                                removeGenre = @item
                                                            })'">@change</a>
-            <a id="GenreButton" style="border: none; outline:none; padding: 10px 16px; background-color: @color; font-size: 15px; width: 18px;
+                                                        <a id="GenreButton" style="border: none; outline:none; padding: 10px 16px; background-color: @color; font-size: 15px; width: 18px;
                   display: inline;" onclick="location.href='@Url.Action("Index", "Book", new
                                                            {
                                                                currentFilter = ViewBag.curentFilter,
                                                                authorID = ViewBag.AuthorID,
                                                                searchString = ViewBag.CurrentFilter,
                                                                bookGenre = @item
-                                                           })'" >@item</a>
+                                                           })'">@item</a>
+                                                    </div>
 
-            </div>
+                                                    <script>
 
-        <script>
+                                                        var Xbutton = document.getElementById("Xbutton");
+                                                        //  var button = document.getElementById("GenreButton");
+                                                        //  var form = document.getElementById("GenreForm");
 
-            var Xbutton = document.getElementById("Xbutton");
-          //  var button = document.getElementById("GenreButton");
-          //  var form = document.getElementById("GenreForm");
-
-            if (Xbutton.innerHTML == "") {
-                form.removeAttribute(Xbutton);
-            }
-
-
-
-        </script>
+                                                        if (Xbutton.innerHTML == "") {
+                                                            form.removeAttribute(Xbutton);
+                                                        }
 
 
 
-        }
-
-        
+                                                    </script>
 
 
+
+                                                }
 
 
 
@@ -345,46 +330,51 @@
             </th>
             <th></th>
         </tr>
+        @{ 
+            var bookName = "";
+        }
         @foreach (var item in Model)
         {
-    <tr>
-        <td>
-            @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
-            @if (Session["Username"] == null)
-            {
-            <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = "guest" })" title="@item.BookModel.Title Detail" class="links">
-                <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
-            </a>
-            }
-            else
-            {
-            <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = Session["Username"] })" title="@item.BookModel.Title Detail" class="links">
-                <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
-            </a>
-            }
-        </td>
-        <td>
-            @if (Session["Username"] == null)
-            {
-                @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = "guest" }, null)
-            }
-            else
-            {
-                @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = Session["Username"] }, null)
-            }
-        </td>
-        <td>
-            $@Html.DisplayFor(modelItem => item.BookModel.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.viewGenres)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AuthorModel.AuthorFirst)
-            @Html.DisplayFor(modelItem => item.AuthorModel.AuthorMiddle)
-            @Html.DisplayFor(modelItem => item.AuthorModel.AuthorLast)
-        </td>
-        @{
+
+          
+            <tr>
+                <td>
+                    @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
+                    @if (Session["Username"] == null)
+                    {
+                        <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = "guest" })" title="@item.BookModel.Title Detail" class="links">
+                            <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = Session["Username"] })" title="@item.BookModel.Title Detail" class="links">
+                            <img alt="More Details" src="@Url.Content(Url.Content(item.BookModel.BookCover))" width="120" height="120">
+                        </a>
+                    }
+                </td>
+                <td>
+                    @if (Session["Username"] == null)
+                    {
+                        @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = "guest" }, null)
+                    }
+                    else
+                    {
+                        @Html.ActionLink(item.BookModel.Title, "Details", "Book", new { id = item.BookModel.ISBN, username = Session["Username"] }, null)
+                    }
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.BookModel.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.viewGenres)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorFirst)
+                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorMiddle)
+                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorLast)
+                </td>
+                @{
                     var Emptyresize = 120;
                     var Filledresize = 120.5;
                     var StarRatio = (double)item.reviews * Filledresize / 5;
@@ -403,38 +393,46 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.BookModel.DatePublished)
                 </td>
-
                 <td>
-
                     @using (Html.BeginForm("AddBookToShoppingCart", "ShoppingCart"))
                     {
-                        if (Session["Username"] == null)
-                        {
-                            @Html.Hidden("Username", "guest")
-                        }
-                        else
-                        {
-                            @Html.Hidden("Username", Session["Username"])
-                        }
+
                         @Html.Hidden("ISBN", item.BookModel.ISBN)
                         @Html.Hidden("controller", "Book")
                         @Html.Hidden("action", "Index")
+                        @Html.Hidden("Username", Session["Username"])
+
 
                         @Html.Hidden("Quantity", 1)
                         @Html.Hidden("Price", item.BookModel.Price)
 
+                        bookName = item.BookModel.Title;
 
-                        <input type="image" img alt="Add to shopping cart" src="~/Content/Images/AddToCart.png" style=" width: 40px; height: auto;">
+
+                        <input type="image" img alt="Add to shopping cart" src="~/Content/Images/AddToCart.png" style=" width: 40px; height: auto;"
+                               onclick="bookName('@item.BookModel.Title')">
 
 
 
 
                     }
-
                 </td>
             </tr>
         }
+
     </table>
+
+    <script>
+
+
+                             function bookName(item) {
+
+                             alert('' + item + ' item has been added to the shopping cart');
+
+                             };
+
+
+    </script>
     <br />
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("Index",
