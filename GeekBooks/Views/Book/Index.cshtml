@@ -417,7 +417,9 @@
                             @Html.Hidden("Username", Session["Username"])
                         }
                         @Html.Hidden("ISBN", item.BookModel.ISBN)
-                    
+                        @Html.Hidden("controller", "Book")
+                        @Html.Hidden("action", "Index")
+
                         @Html.Hidden("Quantity", 1)
                         @Html.Hidden("Price", item.BookModel.Price)
 

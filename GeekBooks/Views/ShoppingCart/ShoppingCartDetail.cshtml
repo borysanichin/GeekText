@@ -61,6 +61,8 @@
 
                             @Html.Hidden("Username", Session["Username"])
                             @Html.Hidden("ISBN", cart.ISBN)
+                            @Html.Hidden("controller", "ShoppingCart")
+                            @Html.Hidden("action", "DisplayShoppingCartDetail")
 
 
 
@@ -77,6 +79,8 @@
                             @Html.Hidden("Username", Session["Username"])
                             @Html.Hidden("ISBN", cart.ISBN)
                             @Html.Hidden("Quantity", cart.Quantity)
+                            @Html.Hidden("controller", "ShoppingCart")
+                            @Html.Hidden("action", "DisplayShoppingCartDetail")
 
                             //<p><button type="submit" class="cartlink"><span>Save for Later</span></button></p>
                             <input type="image" src="~/Content/Images/SaveForLater.jpeg" style="width: 40px; height: auto;" />
@@ -115,6 +119,21 @@
 
     </tbody>
 </table>
+
+@using (Html.BeginForm("PurchaseItems", "ShoppingCart"))
+{
+
+
+    @Html.Hidden("Username", Session["Username"])
+    @Html.Hidden("controller", "ShoppingCart")
+    @Html.Hidden("action", "DisplayShoppingCartDetail")
+
+    <input type="submit" value="Checkout" />
+
+
+
+
+}
 <hr />
 
 <style>
@@ -141,55 +160,59 @@
         {
             if (book.SaveForLater)
             {
-        <tr>
-            <td width="200px">
-                @Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)
+                <tr>
+                    <td width="200px">
+                        @Html.ActionLink(book.Book.Title, "Details", "Book", new { id = book.ISBN, username = book.Username }, null)
 
-            </td>
-            <td width="200px">
-            <td></td>
-            <td></td>
-            <td align="right">
-                @using (Html.BeginForm("BackToShoppingCart", "ShoppingCart"))
-                {
-
-
-
-
-                    @Html.Hidden("Username", Session["Username"])
-                    @Html.Hidden("ISBN", book.ISBN)
-                    @Html.Hidden("Quantity", book.Quantity)
-
-                    <input type="image" src="~/Content/Images/AddToCart.png" style="width: 40px; height: auto;" />
-                    // <input type="submit" value="BackToShoppingCart" />
-
-                }
-
-            </td>
-
-
-            <td>
-                @using (Html.BeginForm("DeleteShoppingCartBook", "ShoppingCart"))
-                {
-
-
-                    @Html.Hidden("ISBN", book.ISBN)
-                    @Html.Hidden("Username", Session["Username"])
+                    </td>
+                    <td width="200px">
+                    <td></td>
+                    <td></td>
+                    <td align="right">
+                        @using (Html.BeginForm("BackToShoppingCart", "ShoppingCart"))
+                        {
 
 
 
 
-                    <input type="image" img alt="Remove" src="~/Content/Images/TrashIcon.png" style=" width: 40px; height: auto;">
+                            @Html.Hidden("Username", Session["Username"])
+                            @Html.Hidden("ISBN", book.ISBN)
+                            @Html.Hidden("Quantity", book.Quantity)
+                            @Html.Hidden("controller", "ShoppingCart")
+                            @Html.Hidden("action", "DisplayShoppingCartDetail")
+
+                            <input type="image" src="~/Content/Images/AddToCart.png" style="width: 40px; height: auto;" />
+                            // <input type="submit" value="BackToShoppingCart" />
+
+                        }
+
+                    </td>
+
+
+                    <td>
+                        @using (Html.BeginForm("DeleteShoppingCartBook", "ShoppingCart"))
+                        {
+
+
+                            @Html.Hidden("ISBN", book.ISBN)
+                            @Html.Hidden("Username", Session["Username"])
+                            @Html.Hidden("controller", "ShoppingCart")
+                            @Html.Hidden("action", "DisplayShoppingCartDetail")
 
 
 
 
-                }
-            </td>
+                            <input type="image" img alt="Remove" src="~/Content/Images/TrashIcon.png" style=" width: 40px; height: auto;">
 
 
 
-        </tr>
+
+                        }
+                    </td>
+
+
+
+                </tr>
             }
 
         }
