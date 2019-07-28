@@ -6,8 +6,8 @@ using System.Web.Mvc;
 
 namespace GeekBooks.Controllers
 {
-    public class  
-        ShoppingCartController : Controller
+    public class
+         ShoppingCartController : Controller
     {
         private BookContext _context;
 
@@ -22,7 +22,7 @@ namespace GeekBooks.Controllers
         // GET: ShoppingCart
         public ActionResult Index()//String username)
         {
-          
+
             var carts = from sc in _context.ShoppingCarts
                         where sc.Username == "guest"
                         select sc;
@@ -74,7 +74,7 @@ namespace GeekBooks.Controllers
 
         public ActionResult ShoppingCartDetail(string username)
         {
-            IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username ).ToList();
+            IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username).ToList();
 
             if (sCart == null)
                 return HttpNotFound();
@@ -120,7 +120,7 @@ namespace GeekBooks.Controllers
             //sCart.SaveForLater = true;
             return View(sCart);
         }
- 
+
         public ActionResult SaveForLater(ShoppingCart id)
         {
             var oldShoppingCart = _context.ShoppingCarts.Find(id.Username, id.ISBN);
