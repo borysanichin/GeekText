@@ -82,9 +82,9 @@
                             @Html.Hidden("controller", "ShoppingCart")
                             @Html.Hidden("action", "DisplayShoppingCartDetail")
 
-                            //<p><button type="submit" class="cartlink"><span>Save for Later</span></button></p>
-                            <input type="image" src="~/Content/Images/SaveForLater.jpeg" style="width: 40px; height: auto;" />
-                            //  <input type="submit" value="SaveForLater" />
+                            //Image button to save for later
+                            <input type="image" src="~/Content/Images/SaveForLater.jpeg" style="width: 40px; height: auto;" title="Save For Later"/>
+                            
 
                         }
 
@@ -100,7 +100,7 @@
                             @Html.Hidden("Username", Session["Username"])
 
 
-
+                        //image button to delete book from shopping cart
 
                             <input type="image" img alt="Remove" src="~/Content/Images/TrashIcon.png" style=" width: 40px; height: auto;">
 
@@ -128,7 +128,7 @@
     @Html.Hidden("controller", "ShoppingCart")
     @Html.Hidden("action", "DisplayShoppingCartDetail")
 
-    <input type="submit" value="Checkout" />
+    <input type="submit" value="Checkout" class="btn btn-primary btn-small" />
 
 
 
@@ -182,7 +182,7 @@
                             @Html.Hidden("action", "DisplayShoppingCartDetail")
 
                             <input type="image" src="~/Content/Images/AddToCart.png" style="width: 40px; height: auto;" />
-                            // <input type="submit" value="BackToShoppingCart" />
+                           
 
                         }
 
