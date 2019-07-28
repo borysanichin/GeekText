@@ -79,6 +79,12 @@ namespace GeekBooks.Controllers
 
         public ActionResult ShoppingCartDetail(string username)
         {
+            //Check if user is logged in
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             IEnumerable<ShoppingCart> sCart = _context.ShoppingCarts.Where(w => w.Username == username).ToList();
 
             if (sCart == null)
