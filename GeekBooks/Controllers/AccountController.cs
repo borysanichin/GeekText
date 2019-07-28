@@ -285,24 +285,20 @@ namespace GeekBooks.Controllers
             return View(wishlists);
         }
 
-   
-
-
-
         [Route("Account/AddWishlist/{Username}")]
         public ActionResult AddWishlist(string Username)
         {
             return View();
         }
 
-        public ActionResult RenameWishlist(Wishlist id)
-        {
-
-            return View(id);
-        }
-
         public ActionResult SaveWishlist(Wishlist id)
         {
+            //validation of a new wishlist name
+            if (id.WishlistName == null || id.WishlistName.Length > 25)
+            {
+                var User = (string)Session["Username"];
+                return RedirectToAction("AddWishlist", "Account", new { Username = User });
+            }
             Wishlist wishlist = _context.Wishlists.Find(id.Username, id.WishlistName);
 
             if (wishlist == null)
@@ -323,20 +319,6 @@ namespace GeekBooks.Controllers
             return RedirectToAction("Wishlist", "Account", new { id = Session["Username"] });
         }
 
-        [Route("Account/SaveRenameWishList/{oldName}/{wishlist}")]
-        public ActionResult SaveRenameWishlist(string oldName, Wishlist wishlist)
-        {
-            Wishlist newWishlist = _context.Wishlists.Find(wishlist.Username, wishlist.WishlistName);
-
-            if (newWishlist == null)
-            {
-                var wishlistInDB = _context.Wishlists.Find(wishlist.Username, oldName);
-                wishlistInDB.WishlistName = wishlist.WishlistName;
-                _context.SaveChanges();
-            }
-
-            return RedirectToAction("Wishlist", "Account", new { id = Session["Username"] });
-        }
 
         [Route("Account/DeleteWishList/{WishlistName}/{Username}")]
         public ActionResult DeleteWishlist(string WishlistName, string Username)
@@ -360,25 +342,87 @@ namespace GeekBooks.Controllers
             return RedirectToAction("Wishlist", "Account", new { id = Session["Username"] });
         }
 
-        //[Route("Account/AddBookToWishlist/{wishlistBook}")]
+
         public ActionResult AddBookToWishlist(WishlistBook wishlistBook)
         {
-            /*if (wishlistBook.WishlistName == null)
-            {
-                var wll = _context.Wishlists.Where(w => w.Username == wishlistBook.Username);
-                var wl = wll.Where(w => w.Preferred == true);
-                
-            }*/
+            string user = (string)Session["Username"];
 
-            WishlistBook wbook = _context.WishlistBooks.Find(wishlistBook.Username, wishlistBook.ISBN, wishlistBook.WishlistName);
-
-            if (wbook == null)
+            // redirects to login if not sign in
+            if (user == null)
             {
-                _context.WishlistBooks.Add(wishlistBook);
-                _context.SaveChanges();
+               return RedirectToAction("Login", "Account");
             }
 
-            return RedirectToAction("WishListDetail", "Account", new { wishlistBook.WishlistName, wishlistBook.Username });
+            //validates quantity and sets to 1 if negative
+            if (wishlistBook.Quantity < 1)
+                wishlistBook.Quantity = 1;
+
+            //if wishlist name was not selected
+            if (wishlistBook.WishlistName == null)
+            {
+                List<Wishlist> wishlists = _context.Wishlists.Where(w => w.Username == user).ToList();
+
+                // chooses preferred wishlist
+                var preferredWishList = wishlists.Where(w => w.Preferred).FirstOrDefault();
+
+                // chooses any wishlist
+                var anyWishList = wishlists.FirstOrDefault();
+
+                //checks if preferred wishlist exists
+                if (preferredWishList != null)
+                {
+                    WishlistBook wbook = _context.WishlistBooks.Find(preferredWishList.Username, wishlistBook.ISBN, preferredWishList.WishlistName);
+
+                    if (wbook == null)
+                    {
+                        wishlistBook.WishlistName = preferredWishList.WishlistName;
+
+                        // adds to preferred wishlist
+                        _context.WishlistBooks.Add(wishlistBook);
+                        _context.SaveChanges();
+                    }
+                    return RedirectToAction("WishListDetail", "Account", new { preferredWishList.WishlistName, preferredWishList.Username });
+                }
+
+                // if preferred wishlist does not exist checks for any wishlist
+                else if (anyWishList != null)
+                {
+                    WishlistBook wbook = _context.WishlistBooks.Find(anyWishList.Username, wishlistBook.ISBN, anyWishList.WishlistName);
+
+                    if (wbook == null)
+                    {
+                        wishlistBook.WishlistName = anyWishList.WishlistName;
+
+                        // adds to any wishlist
+                        _context.WishlistBooks.Add(wishlistBook);
+                        _context.SaveChanges();
+                    }
+                
+                return RedirectToAction("WishListDetail", "Account", new { anyWishList.WishlistName, anyWishList.Username });
+                }
+
+                // if user does not have any wishlists, redirects back to book details
+                else
+                {
+                    string isbn = wishlistBook.ISBN;
+                    return RedirectToAction("Details", "Book", new { id = isbn, username = user });
+                }
+               
+            }
+            //if user selects a wishlist
+            else
+            {
+                WishlistBook wbook = _context.WishlistBooks.Find(wishlistBook.Username, wishlistBook.ISBN, wishlistBook.WishlistName);
+
+                if (wbook == null)
+                {
+                    // adds to the selected wishlist
+                    _context.WishlistBooks.Add(wishlistBook);
+                    _context.SaveChanges();
+                }
+
+                return RedirectToAction("WishListDetail", "Account", new { wishlistBook.WishlistName, wishlistBook.Username });
+            }
         }
 
         [Route("Account/WishListDetail/{wishlistName}/{username}")]
@@ -399,9 +443,6 @@ namespace GeekBooks.Controllers
             return View(wwbook);
         }
 
-
-       
-
         [Route("Account/DeleteWishlistBook/{username}/{isbn}/{wishlistname}")]
         public ActionResult DeleteWishlistBook(string username, string isbn, string wishlistname)
         {
@@ -416,8 +457,6 @@ namespace GeekBooks.Controllers
             return RedirectToAction("WishlistDetail", "Account", new { wishlistname, username});
         }
 
-      
-        //[Route("Account/MoveWishlistBook/{wishlistname}/{wishlistbook}")]
         public ActionResult MoveWishlistBook(string wishlistname, WishlistBook wishlistbook)
         {
             if (_context.WishlistBooks.Find(wishlistbook.Username, wishlistbook.ISBN, wishlistbook.WishlistName) == null)
@@ -464,7 +503,6 @@ namespace GeekBooks.Controllers
                 _context.WishlistBooks.Remove(wb);
                 _context.SaveChanges();
 
-                //return RedirectToAction("WishlistDetail", "Account", new { WishlistName, Username });
                 return RedirectToAction("ShoppingCartDetail", "ShoppingCart", new { Username });
             }
                 
@@ -501,6 +539,10 @@ namespace GeekBooks.Controllers
         
         public ActionResult SaveWishlistQuantity(WishlistBook id)
         {
+            // validates quantity and makes it 1 if negative
+            if (id.Quantity < 1)
+                id.Quantity = 1;
+
             var wishlistOldBook = _context.WishlistBooks.Find(id.Username, id.ISBN, id.WishlistName);
 
             _context.WishlistBooks.Remove(wishlistOldBook);
