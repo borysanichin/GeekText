@@ -174,6 +174,10 @@ namespace GeekBooks.Controllers
             foreach (var book in ShoppingCartList)
             {
 
+                if (book.SaveForLater)
+                {
+                    continue;
+                }
                 Purchased newPurchase = new Purchased()
                 {
                     Username = Session["Username"].ToString(),

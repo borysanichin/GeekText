@@ -370,6 +370,14 @@ namespace GeekBooks.Controllers
                 
             }*/
 
+
+            if(Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+
+
             WishlistBook wbook = _context.WishlistBooks.Find(wishlistBook.Username, wishlistBook.ISBN, wishlistBook.WishlistName);
 
             if (wbook == null)
