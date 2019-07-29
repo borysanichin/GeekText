@@ -6,6 +6,10 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace GeekBooks
 {
@@ -14,9 +18,15 @@ namespace GeekBooks
     
     public partial class WishlistBook
     {
+
+        [Required]
         public string Username { get; set; }
         public string ISBN { get; set; }
         public short Quantity { get; set; }
+
+        [Required]
+        [StringLength(25)]
+        [Display(Name = "Wishlist Name")]
         public string WishlistName { get; set; }
     
         public virtual Book Book { get; set; }

@@ -43,17 +43,7 @@
             </div>
 
             <div class="stuff" style="display:inline">
-                @*
-                    <a id="GenreButton" style="cursor:pointer; border: none; outline:none; padding: 10px 16px; background-color: #f1ec1d; font-size: 15px; width: 18px;
-                      display: inline; " onclick="location.href = '@Url.Action("Index", "Book", new
-                                                               {
-                                                                   currentFilter = ViewBag.curentFilter,
-                                                                   authorID = ViewBag.AuthorID,
-                                                                   searchString = ViewBag.CurrentFilter,
-                                                                   rating = ViewBag.Rating,
-                                                                   TopSeller = 1
-                                                               })'">Top Sellers</a>
-                *@
+               
 
                 <a href="@Url.Action("Index", "Book", new { currentFilter = ViewBag.curentFilter,
                                                                authorID = ViewBag.AuthorID,
@@ -390,20 +380,7 @@
 
     @using GeekBooks.Controllers
 
-    @*
-
-        location.href='@Url.Action("Index", "Book", new
-                                                           {
-                    currentFilter = ViewBag.curentFilter,
-                                                               authorID = ViewBag.AuthorID,
-                                                               searchString = ViewBag.CurrentFilter,
-                                                               removeGenre = @item
-                                                           })'
-
-
-
-
-    *@
+  
 
     @foreach (var item in GeekBooks.Controllers.BookController.GenreList)
 
@@ -447,9 +424,7 @@
                                                     <script>
 
                                                         var Xbutton = document.getElementById("Xbutton");
-                                                        //  var button = document.getElementById("GenreButton");
-                                                        //  var form = document.getElementById("GenreForm");
-
+                                                        
                                                         if (Xbutton.innerHTML == "") {
                                                             form.removeAttribute(Xbutton);
                                                         }
@@ -561,7 +536,7 @@
 
             <tr>
                 <td>
-                    @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
+                    
                     @if (Session["Username"] == null)
                     {
                         <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = "guest" })" title="@item.BookModel.Title Detail" class="links">
@@ -663,12 +638,3 @@
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("Index",
         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-    <!--Hard Coded Below-->
-    @*
-        <a href="~/Book/Details/1">
-        <img src="~/Content/Books/sorcerersstone.jpg" alt="sorcerersstone" style="width:256px;height:256px;" />
-        </a>
-        <ng-view />
-        <a href="~/Book/Details/2">
-        <img src="~/Content/Books/ChamberOfSecrets.jpg" alt="ChamberOfSecrets" style="width:256px;height:256px;" />
-        </a>*@

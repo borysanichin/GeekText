@@ -24,6 +24,7 @@ namespace GeekBooks.Models
                        join b in db.BookGenres on a.ISBN equals b.ISBN
                        join c in db.Wrotes on b.ISBN equals c.ISBN
                        join d in db.Authors on c.AuthorID equals d.AuthorID
+                       
                       // join e in topBooks on a.ISBN equals e.ISBN
                        select new BookeModel
                        {
@@ -39,7 +40,8 @@ namespace GeekBooks.Models
                            GenreForView = db.Genres.Select(a => a.GenreName).ToList(),
                            reviews = db.Reviews.Where(b => b.ISBN == a.ISBN).Select(a => a.Rating).DefaultIfEmpty(0).Average(),
                            ViewBagGenreList = gL,
-                           quantity = db.Purchaseds.Where(b => b.ISBN == a.ISBN).Select(a => a.qty).DefaultIfEmpty(0).Sum()
+                           quantity = db.Purchaseds.Where(b => b.ISBN == a.ISBN).Select(a => a.qty).DefaultIfEmpty(0).Sum(),
+                           //Wishlists = db.Wishlists.Where(b => b.Username == Session["Username"].ToString()).ToList()
 
 
                        };

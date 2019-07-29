@@ -7,11 +7,7 @@
 <div class="row">
     <div class="col-sm-8">
 
-        @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
-        @*<a href="@Url.Action("Details", "Book", new { id = Model.BookModel.ISBN })" title="@Model.BookModel.Title Detail" class="links">
-            <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="300" height="450">
-        </a>
-        *@
+        
         <a class="btn" data-toggle="modal" data-target=".bootstrapmodal" title="Click to enlarge">
 
             <img alt="More Details" src="@Url.Content(Url.Content(Model.BookModel.BookCover))" width="250" height="400">
@@ -154,11 +150,7 @@
 
                 <dd>
                     <b>@Html.DisplayName("Author Name: ")</b>
-                    @*
-            @Html.DisplayFor(model => model.AuthorModel.AuthorFirst)
-            @Html.DisplayFor(model => model.AuthorModel.AuthorMiddle)
-            @Html.DisplayFor(model => model.AuthorModel.AuthorLast)
-                    *@
+                    
                     <a href="@Url.Action("Index", "Book", new { authorID = Model.AuthorModel.AuthorID,  })" title="More books from @Html.DisplayFor(model => model.AuthorModel.AuthorFirst) @Html.DisplayFor(model => model.AuthorModel.AuthorMiddle) @Html.DisplayFor(model => model.AuthorModel.AuthorLast)" class="links">
 
                         @Html.DisplayFor(model => model.AuthorModel.AuthorFirst)

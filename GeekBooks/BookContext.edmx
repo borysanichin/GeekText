@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GeektextDB2017Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BookContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="AuthorID" />
@@ -345,7 +345,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GeektextDB2017ModelStoreContainer">
+        <EntityContainer Name="BookContextModelStoreContainer">
           <EntitySet Name="Author" EntityType="Self.Author" Schema="GeektextDB2017" store:Type="Tables" />
           <EntitySet Name="Book" EntityType="Self.Book" Schema="GeektextDB2017" store:Type="Tables" />
           <EntitySet Name="BookGenre" EntityType="Self.BookGenre" Schema="GeektextDB2017" store:Type="Tables" />
@@ -429,7 +429,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="GeektextDB2017Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="BookContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="AuthorID" />
@@ -887,9 +887,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GeektextDB2017ModelStoreContainer" CdmEntityContainer="BookContext">
+        <EntityContainerMapping StorageEntityContainer="BookContextModelStoreContainer" CdmEntityContainer="BookContext">
           <EntitySetMapping Name="Authors">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.Author">
+            <EntityTypeMapping TypeName="BookContextModel.Author">
               <MappingFragment StoreEntitySet="Author">
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
                 <ScalarProperty Name="AuthorFirst" ColumnName="AuthorFirst" />
@@ -900,7 +900,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Books">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.Book">
+            <EntityTypeMapping TypeName="BookContextModel.Book">
               <MappingFragment StoreEntitySet="Book">
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -913,7 +913,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BookGenres">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.BookGenre">
+            <EntityTypeMapping TypeName="BookContextModel.BookGenre">
               <MappingFragment StoreEntitySet="BookGenre">
                 <ScalarProperty Name="GenreName" ColumnName="GenreName" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
@@ -922,7 +922,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CreditCards">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.CreditCard">
+            <EntityTypeMapping TypeName="BookContextModel.CreditCard">
               <MappingFragment StoreEntitySet="CreditCard">
                 <ScalarProperty Name="CCNumber" ColumnName="CCNumber" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -934,14 +934,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Genres">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.Genre">
+            <EntityTypeMapping TypeName="BookContextModel.Genre">
               <MappingFragment StoreEntitySet="Genre">
                 <ScalarProperty Name="GenreName" ColumnName="GenreName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HomeAddresses">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.HomeAddress">
+            <EntityTypeMapping TypeName="BookContextModel.HomeAddress">
               <MappingFragment StoreEntitySet="HomeAddress">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
@@ -953,7 +953,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Purchaseds">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.Purchased">
+            <EntityTypeMapping TypeName="BookContextModel.Purchased">
               <MappingFragment StoreEntitySet="Purchased">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
@@ -962,7 +962,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reviews">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.Review">
+            <EntityTypeMapping TypeName="BookContextModel.Review">
               <MappingFragment StoreEntitySet="Reviews">
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -975,7 +975,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ShippingAddresses">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.ShippingAddress">
+            <EntityTypeMapping TypeName="BookContextModel.ShippingAddress">
               <MappingFragment StoreEntitySet="ShippingAddress">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="AddressNum" ColumnName="AddressNum" />
@@ -989,7 +989,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ShoppingCarts">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.ShoppingCart">
+            <EntityTypeMapping TypeName="BookContextModel.ShoppingCart">
               <MappingFragment StoreEntitySet="ShoppingCart">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
@@ -1000,7 +1000,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.User">
+            <EntityTypeMapping TypeName="BookContextModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
@@ -1013,7 +1013,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Wishlists">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.Wishlist">
+            <EntityTypeMapping TypeName="BookContextModel.Wishlist">
               <MappingFragment StoreEntitySet="Wishlist">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="WishlistName" ColumnName="WishlistName" />
@@ -1022,7 +1022,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WishlistBooks">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.WishlistBook">
+            <EntityTypeMapping TypeName="BookContextModel.WishlistBook">
               <MappingFragment StoreEntitySet="WishlistBook">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
@@ -1032,7 +1032,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Wrotes">
-            <EntityTypeMapping TypeName="GeektextDB2017Model.Wrote">
+            <EntityTypeMapping TypeName="BookContextModel.Wrote">
               <MappingFragment StoreEntitySet="Wrote">
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
