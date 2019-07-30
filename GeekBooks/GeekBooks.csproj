@@ -150,6 +150,21 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap-united.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\icons\save.png" />
+    <Content Include="Content\Images\AddToCart.png" />
+    <Content Include="Content\Images\CartDetail.png" />
+    <Content Include="Content\Images\ContinueShopping.png" />
+    <Content Include="Content\Images\EditQuantitypen.png" />
+    <Content Include="Content\Images\EmptyStars.png" />
+    <Content Include="Content\Images\EmptyStarsHD.png" />
+    <Content Include="Content\Images\FilledStars.png" />
+    <Content Include="Content\Images\FilledStars2.png" />
+    <Content Include="Content\Images\FilledStarsHD.png" />
+    <Content Include="Content\Images\SaveForLater.jpeg" />
+    <Content Include="Content\Images\SearchIcon.png" />
+    <Content Include="Content\Images\SearchIconBlue.png" />
+    <Content Include="Content\Images\TrashIcon.png" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -235,10 +250,10 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
-    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CreateBooks.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="CreditCard.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
@@ -259,6 +274,9 @@
     <Compile Include="Models\Sort.cs" />
     <Compile Include="Models\Usermodel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Purchased.cs">
+      <DependentUpon>BookContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Review.cs">
       <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
@@ -272,7 +290,6 @@
       <DependentUpon>BookContext.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BookDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Cart\CartVM.cs" />
     <Compile Include="ViewModels\RenameWishlist.cs" />
     <Compile Include="ViewModels\ShoppingCartView.cs" />
     <Compile Include="ViewModels\WIshlistWishlistBook.cs" />
@@ -317,16 +334,14 @@
     <Content Include="Views\CreateBooks\Edit.cshtml" />
     <Content Include="Views\CreateBooks\Index.cshtml" />
     <Content Include="Views\Account\AddWishlist.cshtml" />
-    <Content Include="Views\Cart\CartPartial.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Account\AddBookToWishlist.cshtml" />
     <Content Include="Views\Account\RenameWishlist.cshtml" />
     <Content Include="Views\Book\BookDetails.cshtml" />
     <Content Include="Views\Account\UpdateWishlistQuantity.cshtml" />
     <Content Include="Views\Shared\_loginPartial.cshtml" />
-    <Content Include="Views\Account\UpdateShoppingCartQuantity.cshtml" />
     <Content Include="Views\Account\ShoppingCartDetail.cshtml" />
-    <Content Include="Views\Account\ShoppingCart.cshtml" />
+
+    
     <Content Include="Views\Account\Address.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
     <Content Include="Views\Account\CreateAddress.cshtml" />
@@ -339,6 +354,12 @@
     <Content Include="Views\Account\EditAddress.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
+
+   
+    <Content Include="Views\Review\_ReviewError.cshtml" />
+    <Content Include="Views\ShoppingCart\ShoppingCartDetail.cshtml" />
+    <Content Include="Views\ShoppingCart\CartPartial.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

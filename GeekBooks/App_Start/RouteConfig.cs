@@ -17,8 +17,8 @@ namespace GeekBooks
 
             routes.MapRoute(
                 name: "BookRoute",
-                url: "Book/Details/{id}",
-                defaults: new { controller = "Book", action = "Details", id = UrlParameter.Optional }
+                url: "Book/Details/{id}/{username}",
+                defaults: new { controller = "Book", action = "Details", id = UrlParameter.Optional, username = UrlParameter.Optional }
             );
 
             routes.MapRoute(
@@ -26,9 +26,7 @@ namespace GeekBooks
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-            //shoppingcart route for controller
-          //  routes.MapRoute(
-          //     "ShoppingCart", "Cart/{action}/{id}", new { controller = "Cart", action = "Index", id = UrlParameter.Optional }, new[] { "GeekBooks.Controllers" });
+          
         }
     }
 }

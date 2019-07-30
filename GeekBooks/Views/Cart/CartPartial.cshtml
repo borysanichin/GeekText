@@ -1,9 +1,0 @@
-﻿@model GeekBooks.ViewModels.Cart.CartVM
-
-<div class="ajaxcart" style="color:gold;">
-    Your Shopping Cart: @Model.Quantity item(s) - $@Model.Price
-    <br/>
-    @Html.ActionLink("Checkout", "ShoppingCartDetail", "Account", new { username = "guest"}, null)
-</div>
-
-

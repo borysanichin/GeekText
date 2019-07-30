@@ -1,0 +1,85 @@
+﻿@model IEnumerable<GeekBooks.ShoppingCart>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@if (ViewBag.Message != null)
+{
+    <h3>@ViewBag.Message</h3>
+}
+else
+{
+   
+    <table class="table">
+        <tr>
+            <th>
+                ISBN
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PriceEach)
+                </td>
+                <td>
+                  @*  @Html.DisplayFor(modelItem => item.Image)*@
+                </td>
+                <td>
+                    <a href="#" class="incrproduct" data-id="@item.ISBN">+</a>
+                    <a href="#" class="dcrproduct" data-id="@item.ISBN">-</a>
+                    <a href="#" class="removeproduct" data-id="@item.ISBN">Remove</a>
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+            </tr>
+        }
+        <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td>$@ViewBag.GranTotal</td>
+        </tr>
+
+    </table>
+}

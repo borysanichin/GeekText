@@ -1,4 +1,6 @@
-﻿<div class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+﻿@*@model IEnumerable<GeekBooks.ShoppingCart>*@
+
+<div class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,32 +19,29 @@
         <div class="navbar-collapse collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav mr-auto">
                 <li>@Html.ActionLink("Books", "Index", "Book", new { area = "" }, new { @class = "navbar" })</li>
+
                
         
-                @*<li>@Html.ActionLink("Profile", "Profile", "Account", new { area = "" }, new { @class = "navbar" })</li>
-        <li>@Html.ActionLink("Edit Profile", "EditProfile", "Account", new { area = "" }, new { @class = "navbar" })</li>
-        <li>@Html.ActionLink("Credit Cards", "CreditCards", "Account", new { area = "" }, new { @class = "navbar" })</li>*@
-                @*<li>@Html.ActionLink("Shipping Addressess", "Address", "Account", new { area = "" }, new { @class = "navbar" })</li>*@
                 <li>@Html.ActionLink("Wish Lists", "WishList", "Account", new { area = "" }, new { @class = "navbar" })</li>
-                @*<li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><a href="/Account/Profile">Profile</a></li>
-                <li><a href="/Account/EditProfile">Profile</a></li>
-                <li><a href="/Account/CreditCards">CreditCards</a></li>
-                <li><a href="/Account/Address">Address</a></li>
-            </ul>
-        </li>*@
+              
 
 
                 <li>@Html.Partial("_loginPartial")</li>
             </ul>
-            <div class="navbar-collapse collapse">
+        
+            <div class="navbar-collapse collapse" align="right">
                 <ul class="navbar-collapse collapse navbar-right">
-                    @Html.Action("CartPartial", "Cart")
-                </ul>     
+                    @using (Html.BeginForm("ShoppingCartDetail", "ShoppingCart"))
+                    {
+                        @Html.Hidden("Username", Session["Username"])
+
+
+                        <input type="image" img alt="Cart" src="~/Content/Images/CartDetail.png" style=" width: 40px; height: auto;">
+
+                    }
+                </ul>
             </div>
-            
+
         </div>
     </div>
 </div>
