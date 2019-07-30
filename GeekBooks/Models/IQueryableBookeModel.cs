@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Web;
 
 namespace GeekBooks.Models
@@ -8,10 +9,13 @@ namespace GeekBooks.Models
     public class IQueryableBookeModel
     {
 
-        public IQueryable<BookeModel> newBookModel(BookContext db, List<string> gL)
+        public IQueryable<BookeModel> newBookModel(BookContext db, List<string> gL, List<string> ISBNL, Nullable<int> TopSeller,
+            Nullable<int>rate)
         {
 
 
+
+            
 
 
 
@@ -20,6 +24,8 @@ namespace GeekBooks.Models
                        join b in db.BookGenres on a.ISBN equals b.ISBN
                        join c in db.Wrotes on b.ISBN equals c.ISBN
                        join d in db.Authors on c.AuthorID equals d.AuthorID
+                       
+                      // join e in topBooks on a.ISBN equals e.ISBN
                        select new BookeModel
                        {
                            BookModel = a,
@@ -33,7 +39,9 @@ namespace GeekBooks.Models
                            GenreModel = db.Genres.ToList(),
                            GenreForView = db.Genres.Select(a => a.GenreName).ToList(),
                            reviews = db.Reviews.Where(b => b.ISBN == a.ISBN).Select(a => a.Rating).DefaultIfEmpty(0).Average(),
-                           ViewBagGenreList = gL
+                           ViewBagGenreList = gL,
+                           quantity = db.Purchaseds.Where(b => b.ISBN == a.ISBN).Select(a => a.qty).DefaultIfEmpty(0).Sum(),
+                           //Wishlists = db.Wishlists.Where(b => b.Username == Session["Username"].ToString()).ToList()
 
 
                        };
@@ -42,10 +50,73 @@ namespace GeekBooks.Models
 
 
 
-            book = book.GroupBy(x => x.BookModel.ISBN).Select(x => x.FirstOrDefault());
+                book = book.GroupBy(x => x.BookModel.ISBN).Select(x => x.FirstOrDefault());
+
+            if (rate != null)
+            {
+                decimal rate1 = (decimal)(rate - 0.5);
+                decimal rate2 = (decimal)(rate + 0.4);
+                if (rate == 1)
+                {
+                    rate1 = (decimal)0.1;
+                    
+
+                }
+               
+                book = book.Where(x => (x.reviews >= rate1 && x.reviews <= rate2));
+            }
+
+                
+
+               if(TopSeller != null){
 
 
-            return book;
+                var topBooksPurchased = (from p in db.Purchaseds
+                             select new
+                             {
+                                 ISBN = p.ISBN,
+                                 qty = db.Purchaseds.Where(b => b.ISBN == p.ISBN).Select(a => a.qty).DefaultIfEmpty(0).Sum()
+
+                             }).Distinct().OrderByDescending(a => a.qty).Select(b => b.qty).ToList();
+
+
+                var trimTopBooks = new List<int?>(topBooksPurchased.ToList());
+                int? topRange = 0;
+
+                var TopSoldBooksByQuantity = 4;
+                if (topBooksPurchased.Count() > TopSoldBooksByQuantity - 1)
+                {
+
+                    trimTopBooks = trimTopBooks.GetRange(0, TopSoldBooksByQuantity);
+                    topRange = trimTopBooks[TopSoldBooksByQuantity - 1];
+                    
+
+                }
+                else
+                {
+                    topRange = trimTopBooks[trimTopBooks.Count() - 1];
+                }
+
+                
+
+                foreach (var item in trimTopBooks)
+                {
+                    book = book.Where(x => x.quantity >=  topRange);
+                }
+
+       
+
+              
+
+
+            }
+
+
+
+                return book;
+           
+
+            }
 
 
 
@@ -54,5 +125,6 @@ namespace GeekBooks.Models
 
 
 
-    }
+
+    
 }

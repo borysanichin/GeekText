@@ -8,7 +8,7 @@ using System.Web.Routing;
 using GeekBooks.Models;
 using PagedList;
 using GeekBooks.ViewModels;
-//using GeekBooks.Models;
+using System.Windows;
 
 namespace GeekBooks.Controllers
 {
@@ -18,6 +18,8 @@ namespace GeekBooks.Controllers
 
 
         public static List<string> gL = new List<string>() { "All" };
+
+        public static List<string> ISBNL = new List<string>() { "All" };
 
 
 
@@ -31,7 +33,7 @@ namespace GeekBooks.Controllers
 
 
         public ActionResult Index(string sortOrder, string searchString, string bookGenre, string removeGenre,
-                                    string currentFilter, int? page, int? authorID)
+                                    string currentFilter, int? page, int? authorID, Nullable<int> TopSeller, Nullable<int> rating)
         {
 
             Search sh = new Search();
@@ -43,22 +45,7 @@ namespace GeekBooks.Controllers
             
             if (bookGenre != null)
             {
-                /*
-                while (gL.Contains(""))
-                {
-                    gL.Remove("");
-                }
-
-                if (gL.Contains(bookGenre))
-                {
-
-                    gL.Remove(removeGenre);
-                }
-                else
-                {
-                    gL.Add(bookGenre);
-                }*/
-
+               
                 
                 if (!gL.Contains(bookGenre) && GenreList.Contains(bookGenre))
                 {
@@ -71,31 +58,20 @@ namespace GeekBooks.Controllers
             gL.Remove(removeGenre);
             removeGenre = "";
 
-            var book = bm.newBookModel(db, gL);
-
-            /*
-             string fok = "";
-             string bok = "";
-             for(int i = 0; i < gL.Count();i++)
-             {
-                 fok += gL[i] + ", ";
-             }
-
-             for (int i = 0; i < book.First().ViewBagGenreList.Count(); i++)
-             {
-                 bok += book.First().ViewBagGenreList[i] + ", ";
-             }
-
-
-             System.Windows.Forms.MessageBox.Show("gL: " + fok + "\ngL length: " + gL.Count() + "\nViewBag: " + bok + "\nViewBag length: ");
-
-
-            */
+       
+            var book = bm.newBookModel(db, gL, ISBNL, TopSeller, rating);
 
 
 
+            var topBooks = (from p in db.Purchaseds
+                            select new
+                            {
+                                ISBN = p.ISBN,
+                                qty = db.Purchaseds.Where(b => b.ISBN == p.ISBN).Select(a => a.qty).DefaultIfEmpty(0).Sum()
 
+                            }).Distinct().OrderByDescending(a => a.qty).ToList();
 
+          
 
 
             if (authorID != null)
@@ -104,6 +80,8 @@ namespace GeekBooks.Controllers
             }
 
 
+            ViewBag.Rating = rating;
+            ViewBag.TopSeller = TopSeller;
             ViewBag.AuthorID = authorID;
             ViewBag.CurrentSort = sortOrder;
             //  ViewBag.BookGenreFilter = gL;
@@ -151,15 +129,7 @@ namespace GeekBooks.Controllers
         }
 
 
-        //Can u please integrate this with the other index method
-        // POST: Book
-        /* [HttpPost]
-         public ActionResult Index(Review review)
-         {
-             decimal rating = review.Rating;
-             string comment = review.Comment;
-             return View();
-         }*/
+       
 
         [Route("Book/Details/{id}/{username}")]
         public ActionResult Details(string id, string username)
@@ -182,19 +152,17 @@ namespace GeekBooks.Controllers
                 Wishlists = db.Wishlists.Where(b => b.Username == username).ToList(),
                 username = username,
                 reviews = db.Reviews.Where(a => a.ISBN == id).Select(a => a.Rating).DefaultIfEmpty(0).Average(),
-                ReviewModel = db.Reviews.Where(b => b.ISBN == id)
+                ReviewModel = db.Reviews.Where(b => b.ISBN == id),
+                viewGenres = (from m in db.BookGenres
+                              where m.ISBN == id
+                              select m.GenreName + " ").ToList(),
+                GenreModel = db.Genres.ToList(),
+                GenreForView = db.Genres.Select(a => a.GenreName).ToList(),
+                ViewBagGenreList = gL,
+                quantity = db.Purchaseds.Where(b => b.ISBN == id).Select(a => a.qty).DefaultIfEmpty(0).Sum()
             };
 
-            //bookM.BookModel = db.Books.Find(id);
-
-            //bookM.BookGenreModel = db.BookGenres.SingleOrDefault(m => m.ISBN == id);
-
-            /* var viewBook = from m in db.Books
-                            join n in db.BookGenres on m.ISBN equals n.ISBN
-                            where m.ISBN == id
-                            select new BookeModel { BookModel = m, BookGenreModel = n };*/
-
-            // var test = viewBook.Find(id);
+           
 
 
             if (bookmodel == null)
@@ -205,11 +173,7 @@ namespace GeekBooks.Controllers
             return View(bookmodel);
         }
 
-        /*I am still working on this Book Details View to 
-          include add book to wishlist functionality. I am 
-          using BookDetailsViewModel(also not finished)
-          in ViewModels folder to pass all the data to the
-          view (Borys).*/
+       
         [Route("Book/BookDetails/{isbn}")]
         public ActionResult BookDetails(string isbn)
         {
@@ -226,9 +190,11 @@ namespace GeekBooks.Controllers
         {
             return RedirectToAction("WishList", "Account");
            
-            return View();
+         
         }
-     
+
+
+
         
     }
 }

@@ -11,9 +11,11 @@ namespace GeekBooks
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class CreditCard
     {
+       
         public string CCNumber { get; set; }
         public string Username { get; set; }
         public string FirstName { get; set; }

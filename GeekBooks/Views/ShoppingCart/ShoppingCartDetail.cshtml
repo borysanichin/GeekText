@@ -12,7 +12,7 @@
         <tr>
             <th></th>
             <th>Title</th>
-            <th>Price</th>
+            <th>Subtotal per Book</th>
             <th>Quantity</th>
             <th></th>
             <th></th>
@@ -55,7 +55,7 @@
                     <td>
                         @using (Html.BeginForm("SaveShoppingCartQuantity", "ShoppingCart"))
                         {
-                            @Html.TextBox("Quantity", cart.Quantity, new { @style = "width: 50px" })<input type="image" src="~/Content/Images/EditQuantitypen.png" style="width: 32px; height:auto;" />
+                            @Html.TextBox("Quantity", cart.Quantity, new { @style = "width: 50px" })<input type="image" src="~/Content/Images/EditQuantitypen.png" style="width: 32px; height:auto;" title="Save Updated Quantity" />
 
 
 
@@ -102,7 +102,7 @@
 
                         //image button to delete book from shopping cart
 
-                            <input type="image" img alt="Remove" src="~/Content/Images/TrashIcon.png" style=" width: 40px; height: auto;">
+                            <input type="image" img alt="Remove" src="~/Content/Images/TrashIcon.png" style=" width: 40px; height: auto;" title="Remove">
 
 
 
@@ -142,7 +142,7 @@
     }
 </style>
 
-<p><b> Shopping Cart Total: </b> $@GrandTotal</p>
+<p><b> Shopping Cart Subtotal: </b> $@GrandTotal</p>
 
 
 
@@ -181,7 +181,7 @@
                             @Html.Hidden("controller", "ShoppingCart")
                             @Html.Hidden("action", "DisplayShoppingCartDetail")
 
-                            <input type="image" src="~/Content/Images/AddToCart.png" style="width: 40px; height: auto;" />
+                            <input type="image" src="~/Content/Images/AddToCart.png" style="width: 40px; height: auto;" title="Move Back to Cart"/>
                            
 
                         }
@@ -202,7 +202,7 @@
 
 
 
-                            <input type="image" img alt="Remove" src="~/Content/Images/TrashIcon.png" style=" width: 40px; height: auto;">
+                            <input type="image" img alt="Remove" src="~/Content/Images/TrashIcon.png" style=" width: 40px; height: auto;" title="Remove">
 
 
 

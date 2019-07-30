@@ -42,9 +42,13 @@ namespace GeekBooks.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel objLoginModel)
         {
+            Password encPassword = new Password();
+
+           
             if (ModelState.IsValid)
             {
-                if (objBookContext.Users.Where(m => m.Username == objLoginModel.Username && m.UserPassword == objLoginModel.UserPassword).FirstOrDefault() == null)
+                string entryPassword = encPassword.Encode(objLoginModel.UserPassword);
+                if (objBookContext.Users.Where(m => m.Username == objLoginModel.Username && m.UserPassword ==  entryPassword).FirstOrDefault() == null)
                 {
                     ModelState.AddModelError("Error", "The password you entered is incorrect. Please try again.");
                     return View();
@@ -235,6 +239,7 @@ namespace GeekBooks.Controllers
         [HttpPost]
         public ActionResult Register(Usermodel objUserModel)
         {
+            Password encPassword = new Password();
             if (ModelState.IsValid)
             {
 
@@ -249,7 +254,7 @@ namespace GeekBooks.Controllers
                     objUser.UserMiddle = objUserModel.UserMiddle;
                     objUser.UserLast = objUserModel.UserLast;
                     objUser.Email = objUserModel.Email;
-                    objUser.UserPassword = objUserModel.UserPassword;
+                    objUser.UserPassword = encPassword.Encode(objUserModel.UserPassword);
 
 
                     objBookContext.Users.Add(objUser);
@@ -459,16 +464,20 @@ namespace GeekBooks.Controllers
 
         public ActionResult MoveWishlistBook(string wishlistname, WishlistBook wishlistbook)
         {
-            if (_context.WishlistBooks.Find(wishlistbook.Username, wishlistbook.ISBN, wishlistbook.WishlistName) == null)
+            if (wishlistbook.WishlistName != null)
             {
-                var wishlistOldBook = _context.WishlistBooks.Find(wishlistbook.Username, wishlistbook.ISBN, wishlistname);
+                if (_context.WishlistBooks.Find(wishlistbook.Username, wishlistbook.ISBN, wishlistbook.WishlistName) == null)
+                {
+                    var wishlistOldBook = _context.WishlistBooks.Find(wishlistbook.Username, wishlistbook.ISBN, wishlistname);
 
-                _context.WishlistBooks.Remove(wishlistOldBook);
-                _context.WishlistBooks.Add(wishlistbook);
-                _context.SaveChanges();
+                    _context.WishlistBooks.Remove(wishlistOldBook);
+                    _context.WishlistBooks.Add(wishlistbook);
+                    _context.SaveChanges();
+                }
             }
 
             return RedirectToAction("WishlistDetail", "Account", new { wishlistname, wishlistbook.Username });
+            
         }
         [Route("Account/MoveWishlistBookToCart/{Username}/{ISBN}/{WishlistName}")]
         public ActionResult MoveWishlistBookToCart(string Username, string ISBN, string WishlistName)
