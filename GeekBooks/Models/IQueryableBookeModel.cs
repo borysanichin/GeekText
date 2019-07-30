@@ -89,13 +89,7 @@ namespace GeekBooks.Models
 
                     trimTopBooks = trimTopBooks.GetRange(0, TopSoldBooksByQuantity);
                     topRange = trimTopBooks[TopSoldBooksByQuantity - 1];
-                    string msg = "";
-                    foreach(var item in topBooksPurchased)
-                    {
-                        msg = msg + item + " ";
-                    }
-
-                    System.Windows.Forms.MessageBox.Show("List: " + msg + "\nTopRange:" + topRange);
+                    
 
                 }
                 else
