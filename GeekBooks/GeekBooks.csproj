@@ -272,7 +272,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\IQueryableBookeModel.cs" />
     <Compile Include="Models\ModelOfModels.cs" />
-    <Compile Include="Models\ReviewModel.cs" />
+    <Compile Include="Models\Password.cs" />
     <Compile Include="Models\Search.cs" />
     <Compile Include="Models\Sort.cs" />
     <Compile Include="Models\Usermodel.cs" />
