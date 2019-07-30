@@ -55,7 +55,14 @@ namespace GeekBooks.Models
             if (rate != null)
             {
                 decimal rate1 = (decimal)(rate - 0.5);
-                decimal rate2 = (decimal)(rate + 0.5);
+                decimal rate2 = (decimal)(rate + 0.4);
+                if (rate == 1)
+                {
+                    rate1 = (decimal)0.1;
+                    
+
+                }
+               
                 book = book.Where(x => (x.reviews >= rate1 && x.reviews <= rate2));
             }
 
@@ -64,25 +71,39 @@ namespace GeekBooks.Models
                if(TopSeller != null){
 
 
-                var topBooks = (from p in db.Purchaseds
+                var topBooksPurchased = (from p in db.Purchaseds
                              select new
                              {
-
+                                 ISBN = p.ISBN,
                                  qty = db.Purchaseds.Where(b => b.ISBN == p.ISBN).Select(a => a.qty).DefaultIfEmpty(0).Sum()
 
-                             }).Distinct().OrderByDescending(a => a.qty).ToList();
+                             }).Distinct().OrderByDescending(a => a.qty).Select(b => b.qty).ToList();
 
 
-                var trimTopBooks = new List<int?>(topBooks.Select(a => a.qty).ToList());
+                var trimTopBooks = new List<int?>(topBooksPurchased.ToList());
                 int? topRange = 0;
 
-                if (topBooks.Count() > 2)
+                var TopSoldBooksByQuantity = 4;
+                if (topBooksPurchased.Count() > TopSoldBooksByQuantity - 1)
                 {
-                    trimTopBooks = trimTopBooks.GetRange(0, 3);
-                    
+
+                    trimTopBooks = trimTopBooks.GetRange(0, TopSoldBooksByQuantity);
+                    topRange = trimTopBooks[TopSoldBooksByQuantity - 1];
+                    string msg = "";
+                    foreach(var item in topBooksPurchased)
+                    {
+                        msg = msg + item + " ";
+                    }
+
+                    System.Windows.Forms.MessageBox.Show("List: " + msg + "\nTopRange:" + topRange);
+
                 }
+                else
+                {
+                    topRange = trimTopBooks[trimTopBooks.Count() - 1];
+                }
+
                 
-                topRange = trimTopBooks[trimTopBooks.Count() - 1];
 
                 foreach (var item in trimTopBooks)
                 {

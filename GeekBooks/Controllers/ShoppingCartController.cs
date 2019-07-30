@@ -185,15 +185,13 @@ namespace GeekBooks.Controllers
                 {
                     Username = Session["Username"].ToString(),
                     ISBN = book.ISBN,
-                    qty = 1
+                    qty = book.Quantity
                 };
 
                 var oldPurchase = _context.Purchaseds.Find(Session["Username"].ToString(), book.ISBN);
                 if (oldPurchase != null)
                 {
-                    _context.Purchaseds.Remove(oldPurchase);
-                    (newPurchase.qty) += book.Quantity;
-                    _context.Purchaseds.Add(newPurchase);
+                    (oldPurchase.qty) += book.Quantity;
                 }
                 else
                 {
