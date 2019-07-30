@@ -35,7 +35,7 @@ namespace GeekBooks.Models
         public IEnumerable<Wishlist> Wishlists { get; set; }
         public WishlistBook WishlistBook { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
+        public Nullable<int> quantity { get; set; }
 
-       
     }
 }

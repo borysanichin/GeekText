@@ -8,7 +8,7 @@
 }
 <h2>Browse our books</h2>
 <p>
-    @using (Html.BeginForm("Index", "Book", new { removeGenre = "" }))
+    @using (Html.BeginForm("Index", "Book", new { removeGenre = "", rating = 0 }))
     {
         @*<p>
                 Genre: @Html.DropDownList("bookGenre")
@@ -25,83 +25,281 @@
             </form>
         *@
 
-        <div class="SearchBar">
-            <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn">Title</button>
-                <form asp-controller="Book" asp-action="Index" method="get" style="display: inline-block">
-                    <input name="SearchString" class="myInput" placeholder="Search our repository">
-                    <a asp-action="bookGenre"></a>
-                    <input type="image" class="searchIcon" src="~/Content/Images/SearchIconBlue.png" value="Submit" style="width: 45px; height: auto;" />
-                </form>
-                <div id="myDropdown" class="dropdown-content">
-                    <a onclick="changeName('SearchString')">Title</a>
-                    <a onclick="changeName('bookGenre')">Genre</a>
+
+        <div display="inline">
+            <div class="SearchBar">
+                <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">Title</button>
+                    <form asp-controller="Book" asp-action="Index" method="get" style="display: inline-block">
+                        <input name="SearchString" class="myInput" placeholder="Search our repository">
+                        <a asp-action="bookGenre"></a>
+                        <input type="image" class="searchIcon" src="~/Content/Images/SearchIconBlue.png" value="Submit" style="width: 45px; height: auto;" />
+                    </form>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a onclick="changeName('SearchString')">Title</a>
+                        <a onclick="changeName('bookGenre')">Genre</a>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <div class="stuff" style="display:inline">
+               
+
+                <a href="@Url.Action("Index", "Book", new { currentFilter = ViewBag.curentFilter,
+                                                               authorID = ViewBag.AuthorID,
+                                                               searchString = ViewBag.CurrentFilter,
+                                                               rating = ViewBag.Rating,
+                                                               TopSeller = 1 })"
+                   title="View our top sellers" class="links">
+                    <img alt="More Details" src="~/Content/Images/TopSellerRibbon.png" style=" width: 80px; height: auto;">
+                </a>
+                <div style="position: relative; bottom: 50px">
+    <p style="position: relative; bottom: 50px; left: 138px; display: inline">Search by Rating</p>
+    <div class="rating" style="width: 100px; height: auto; display: inline; background-size: 100px; right: 50px>
+">
+
+        <i class="fa fa-star" aria-hidden="true" id="s5" data-toggle="tooltip" data-placement="bottom" onclick="location.href = '@Url.Action("Index", "Book", new
+                                                           {
+                                                               currentFilter = ViewBag.curentFilter,
+                                                               authorID = ViewBag.AuthorID,
+                                                               searchString = ViewBag.CurrentFilter,
+                                                               TopSeller = ViewBag.TopSeller,
+                                                               rating = 5
+                                                           })'"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s4" data-toggle="tooltip" data-placement="bottom" onclick="location.href = '@Url.Action("Index", "Book", new
+                                                           {
+                                                               currentFilter = ViewBag.curentFilter,
+                                                               authorID = ViewBag.AuthorID,
+                                                               searchString = ViewBag.CurrentFilter,
+                                                               TopSeller = ViewBag.TopSeller,
+                                                               rating = 4
+                                                           })'"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s3" data-toggle="tooltip" data-placement="bottom" onclick="location.href = '@Url.Action("Index", "Book", new
+                                                           {
+                                                               currentFilter = ViewBag.curentFilter,
+                                                               authorID = ViewBag.AuthorID,
+                                                               searchString = ViewBag.CurrentFilter,
+                                                               TopSeller = ViewBag.TopSeller,
+                                                               rating = 3
+                                                           })'"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s2" data-toggle="tooltip" data-placement="bottom" onclick="location.href = '@Url.Action("Index", "Book", new
+                                                           {
+                                                               currentFilter = ViewBag.curentFilter,
+                                                               authorID = ViewBag.AuthorID,
+                                                               searchString = ViewBag.CurrentFilter,
+                                                               TopSeller = ViewBag.TopSeller,
+                                                               rating = 2
+                                                           })'"></i>
+        <i class="fa fa-star" aria-hidden="true" id="s1" data-toggle="tooltip" data-placement="bottom" onclick="location.href = '@Url.Action("Index", "Book", new
+                                                           {
+                                                               currentFilter = ViewBag.curentFilter,
+                                                               authorID = ViewBag.AuthorID,
+                                                               searchString = ViewBag.CurrentFilter,
+                                                               TopSeller = ViewBag.TopSeller,
+                                                               rating = 1
+                                                           })'"></i>
+    </div>
+    </div>
+    </div>
+
+    </div>
+
+    <br />
+    <br />
+    <br />
 
 
 
 
 
 
-        <script>
-            /* When the user clicks on the button,
-            toggle between hiding and showing the dropdown content */
-            function myFunction() {
-                document.getElementById("myDropdown").classList.toggle("show");
+    <script type="text/javascript">
+
+        //Star rating functionality jquery by IDs and font-awesome css class
+        $(document).ready(function () {
+            var colorStar = "grey";
+            $('#s1').click(function () {
+                $('.fa-star').css("color", colorStar);
+                $('#s1').css("color", "orange");
+                $('#rate').text('1/5');
+                $('#rateBox').val(1);
+            });
+            $('#s2').click(function () {
+                $('.fa-star').css("color", colorStar);
+                $('#s1, #s2').css("color", "orange");
+                $('#rate').text('2/5');
+                $('#rateBox').val(2);
+            });
+            $('#s3').click(function () {
+                $('.fa-star').css("color", colorStar);
+                $('#s1, #s2, #s3').css("color", "orange");
+                $('#rate').text('3/5');
+                $('#rateBox').val(3);
+            });
+            $('#s4').click(function () {
+                $('.fa-star').css("color", colorStar);
+                $('#s1, #s2, #s3, #s4').css("color", "orange");
+                $('#rate').text('4/5');
+                $('#rateBox').val(4);
+            });
+            $('#s5').click(function () {
+                $('.fa-star').css("color", colorStar);
+                $('#s1, #s2, #s3, #s4, #s5').css("color", "orange");
+                $('#rate').text('5/5');
+                $('#rateBox').val(5);
+            });
+
+        });
+
+        $(document).ready(function () {
+            var g = "blue";
+            var b = "black";
+
+            $("#aBox").change(function () {
+                var checked = $(this).is(':checked');
+                if (!checked) {
+                    $("#nBox").attr("value", "true");
+                    $("#nBox").attr('disabled', false);
+                    $("#nBox").attr("style", "cursor: pointer");
+                    $("#nLabel").css("color", b);
+                    $("#aLabel").css("color", b);
+                }
+                else {
+                    $("#nBox").attr("value", "false");
+                    $("#nBox").attr('disabled', true);
+                    $("#nBox").attr("style", "cursor: not-allowed");
+                    $("#nLabel").css("color", "gray");
+                    $("nBox").css("cursor", "not-allowed");
+                    $("#aLabel").css("color", g);
+                }
+            });
+
+            $("#nBox").change(function () {
+                var checked = $(this).is(':checked');
+                if (!checked) {
+                    $("#aBox").attr("value", "true");
+                    $("#aBox").attr('disabled', false);
+                    $("#aBox").attr("style", "cursor: pointer");
+                    $("#aLabel").css("color", b);
+                    $("#nLabel").css("color", b);
+                }
+                else {
+                    $("#aBox").attr("value", "false");
+                    $("#aBox").attr('disabled', true);
+                    $("#aBox").attr("style", "cursor: not-allowed");
+                    $("#aLabel").css("color", "gray");
+                    $("aBox").css("cursor", "not-allowed");
+                    $("#nLabel").css("color", g);
+                }
+            });
+
+            $()
+
+        });
+
+        //bootstrap tooltip for star rating
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
+
+    <style>
+
+
+        /*Invert css star hovers*/
+        .rating {
+            color: grey;
+            unicode-bidi: bidi-override;
+            direction: rtl;
+        }
+
+            /*Colors the previous stars on hover*/
+            .rating > i:hover:before,
+            .rating > i:hover ~ i:before {
+                color: rgb(209, 136, 0);
+                cursor: pointer;
             }
 
+        /*Increase the size of the stars*/
+        .fa-star {
+            font-size: 30px;
+        }
+
+
+        /*On submit button active, translate it down to give it a 3D effect*/
+        #button1:active {
+            background-color: #ce4414;
+            box-shadow: 0 5px #667;
+            transform: translateY(4px);
+        }
+    </style>
 
 
 
-            window.onclick = function (event) {
-                if (!event.target.matches('.dropbtn')) {
-                    var dropdowns = document.getElementsByClassName("dropdown-content");
-                    // var myDropdowns = document.getElementById("myDropdown");
-                    var i;
-                    for (i = 0; i < dropdowns.length; i++) {
-                        var openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
-                        }
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
 
 
+
+
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                // var myDropdowns = document.getElementById("myDropdown");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
                     }
 
 
                 }
+
+
+            }
+        }
+
+        function changeName(e) {
+
+            var dropbtn = document.getElementsByClassName("dropbtn");
+            var searchBar = document.getElementsByClassName("myInput")[0];
+            if (e == 'SearchString') {
+                dropbtn[0].innerHTML = 'Title';
+                searchBar.placeholder = "Search by Title";
+                searchBar.style.padding = '12px 20px 12px 94px';
+            }
+            if (e == 'bookGenre') {
+
+                dropbtn[0].innerHTML = 'Genre';
+                searchBar.placeholder = "Search by Genre";
+                searchBar.style.padding = '12px 20px 12px 106px';
             }
 
-            function changeName(e) {
 
-                var dropbtn = document.getElementsByClassName("dropbtn");
-                var searchBar = document.getElementsByClassName("myInput")[0];
-                if (e == 'SearchString') {
-                    dropbtn[0].innerHTML = 'Title';
-                    searchBar.placeholder = "Search by Title";
-                    searchBar.style.padding = '12px 20px 12px 94px';
-                }
-                if (e == 'bookGenre') {
-
-                    dropbtn[0].innerHTML = 'Genre';
-                    searchBar.placeholder = "Search by Genre";
-                    searchBar.style.padding = '12px 20px 12px 106px';
-                }
-
-
-                searchBar.name = e;
-            };
+            searchBar.name = e;
+        };
 
 
 
 
 
-        </script>
+    </script>
 
-    }
+}
 
     <style>
+
+
+
+
+
+
 
 
 
@@ -182,20 +380,7 @@
 
     @using GeekBooks.Controllers
 
-    @*
-
-        location.href='@Url.Action("Index", "Book", new
-                                                           {
-                    currentFilter = ViewBag.curentFilter,
-                                                               authorID = ViewBag.AuthorID,
-                                                               searchString = ViewBag.CurrentFilter,
-                                                               removeGenre = @item
-                                                           })'
-
-
-
-
-    *@
+  
 
     @foreach (var item in GeekBooks.Controllers.BookController.GenreList)
 
@@ -220,14 +405,18 @@
                                                                currentFilter = ViewBag.curentFilter,
                                                                authorID = ViewBag.AuthorID,
                                                                searchString = ViewBag.CurrentFilter,
-                                                               removeGenre = @item
+                                                               removeGenre = @item,
+                                                               TopSeller = ViewBag.TopSeller,
+                                                               rating = ViewBag.Rating
                                                            })'">@change</a>
-                                                        <a id="GenreButton" style="border: none; outline:none; padding: 10px 16px; background-color: @color; font-size: 15px; width: 18px;
+                                                        <a id="GenreButton" style="cursor:pointer; border: none; outline:none; padding: 10px 16px; background-color: @color; font-size: 15px; width: 18px;
                   display: inline;" onclick="location.href='@Url.Action("Index", "Book", new
                                                            {
                                                                currentFilter = ViewBag.curentFilter,
                                                                authorID = ViewBag.AuthorID,
                                                                searchString = ViewBag.CurrentFilter,
+                                                               TopSeller = ViewBag.TopSeller,
+                                                               rating = ViewBag.Rating,
                                                                bookGenre = @item
                                                            })'">@item</a>
                                                     </div>
@@ -235,9 +424,7 @@
                                                     <script>
 
                                                         var Xbutton = document.getElementById("Xbutton");
-                                                        //  var button = document.getElementById("GenreButton");
-                                                        //  var form = document.getElementById("GenreForm");
-
+                                                        
                                                         if (Xbutton.innerHTML == "") {
                                                             form.removeAttribute(Xbutton);
                                                         }
@@ -269,6 +456,8 @@
                currentFilter = ViewBag.curentFilter,
                authorID = ViewBag.AuthorID,
                searchString = ViewBag.CurrentFilter,
+               TopSeller = ViewBag.TopSeller,
+               rating = ViewBag.Rating,
                movieGenre = ViewBag.GenreFilter
 
 
@@ -281,6 +470,8 @@
                currentFilter = ViewBag.curentFilter,
                authorID = ViewBag.AuthorID,
                searchString = ViewBag.CurrentFilter,
+               TopSeller = ViewBag.TopSeller,
+               rating = ViewBag.Rating,
                movieGenre = ViewBag.GenreFilter
 
 
@@ -296,6 +487,8 @@
                currentFilter = ViewBag.curentFilter,
                authorID = ViewBag.AuthorID,
                searchString = ViewBag.CurrentFilter,
+               TopSeller = ViewBag.TopSeller,
+               rating = ViewBag.Rating,
                movieGenre = ViewBag.GenreFilter
 
 
@@ -308,6 +501,8 @@
                currentFilter = ViewBag.curentFilter,
                authorID = ViewBag.AuthorID,
                searchString = ViewBag.CurrentFilter,
+               TopSeller = ViewBag.TopSeller,
+               rating = ViewBag.Rating,
                movieGenre = ViewBag.GenreFilter
 
 
@@ -323,6 +518,8 @@
                currentFilter = ViewBag.curentFilter,
                authorID = ViewBag.AuthorID,
                searchString = ViewBag.CurrentFilter,
+               TopSeller = ViewBag.TopSeller,
+               rating = ViewBag.Rating,
                movieGenre = ViewBag.GenreFilter
 
 
@@ -330,16 +527,16 @@
             </th>
             <th></th>
         </tr>
-        @{ 
+        @{
             var bookName = "";
         }
         @foreach (var item in Model)
         {
 
-          
+
             <tr>
                 <td>
-                    @* <img src="@Url.Content(item.BookModel.BookCover)" alt="Image" width="150" height="150" />*@
+                    
                     @if (Session["Username"] == null)
                     {
                         <a href="@Url.Action("Details", "Book", new { id = item.BookModel.ISBN, username = "guest" })" title="@item.BookModel.Title Detail" class="links">
@@ -417,6 +614,10 @@
 
                     }
                 </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.reviews)
+                </td>
             </tr>
         }
 
@@ -425,11 +626,11 @@
     <script>
 
 
-                             function bookName(item) {
+        function bookName(item) {
 
-                             alert('' + item + ' item has been added to the shopping cart');
+            alert('' + item + ' item has been added to the shopping cart');
 
-                             };
+        };
 
 
     </script>
@@ -437,12 +638,3 @@
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("Index",
         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-    <!--Hard Coded Below-->
-    @*
-        <a href="~/Book/Details/1">
-        <img src="~/Content/Books/sorcerersstone.jpg" alt="sorcerersstone" style="width:256px;height:256px;" />
-        </a>
-        <ng-view />
-        <a href="~/Book/Details/2">
-        <img src="~/Content/Books/ChamberOfSecrets.jpg" alt="ChamberOfSecrets" style="width:256px;height:256px;" />
-        </a>*@

@@ -6,17 +6,21 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GeekBooks
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Wishlist
     {
+
         [Required]
         public string Username { get; set; }
+
         [Required]
         [StringLength(25)]
         [Display(Name = "Wishlist Name")]

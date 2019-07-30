@@ -459,16 +459,20 @@ namespace GeekBooks.Controllers
 
         public ActionResult MoveWishlistBook(string wishlistname, WishlistBook wishlistbook)
         {
-            if (_context.WishlistBooks.Find(wishlistbook.Username, wishlistbook.ISBN, wishlistbook.WishlistName) == null)
+            if (wishlistbook.WishlistName != null)
             {
-                var wishlistOldBook = _context.WishlistBooks.Find(wishlistbook.Username, wishlistbook.ISBN, wishlistname);
+                if (_context.WishlistBooks.Find(wishlistbook.Username, wishlistbook.ISBN, wishlistbook.WishlistName) == null)
+                {
+                    var wishlistOldBook = _context.WishlistBooks.Find(wishlistbook.Username, wishlistbook.ISBN, wishlistname);
 
-                _context.WishlistBooks.Remove(wishlistOldBook);
-                _context.WishlistBooks.Add(wishlistbook);
-                _context.SaveChanges();
+                    _context.WishlistBooks.Remove(wishlistOldBook);
+                    _context.WishlistBooks.Add(wishlistbook);
+                    _context.SaveChanges();
+                }
             }
 
             return RedirectToAction("WishlistDetail", "Account", new { wishlistname, wishlistbook.Username });
+            
         }
         [Route("Account/MoveWishlistBookToCart/{Username}/{ISBN}/{WishlistName}")]
         public ActionResult MoveWishlistBookToCart(string Username, string ISBN, string WishlistName)
